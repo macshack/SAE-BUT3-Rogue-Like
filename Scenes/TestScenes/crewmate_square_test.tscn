@@ -3,21 +3,25 @@
 [sub_resource type="GDScript" id="GDScript_d7sm8"]
 script/source = "extends VBoxContainer
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+var crewmate:Crewmate
+var timer = 1
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	timer -= delta
+	if timer <= 0:
+		var newData = Game.playerCrew.findCrewmate(crewmate.get_id())
+		crewmate = newData
+		updateSquare()
+		timer = 1
 
-func updateName(name):
-	$Name.set_text(name)
-	
-func updateProgressBar(curr, max):
-	$ProgressBar.set_value(curr)
-	$ProgressBar.set_max(max)
+func updateSquare():
+	$Name.set_text(crewmate.get_identity())
+	$ProgressBar.set_value(crewmate.get_health_current())
+	$ProgressBar.set_max(crewmate.get_health_max())
+
+func setCrewmate(crewmate):
+	self.crewmate = crewmate
+	updateSquare()
 "
 
 [sub_resource type="LabelSettings" id="LabelSettings_puul8"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://lbgv8krcwej0"]
+[gd_scene load_steps=6 format=3 uid="uid://lbgv8krcwej0"]
 
 [sub_resource type="GDScript" id="GDScript_pw14d"]
 script/source = "extends VBoxContainer
@@ -18,6 +18,8 @@ func createCrewmate(charName,charBack):
 	
 func _on_validate_pressed():
 	Game.playerCrew.addCrewmate(createCrewmate($Name.get_text(),$Background.get_text()))
+	$Name.set_text(\"\")
+	$Background.set_text(\"\")
 "
 
 [sub_resource type="GDScript" id="GDScript_4tx52"]
@@ -66,6 +68,20 @@ func _on_text_changed():
 		self.set_caret_column(250)
 "
 
+[sub_resource type="GDScript" id="GDScript_iyvj5"]
+script/source = "extends Button
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	self.disabled = true
+
+func _on_name_text_changed():
+	if $\"../Name\".get_text().length() > 1:
+		self.disabled = false
+	else:
+		if self.disabled == false:
+			self.disabled = true
+"
+
 [sub_resource type="GDScript" id="GDScript_l6nda"]
 script/source = "extends VBoxContainer
 
@@ -74,16 +90,11 @@ script/source = "extends VBoxContainer
 func _ready():
 	Game.playerCrew.crewmate_added.connect(addCrewmateSquare)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
 func addCrewmateSquare(crewmate):
-	var crewmatething = crewmateSquare.instantiate()
-	crewmatething.updateName(crewmate.get_identity())
-	crewmatething.updateProgressBar(crewmate.get_health_current(),crewmate.get_health_max())
-	self.add_child(crewmatething)
-	
+	#Trouver un moyen de link les signaux des crewmates au squares
+	var crewmateInstance = crewmateSquare.instantiate()
+	crewmateInstance.setCrewmate(crewmate)
+	self.add_child(crewmateInstance)
 "
 
 [node name="Root" type="VBoxContainer"]
@@ -121,6 +132,7 @@ script = SubResource("GDScript_7p7x6")
 [node name="Validate" type="Button" parent="HBoxContainer/VerticalBox"]
 layout_mode = 2
 text = "Validate"
+script = SubResource("GDScript_iyvj5")
 
 [node name="CrewBox" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -132,5 +144,6 @@ layout_mode = 2
 text = "Start"
 
 [connection signal="text_changed" from="HBoxContainer/VerticalBox/Name" to="HBoxContainer/VerticalBox/Name" method="_on_text_changed"]
+[connection signal="text_changed" from="HBoxContainer/VerticalBox/Name" to="HBoxContainer/VerticalBox/Validate" method="_on_name_text_changed"]
 [connection signal="text_changed" from="HBoxContainer/VerticalBox/Background" to="HBoxContainer/VerticalBox/Background" method="_on_text_changed"]
 [connection signal="pressed" from="HBoxContainer/VerticalBox/Validate" to="HBoxContainer/VerticalBox" method="_on_validate_pressed"]
