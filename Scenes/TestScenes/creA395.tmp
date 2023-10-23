@@ -1,0 +1,60 @@
+[gd_scene load_steps=3 format=3 uid="uid://lbgv8krcwej0"]
+
+[ext_resource type="Script" path="res://Scripts/TestScripts/CrewCreatorTest.gd" id="1_y7fll"]
+
+[sub_resource type="GDScript" id="GDScript_oct6k"]
+script/source = "extends TextEdit
+
+@onready var regex = RegEx.new()
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	regex.compile(\"[a-zA-Z0-9]+\")
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+
+func _on_text_changed():
+	var text = self.get_text()
+	if text.length() > 3:
+		self.set_text(text.left(4))
+		self.remove_caret(0)
+		self.add_caret(0,text.length())
+	
+	
+"
+
+[node name="CrewCreator" type="Node2D"]
+
+[node name="Creator" type="CanvasLayer" parent="."]
+script = ExtResource("1_y7fll")
+
+[node name="VerticalBox" type="VBoxContainer" parent="Creator"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Title" type="Label" parent="Creator/VerticalBox"]
+layout_mode = 2
+text = "Character Creator"
+
+[node name="Name" type="TextEdit" parent="Creator/VerticalBox"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+placeholder_text = "Name"
+wrap_mode = 1
+script = SubResource("GDScript_oct6k")
+
+[node name="Background" type="TextEdit" parent="Creator/VerticalBox"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "Background"
+
+[node name="Validate" type="Button" parent="Creator/VerticalBox"]
+layout_mode = 2
+text = "Validate"
+
+[connection signal="text_changed" from="Creator/VerticalBox/Name" to="Creator/VerticalBox/Name" method="_on_text_changed"]
+[connection signal="pressed" from="Creator/VerticalBox/Validate" to="Creator" method="_on_validate_pressed"]

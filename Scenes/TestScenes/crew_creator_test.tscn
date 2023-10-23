@@ -1,0 +1,136 @@
+[gd_scene load_steps=5 format=3 uid="uid://lbgv8krcwej0"]
+
+[sub_resource type="GDScript" id="GDScript_pw14d"]
+script/source = "extends VBoxContainer
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+func createCrewmate(charName,charBack):
+	var newCrewmate = Crewmate.new(charName,10,10,charBack)
+	return newCrewmate
+	
+func _on_validate_pressed():
+	Game.playerCrew.addCrewmate(createCrewmate($Name.get_text(),$Background.get_text()))
+"
+
+[sub_resource type="GDScript" id="GDScript_4tx52"]
+script/source = "extends TextEdit
+
+#Character name
+
+@onready var regex = RegEx.new()
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	regex.compile(\"[a-zA-Z0-9]+\")
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+
+func _on_text_changed():
+	var text = self.get_text()
+	if text.length() > 16:
+		self.set_text(text.left(16))
+		self.set_caret_column(16)
+"
+
+[sub_resource type="GDScript" id="GDScript_7p7x6"]
+script/source = "extends TextEdit
+
+#Character background
+
+@onready var regex = RegEx.new()
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	regex.compile(\"[a-zA-Z0-9]+\")
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+
+func _on_text_changed():
+	var text = self.get_text()
+	if text.length() > 250:
+		self.set_text(text.left(250))
+		self.set_caret_column(250)
+"
+
+[sub_resource type="GDScript" id="GDScript_l6nda"]
+script/source = "extends VBoxContainer
+
+@onready var crewmateSquare = preload(\"res://Scenes/TestScenes/crewmate_square_test.tscn\")
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	Game.playerCrew.crewmate_added.connect(addCrewmateSquare)
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+func addCrewmateSquare(crewmate):
+	var crewmatething = crewmateSquare.instantiate()
+	crewmatething.updateName(crewmate.get_identity())
+	crewmatething.updateProgressBar(crewmate.get_health_current(),crewmate.get_health_max())
+	self.add_child(crewmatething)
+	
+"
+
+[node name="Root" type="VBoxContainer"]
+offset_right = 204.0
+offset_bottom = 239.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VerticalBox" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+script = SubResource("GDScript_pw14d")
+
+[node name="Title" type="Label" parent="HBoxContainer/VerticalBox"]
+layout_mode = 2
+text = "Character Creator"
+
+[node name="Name" type="TextEdit" parent="HBoxContainer/VerticalBox"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+placeholder_text = "Name"
+wrap_mode = 1
+script = SubResource("GDScript_4tx52")
+
+[node name="Background" type="TextEdit" parent="HBoxContainer/VerticalBox"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "Background"
+wrap_mode = 1
+script = SubResource("GDScript_7p7x6")
+
+[node name="Validate" type="Button" parent="HBoxContainer/VerticalBox"]
+layout_mode = 2
+text = "Validate"
+
+[node name="CrewBox" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+script = SubResource("GDScript_l6nda")
+metadata/_edit_group_ = true
+
+[node name="Start" type="Button" parent="."]
+layout_mode = 2
+text = "Start"
+
+[connection signal="text_changed" from="HBoxContainer/VerticalBox/Name" to="HBoxContainer/VerticalBox/Name" method="_on_text_changed"]
+[connection signal="text_changed" from="HBoxContainer/VerticalBox/Background" to="HBoxContainer/VerticalBox/Background" method="_on_text_changed"]
+[connection signal="pressed" from="HBoxContainer/VerticalBox/Validate" to="HBoxContainer/VerticalBox" method="_on_validate_pressed"]
