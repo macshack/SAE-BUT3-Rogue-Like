@@ -1,21 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://dpub6xkti713l"]
 
+[ext_resource type="Script" path="res://Scripts/Main.gd" id="1_ekn5y"]
 [ext_resource type="PackedScene" uid="uid://lbgv8krcwej0" path="res://Scenes/TestScenes/crew_creator_test.tscn" id="1_rn48g"]
 
-[sub_resource type="GDScript" id="GDScript_myv0k"]
-script/source = "extends Node
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-"
-
 [node name="Main" type="Node"]
-script = SubResource("GDScript_myv0k")
+script = ExtResource("1_ekn5y")
 
 [node name="CrewCreator" parent="." instance=ExtResource("1_rn48g")]
