@@ -24,6 +24,7 @@ func removeCrewmate(position:int):
 func addCrewmate(crewmate:Crewmate):
 	if self.crewList.size() < 5:
 		self.crewList.append(crewmate)
+		Characters.addCharacterIdToList(crewmate.get_id())
 		crewmate_added.emit(crewmate)
 	
 #Swap entre deux personnages de l'equipage

@@ -17,11 +17,7 @@ func _init(identity = "", healthMax = 10, healthCurrent = 10):
 	self.id = createId(identity)
 
 func createId(identity):
-	var id = identity + str(Random.rng.randi_range(100000,9999999))
-	while id in Characters.charactersList:
-		id = identity + str(Random.rng.randi_range(100000,9999999))
-	if not id in Characters.charactersList:
-		Characters.addCharacterIdToList(id)
+	var id = str(Characters.charactersList.size()+1)
 	return id
 
 func get_identity():
