@@ -23,6 +23,7 @@ Characters="*res://Scripts/Characters.gd"
 Random="*res://Scripts/Random.gd"
 Destinations="*res://Scripts/Destinations.gd"
 Situations="*res://Scripts/Situations.gd"
+DestinationLib="*res://Library/destinationLib.gd"
 
 [rendering]
 
