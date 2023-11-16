@@ -21,6 +21,8 @@ Utils="*res://Global/Utils.gd"
 Skills="*res://Scripts/Skills.gd"
 Characters="*res://Scripts/Characters.gd"
 Random="*res://Scripts/Random.gd"
+Destinations="*res://Scripts/Destinations.gd"
+Situations="*res://Scripts/Situations.gd"
 
 [rendering]
 
