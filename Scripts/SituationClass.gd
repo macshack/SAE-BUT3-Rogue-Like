@@ -7,9 +7,8 @@ class_name Situation
 var situationName:String
 var description: String
 
-func _init(situationNames = "", listEnemies = [], description = ""):
+func _init(situationNames = "", description = ""):
 	self.situationName = situationName
-	self.listEnemies = listEnemies
 	self.description = description
 
 func get_situationName():
@@ -23,4 +22,4 @@ func get_description():
 	
 func set_description(value):
 	description = value
-
+	

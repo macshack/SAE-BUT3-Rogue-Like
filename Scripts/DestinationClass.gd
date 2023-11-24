@@ -10,7 +10,7 @@ var situation: Situation
 var image: String
 var description: String
 
-func _init(destinationName = "", situation = Situations, image = "", description = "", random = false):
+func _init(destinationName = "", situation = Situation.new(), image = "", description = "", random = false):
 	if random == false:
 		self.id = createId(destinationName)
 		self.destinationName = destinationName
@@ -52,34 +52,40 @@ func createId(destinationName):
 	return id
 
 func getRandomImageFromFolder(folderPath: String) -> String:
-	var dir = DirAccess.new.call()
+	var dir = DirAccess.open(folderPath)
 	var files = []
 	
-	# Parcourir les fichiers du dossier
-	while dir.next() != "":
-		files.append(dir.get_file())
-	
-	dir.close()
-	
-	if files.size() > 0:
-		var randomIndex = randi() % files.size()
-		return files[randomIndex]
+	if dir:
+		dir.list_dir_begin()
+		
+		# Parcourir les fichiers du dossier
+		while dir.get_next() != "":
+			files.append(dir.get_next())
+		
+		dir.list_dir_end()
+		
+		if files.size() > 0:
+			var randomIndex = randi() % files.size()
+			var file = files[randomIndex].replace(".import", "")
+			return folderPath + "/" + file
+		else:
+			return ""
 	else:
-		return ""
-
-
+		print("Error")
+		return "Error"
 
 func createRandom():
-	var destinationLib = load("res://Library/destinationLib.gd")
+	var create_situation = load("res://Scripts/CreateSituation.gd")
 	var randomIndex = randi() % 2 
 	if randomIndex == 0:
-		destinationName = destinationLib.shipName[randi() % destinationLib.shipName.size()]
-		image = getRandomImageFromFolder("res://Images/Ship")
+		destinationName = DestinationLib.shipName[randi() % DestinationLib.shipName.size()]
+		image = getRandomImageFromFolder("res://Assets/Ship")
 	else:
-		destinationName = destinationLib.planetShip[randi() % destinationLib.planetName.size()]
-		image = getRandomImageFromFolder("res://Images/Planet")
+		destinationName = DestinationLib.planetName[randi() % DestinationLib.planetName.size()]
+		image = getRandomImageFromFolder("res://Assets/Planet")
 	self.id = createId(destinationName)
 	self.destinationName = destinationName
 	self.image = image
 	self.description = ""
-	#crer situation aléatoirement
+	self.situation = create_situation.createSituation()
+	
