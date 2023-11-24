@@ -2,23 +2,20 @@
 
 [sub_resource type="GDScript" id="GDScript_lt66q"]
 script/source = "extends Button
+@onready var generateDestination = preload(\"res://Scenes/UI/GenerateDestination.tscn\")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
+	pass # Replace with function body
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 
 func _on_pressed():
-	var destination = Destination.new(\"\", Situation.new(), \"\", \"\", true)
-	$\"../TextureRect\".texture = load(destination.get_image())
-	#$TextureRect.texture = load(destination.get_image())
-	print(destination.get_destinationName())
-	print(destination.get_image())
-	print(destination.get_situation())
+	for i in range(3):
+		var destinationInstance = generateDestination.instantiate()
+		$\"../HBoxContainer\".add_child(destinationInstance)
 
 "
 
@@ -31,7 +28,7 @@ layout_mode = 2
 text = "Creerdestination"
 script = SubResource("GDScript_lt66q")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
 
 [connection signal="pressed" from="Button" to="Button" method="_on_pressed"]
