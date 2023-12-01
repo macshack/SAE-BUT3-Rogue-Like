@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqh76c02sovq4"]
+
+[sub_resource type="GDScript" id="GDScript_mli6p"]
+script/source = "extends Button
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+func _on_pressed():
+	print(\"TIGRE DU BENGALE DANS LE CUL\")
+	var tabEn = []
+	for i in range(3):
+		var En = Enemy.new()
+		En.set_speed(randi() % 10 + 1)
+		tabEn.append(En)
+		print(En.get_id())
+	var crew = Crew.new()
+	for i in range(3):
+		var Cr = Crewmate.new()
+		Cr.set_speed(randi() % 10 + 1)
+		crew.crewList.append(Cr)
+	var fight = Fight.new(crew, tabEn)	
+	fight.orderFight()
+"
+
+[node name="VBoxContainer" type="VBoxContainer"]
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+text = "Fight"
+script = SubResource("GDScript_mli6p")
+
+[connection signal="pressed" from="Button" to="Button" method="_on_pressed"]

@@ -13,7 +13,6 @@ func _init(identity = "defaultName", healthMax = 10, healthCurrent = 10, backgro
 	for skill in Skills.skillDictionary:
 		skills[skill] = Skill.new(skill,6)
 
-
 func skillCheck(skill:String,roll:int):
 	#Un skillCheck retourne true si le skillCheck est reussi.
 	#Un skillCheck est reussi si le roll est inferieur ou egal a la valeur du skill.
