@@ -25,9 +25,8 @@ func _on_pressed():
 		Cr.set_speed(randi() % 10 + 1)
 		crew.crewList.append(Cr)
 	var fight = Fight.new(crew, tabEn)	
-	fight.orderFight()
-	fight.removeEnemy(1)
-	print(fight.ennemiesList)
+	
+	fight.startFight()
 "
 
 [node name="VBoxContainer" type="VBoxContainer"]

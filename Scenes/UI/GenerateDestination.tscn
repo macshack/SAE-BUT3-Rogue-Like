@@ -10,7 +10,7 @@ func _ready():
 	destination = Destination.new(\"\", Situation.new(), \"\", \"\", true)
 	$DestinationName.text = destination.get_destinationName()
 	var img = load(destination.get_image())
-	$DestinationImage.texture = img
+	$AspectRatioContainer/DestinationImage.texture = img
 	$DestinationDescription.text = destination.get_description()
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -19,14 +19,20 @@ func _process(delta):
 "
 
 [node name="DestinationContainer" type="VBoxContainer"]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1.0
+offset_bottom = 54.0
 script = SubResource("GDScript_jylox")
 
 [node name="DestinationName" type="Label" parent="."]
 layout_mode = 2
 
-[node name="DestinationImage" type="TextureRect" parent="."]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+layout_mode = 2
+stretch_mode = 3
+alignment_horizontal = 0
+alignment_vertical = 0
+
+[node name="DestinationImage" type="TextureRect" parent="AspectRatioContainer"]
 layout_mode = 2
 
 [node name="DestinationDescription" type="Label" parent="."]

@@ -35,9 +35,13 @@ func orderFight():
 	for i in range(len(self.crew.crewList)):
 		tabSpeedCrew.append([self.crew.crewList[i].get_id(), self.crew.crewList[i].get_speed()])
 	tabSpeed = tabSpeedCrew + tabSpeedEnnemies
-	print(tabSpeed)
 	tri_insertion(tabSpeed)
-	print(tabSpeed)
+	return tabSpeed
 	
 func startFight():
-	pass
+	var order = orderFight()
+	print(order)
+	while self.ennemiesList != []:
+		print("Tour")
+		removeEnemy(1)
+	print("Combat terminé")
