@@ -24,6 +24,14 @@ Random="*res://Scripts/Random.gd"
 DestinationLib="*res://Library/destinationLib.gd"
 Destinations="*res://Scripts/Destinations.gd"
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=3
+window/size/borderless=true
+window/stretch/mode="canvas_items"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

@@ -1,0 +1,108 @@
+[gd_scene load_steps=5 format=3 uid="uid://eoqgocmvhjw7"]
+
+[ext_resource type="Texture2D" uid="uid://m0esey6u5ufe" path="res://Assets/UI/MainMenu.png" id="1_gwj4e"]
+[ext_resource type="Script" path="res://Scripts/MainMenuControl.gd" id="2_owihh"]
+[ext_resource type="Script" path="res://Scripts/LeaderboardControl.gd" id="3_xuh07"]
+[ext_resource type="Script" path="res://Scripts/OptionsControl.gd" id="4_08yjr"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch_mode = 3
+alignment_horizontal = 0
+alignment_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="AspectRatioContainer"]
+layout_mode = 2
+texture = ExtResource("1_gwj4e")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_owihh")
+
+[node name="Menu" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Play" type="Button" parent="CenterContainer/Menu"]
+layout_mode = 2
+text = "Play"
+
+[node name="Options" type="Button" parent="CenterContainer/Menu"]
+layout_mode = 2
+text = "Options"
+
+[node name="Leaderboard" type="Button" parent="CenterContainer/Menu"]
+layout_mode = 2
+text = "Leaderboard"
+
+[node name="Quit" type="Button" parent="CenterContainer/Menu"]
+layout_mode = 2
+text = "Quit"
+
+[node name="Leaderboard" type="VBoxContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+script = ExtResource("3_xuh07")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="CenterContainer/Leaderboard"]
+
+[node name="Refresh" type="Button" parent="CenterContainer/Leaderboard"]
+layout_mode = 2
+text = "Refresh"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CenterContainer/Leaderboard"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="Tableau" type="VBoxContainer" parent="CenterContainer/Leaderboard/ScrollContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="ToMainMenu" type="Button" parent="CenterContainer/Leaderboard"]
+layout_mode = 2
+text = "back"
+
+[node name="Options" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+script = ExtResource("4_08yjr")
+
+[node name="TabContainer" type="TabContainer" parent="CenterContainer/Options"]
+layout_mode = 2
+
+[node name="Video" type="VBoxContainer" parent="CenterContainer/Options/TabContainer"]
+layout_mode = 2
+
+[node name="Audio" type="VBoxContainer" parent="CenterContainer/Options/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="ToMainMenu" type="Button" parent="CenterContainer/Options"]
+layout_mode = 2
+text = "Back"
+
+[connection signal="pressed" from="CenterContainer/Menu/Play" to="CenterContainer" method="_on_play_pressed"]
+[connection signal="pressed" from="CenterContainer/Menu/Options" to="CenterContainer" method="_on_options_pressed"]
+[connection signal="pressed" from="CenterContainer/Menu/Leaderboard" to="CenterContainer" method="_on_leaderboard_pressed"]
+[connection signal="pressed" from="CenterContainer/Menu/Quit" to="CenterContainer" method="_on_quit_pressed"]
+[connection signal="pressed" from="CenterContainer/Leaderboard/Refresh" to="CenterContainer/Leaderboard" method="_on_refresh_pressed"]
+[connection signal="pressed" from="CenterContainer/Leaderboard/ToMainMenu" to="CenterContainer/Leaderboard" method="_on_to_main_menu_pressed"]
+[connection signal="pressed" from="CenterContainer/Options/ToMainMenu" to="CenterContainer/Options" method="_on_to_main_menu_pressed"]

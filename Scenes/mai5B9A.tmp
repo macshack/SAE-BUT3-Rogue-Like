@@ -1,0 +1,85 @@
+[gd_scene load_steps=3 format=3 uid="uid://eoqgocmvhjw7"]
+
+[sub_resource type="GDScript" id="GDScript_ywb40"]
+script/source = "extends VBoxContainer
+
+@onready var scoreboardLine = preload(\"res://Scenes/UI/scoreboard_line.tscn\")
+
+var data
+var request
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	request = HTTPRequest.new()
+	$HTTPRequest.request_completed.connect(_on_request_completed)
+	fetchLeaderboard()
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+	
+func _on_request_completed(result, response_code, headers, body):
+	var answer = JSON.parse_string(body.get_string_from_utf8())
+	if (answer.code == 200 && answer.success == true):
+		data = answer.result
+	for player in data:
+		print(player)
+		$Tableau.add_child(scoreboardLine.instantiate().setData(player[\"userId\"],JSON.stringify(player[\"gameData\"][\"highestScore\"])))
+
+func fetchLeaderboard():
+	$HTTPRequest.request(\"http://localhost:5500/getBestscores\")
+
+
+func _on_visibility_changed():
+	fetchLeaderboard();
+"
+
+[sub_resource type="GDScript" id="GDScript_1600q"]
+script/source = "extends VBoxContainer
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+
+"
+
+[node name="MainMenu" type="VBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Leaderboard" type="VBoxContainer" parent="."]
+layout_mode = 2
+script = SubResource("GDScript_ywb40")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="Leaderboard"]
+
+[node name="Tableau" type="VBoxContainer" parent="Leaderboard"]
+layout_mode = 2
+
+[node name="Menu" type="VBoxContainer" parent="."]
+layout_mode = 2
+script = SubResource("GDScript_1600q")
+
+[node name="Play" type="Button" parent="Menu"]
+layout_mode = 2
+text = "Play"
+
+[node name="Leaderboard" type="Button" parent="Menu"]
+layout_mode = 2
+text = "Leaderboard"
+
+[node name="Options" type="Button" parent="Menu"]
+layout_mode = 2
+text = "Options"
+
+[node name="Quit" type="Button" parent="Menu"]
+layout_mode = 2
+text = "Quit"
+
+[node name="Options" type="VBoxContainer" parent="."]
+layout_mode = 2
