@@ -41,7 +41,10 @@ func orderFight():
 func startFight():
 	var order = orderFight()
 	print(order)
-	while self.ennemiesList != []:
+	var alive_crew = true
+	while self.ennemiesList != [] and alive_crew == true:
 		print("Tour")
 		removeEnemy(1)
+		alive_crew = self.crew.aliveCrew()
+		print(alive_crew)
 	print("Combat terminé")

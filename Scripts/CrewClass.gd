@@ -39,3 +39,9 @@ func findCrewmate(id):
 		if crewmate.get_id() == id:
 			return crewmate
 	
+func aliveCrew():
+	for i in range(len(crewList)):
+		if crewList[i].get_state() == 0:
+			return true
+		else:
+			return false
