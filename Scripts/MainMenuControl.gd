@@ -12,7 +12,7 @@ func show_hide(optionOne,optionTwo):
 	optionTwo.hide()
 
 func _on_play_pressed():
-	get_tree().change_scene_to_file("res://Scenes/DestinationScene.tscn")
+	self.get_parent().get_parent().loadNewScene("res://Scenes/DestinationScene.tscn")
 
 
 func _on_options_pressed():

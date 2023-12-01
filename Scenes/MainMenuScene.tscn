@@ -30,7 +30,7 @@ texture = ExtResource("1_gwj4e")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="Kernel" type="CenterContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -39,64 +39,117 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_owihh")
 
-[node name="Menu" type="VBoxContainer" parent="CenterContainer"]
+[node name="Menu" type="VBoxContainer" parent="Kernel"]
+visible = false
 layout_mode = 2
 
-[node name="Play" type="Button" parent="CenterContainer/Menu"]
+[node name="Play" type="Button" parent="Kernel/Menu"]
 layout_mode = 2
 text = "Play"
 
-[node name="Options" type="Button" parent="CenterContainer/Menu"]
+[node name="Options" type="Button" parent="Kernel/Menu"]
 layout_mode = 2
 text = "Options"
 
-[node name="Leaderboard" type="Button" parent="CenterContainer/Menu"]
+[node name="Leaderboard" type="Button" parent="Kernel/Menu"]
 layout_mode = 2
 text = "Leaderboard"
 
-[node name="Quit" type="Button" parent="CenterContainer/Menu"]
+[node name="Quit" type="Button" parent="Kernel/Menu"]
 layout_mode = 2
 text = "Quit"
 
-[node name="Leaderboard" type="VBoxContainer" parent="CenterContainer"]
+[node name="Leaderboard" type="VBoxContainer" parent="Kernel"]
+visible = false
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 script = ExtResource("3_xuh07")
 
-[node name="HTTPRequest" type="HTTPRequest" parent="CenterContainer/Leaderboard"]
+[node name="HTTPRequest" type="HTTPRequest" parent="Kernel/Leaderboard"]
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CenterContainer/Leaderboard"]
+[node name="Refresh" type="Button" parent="Kernel/Leaderboard"]
 layout_mode = 2
+text = "Refresh"
 
-[node name="Tableau" type="VBoxContainer" parent="CenterContainer/Leaderboard/ScrollContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Kernel/Leaderboard"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 
-[node name="ToMainMenu" type="Button" parent="CenterContainer/Leaderboard"]
+[node name="Tableau" type="VBoxContainer" parent="Kernel/Leaderboard/ScrollContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="ToMainMenu" type="Button" parent="Kernel/Leaderboard"]
 layout_mode = 2
 text = "back"
 
-[node name="Options" type="VBoxContainer" parent="CenterContainer"]
+[node name="Options" type="VBoxContainer" parent="Kernel"]
 layout_mode = 2
 script = ExtResource("4_08yjr")
 
-[node name="TabContainer" type="TabContainer" parent="CenterContainer/Options"]
+[node name="TabContainer" type="TabContainer" parent="Kernel/Options"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+tab_alignment = 2
+clip_tabs = false
+all_tabs_in_front = true
+
+[node name="Audio" type="HBoxContainer" parent="Kernel/Options/TabContainer"]
 layout_mode = 2
 
-[node name="Video" type="VBoxContainer" parent="CenterContainer/Options/TabContainer"]
+[node name="Labels" type="VBoxContainer" parent="Kernel/Options/TabContainer/Audio"]
 layout_mode = 2
+alignment = 1
 
-[node name="Audio" type="VBoxContainer" parent="CenterContainer/Options/TabContainer"]
-visible = false
+[node name="Master" type="Label" parent="Kernel/Options/TabContainer/Audio/Labels"]
 layout_mode = 2
+size_flags_vertical = 6
+text = "Master"
 
-[node name="ToMainMenu" type="Button" parent="CenterContainer/Options"]
+[node name="Music" type="Label" parent="Kernel/Options/TabContainer/Audio/Labels"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Music"
+
+[node name="Sound effects" type="Label" parent="Kernel/Options/TabContainer/Audio/Labels"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Sound effects"
+
+[node name="Values" type="VBoxContainer" parent="Kernel/Options/TabContainer/Audio"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="MasterSlider" type="HSlider" parent="Kernel/Options/TabContainer/Audio/Values"]
+layout_mode = 2
+size_flags_vertical = 3
+max_value = 1.0
+step = 0.01
+
+[node name="MusicSlider" type="HSlider" parent="Kernel/Options/TabContainer/Audio/Values"]
+layout_mode = 2
+size_flags_vertical = 3
+max_value = 1.0
+step = 0.01
+
+[node name="SoundEffectsSlider" type="HSlider" parent="Kernel/Options/TabContainer/Audio/Values"]
+layout_mode = 2
+size_flags_vertical = 3
+max_value = 1.0
+step = 0.01
+
+[node name="ToMainMenu" type="Button" parent="Kernel/Options"]
 layout_mode = 2
 text = "Back"
 
-[connection signal="pressed" from="CenterContainer/Menu/Play" to="CenterContainer" method="_on_play_pressed"]
-[connection signal="pressed" from="CenterContainer/Menu/Options" to="CenterContainer" method="_on_options_pressed"]
-[connection signal="pressed" from="CenterContainer/Menu/Leaderboard" to="CenterContainer" method="_on_leaderboard_pressed"]
-[connection signal="pressed" from="CenterContainer/Menu/Quit" to="CenterContainer" method="_on_quit_pressed"]
-[connection signal="pressed" from="CenterContainer/Leaderboard/ToMainMenu" to="CenterContainer/Leaderboard" method="_on_to_main_menu_pressed"]
-[connection signal="pressed" from="CenterContainer/Options/ToMainMenu" to="CenterContainer/Options" method="_on_to_main_menu_pressed"]
+[connection signal="pressed" from="Kernel/Menu/Play" to="Kernel" method="_on_play_pressed"]
+[connection signal="pressed" from="Kernel/Menu/Options" to="Kernel" method="_on_options_pressed"]
+[connection signal="pressed" from="Kernel/Menu/Leaderboard" to="Kernel" method="_on_leaderboard_pressed"]
+[connection signal="pressed" from="Kernel/Menu/Quit" to="Kernel" method="_on_quit_pressed"]
+[connection signal="pressed" from="Kernel/Leaderboard/Refresh" to="Kernel/Leaderboard" method="_on_refresh_pressed"]
+[connection signal="pressed" from="Kernel/Leaderboard/ToMainMenu" to="Kernel/Leaderboard" method="_on_to_main_menu_pressed"]
+[connection signal="value_changed" from="Kernel/Options/TabContainer/Audio/Values/MasterSlider" to="Kernel/Options" method="_on_master_slider_value_changed"]
+[connection signal="value_changed" from="Kernel/Options/TabContainer/Audio/Values/MusicSlider" to="Kernel/Options" method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="Kernel/Options/TabContainer/Audio/Values/SoundEffectsSlider" to="Kernel/Options" method="_on_sound_effects_slider_value_changed"]
+[connection signal="pressed" from="Kernel/Options/ToMainMenu" to="Kernel/Options" method="_on_to_main_menu_pressed"]

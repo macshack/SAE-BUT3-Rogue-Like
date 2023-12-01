@@ -19,6 +19,8 @@ func _on_request_completed(result, response_code, headers, body):
 	if (response_code == 200):
 		var answer = JSON.parse_string(body.get_string_from_utf8())
 		data = answer.result
+		for c in $ScrollContainer/Tableau.get_children():
+			c.queue_free()
 		for player in data:
 			var inst = scoreboardLine.instantiate()
 			inst.setData(player["userId"],JSON.stringify(player["gameData"]["highestScore"]))
@@ -39,3 +41,7 @@ func _on_visibility_changed():
 func _on_to_main_menu_pressed():
 	$".".hide()
 	$"../Menu".show()
+
+
+func _on_refresh_pressed():
+	fetchLeaderboard()

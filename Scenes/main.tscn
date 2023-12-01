@@ -1,6 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://dpub6xkti713l"]
+[gd_scene load_steps=3 format=3 uid="uid://dpub6xkti713l"]
 
-[ext_resource type="Script" path="res://Scripts/mainControl.gd" id="1_sfk8o"]
+[ext_resource type="Script" path="res://Scripts/MainControl.gd" id="1_nymx3"]
+[ext_resource type="AudioStream" uid="uid://bovpfsppqs48x" path="res://Assets/Music/2 - Galactic Odyssey (Loop).mp3" id="2_hrdrk"]
 
 [node name="Main" type="Node"]
-script = ExtResource("1_sfk8o")
+script = ExtResource("1_nymx3")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_hrdrk")
+autoplay = true
+bus = &"Music"
+
+[node name="SFX" type="AudioStreamPlayer" parent="."]
+bus = &"Sound Effects"
