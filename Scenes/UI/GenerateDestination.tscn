@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0ktv5h5mrsjy"]
+
+[sub_resource type="GDScript" id="GDScript_jylox"]
+script/source = "extends VBoxContainer
+
+var destination: Destination
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	destination = Destination.new(\"\", Situation.new(), \"\", \"\", true)
+	$DestinationName.text = destination.get_destinationName()
+	var img = load(destination.get_image())
+	$DestinationImage.texture = img
+	$DestinationDescription.text = destination.get_description()
+	
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[node name="DestinationContainer" type="VBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = SubResource("GDScript_jylox")
+
+[node name="DestinationName" type="Label" parent="."]
+layout_mode = 2
+
+[node name="DestinationImage" type="TextureRect" parent="."]
+layout_mode = 2
+
+[node name="DestinationDescription" type="Label" parent="."]
+layout_mode = 2
