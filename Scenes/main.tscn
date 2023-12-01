@@ -1,9 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dpub6xkti713l"]
+[gd_scene load_steps=2 format=3 uid="uid://dpub6xkti713l"]
 
-[ext_resource type="Script" path="res://Scripts/Main.gd" id="1_ekn5y"]
-[ext_resource type="PackedScene" uid="uid://lbgv8krcwej0" path="res://Scenes/TestScenes/crew_creator_test.tscn" id="1_rn48g"]
+[ext_resource type="Script" path="res://Scripts/mainControl.gd" id="1_sfk8o"]
 
 [node name="Main" type="Node"]
-script = ExtResource("1_ekn5y")
-
-[node name="CrewCreator" parent="." instance=ExtResource("1_rn48g")]
+script = ExtResource("1_sfk8o")
