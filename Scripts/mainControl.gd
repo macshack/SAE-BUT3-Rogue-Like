@@ -14,7 +14,7 @@ func _process(delta):
 
 func loadNewScene(link):
 	for c in self.get_children():
-		if !c is AudioStreamPlayer:
+		if !c is AudioStreamPlayer && !c is CanvasLayer:
 			c.queue_free()
 		
 	var newScene = load(link)
