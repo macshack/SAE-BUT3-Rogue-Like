@@ -1,11 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://eoqgocmvhjw7"]
 
+[ext_resource type="PackedScene" uid="uid://e8ingyx27n6" path="res://Scenes/MainMenuHud.tscn" id="1_jqrn0"]
 [ext_resource type="Script" path="res://Scripts/MainMenuControl.gd" id="2_owihh"]
 [ext_resource type="Script" path="res://Scripts/LeaderboardControl.gd" id="3_xuh07"]
 [ext_resource type="Script" path="res://Scripts/OptionsControl.gd" id="4_08yjr"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rgysg"]
-load_path = "res://.godot/imported/renderUI.png-f2e5ffd992447d3fb214be016609bb01.ctex"
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -15,23 +13,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
-visibility_layer = 4
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-stretch_mode = 3
-alignment_horizontal = 0
-alignment_vertical = 0
-
-[node name="TextureRect" type="TextureRect" parent="AspectRatioContainer"]
-layout_mode = 2
-texture = SubResource("CompressedTexture2D_rgysg")
-expand_mode = 1
-stretch_mode = 4
+[node name="Node" parent="." instance=ExtResource("1_jqrn0")]
 
 [node name="Kernel" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -47,18 +29,22 @@ layout_mode = 2
 
 [node name="Play" type="Button" parent="Kernel/Menu"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 45
 text = "Play"
 
 [node name="Options" type="Button" parent="Kernel/Menu"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 45
 text = "Options"
 
 [node name="Leaderboard" type="Button" parent="Kernel/Menu"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 45
 text = "Leaderboard"
 
 [node name="Quit" type="Button" parent="Kernel/Menu"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 45
 text = "Quit"
 
 [node name="Leaderboard" type="VBoxContainer" parent="Kernel"]
