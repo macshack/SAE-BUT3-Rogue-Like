@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://bhy0sin6o8gnk"]
 
 [ext_resource type="Script" path="res://Scripts/DestinationControl.gd" id="1_gpue2"]
-[ext_resource type="Texture2D" uid="uid://2ffek3cykt7m" path="res://Assets/GreenRadar/OccupiedSpace/occupiedSpace-green- (6).png" id="2_5q1nu"]
 [ext_resource type="PackedScene" uid="uid://bv7o2o7uvxxu7" path="res://Scenes/GameplayHud.tscn" id="2_i3iaw"]
+[ext_resource type="Texture2D" uid="uid://cd0jkpwva6d5" path="res://Assets/Background/Radar/GreenRadar/greenRadar (1).png" id="3_s0o6w"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -72,7 +72,7 @@ alignment_vertical = 0
 
 [node name="TextureRect" type="TextureRect" parent="DestinationBackgroundAspectContainer"]
 layout_mode = 2
-texture = ExtResource("2_5q1nu")
+texture = ExtResource("3_s0o6w")
 expand_mode = 1
 stretch_mode = 4
 
