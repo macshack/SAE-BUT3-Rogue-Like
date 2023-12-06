@@ -4,8 +4,8 @@ uniform float scan_line_count : hint_range(0,1080);
 
 vec2 uv_curve(vec2 uv) {
 	uv = (uv-0.5)*2.0;
-	uv.x *= 1.0 + pow(abs(uv.y)/4.0,2.0);
-	uv.y *= 1.0 + pow(abs(uv.x)/3.5,2.0);
+	uv.x *= 1.0 + pow(abs(uv.y)/6.0,2.0);
+	uv.y *= 1.0 + pow(abs(uv.x)/8.0,2.0);
 	uv /= 1.00;
 	uv = (uv/2.0)+0.5;
 	return uv;

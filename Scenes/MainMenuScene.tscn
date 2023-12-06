@@ -1,9 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://eoqgocmvhjw7"]
 
-[ext_resource type="Texture2D" uid="uid://m0esey6u5ufe" path="res://Assets/UI/MainMenu.png" id="1_gwj4e"]
 [ext_resource type="Script" path="res://Scripts/MainMenuControl.gd" id="2_owihh"]
 [ext_resource type="Script" path="res://Scripts/LeaderboardControl.gd" id="3_xuh07"]
 [ext_resource type="Script" path="res://Scripts/OptionsControl.gd" id="4_08yjr"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rgysg"]
+load_path = "res://.godot/imported/renderUI.png-f2e5ffd992447d3fb214be016609bb01.ctex"
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -14,6 +16,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+visibility_layer = 4
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,7 +29,7 @@ alignment_vertical = 0
 
 [node name="TextureRect" type="TextureRect" parent="AspectRatioContainer"]
 layout_mode = 2
-texture = ExtResource("1_gwj4e")
+texture = SubResource("CompressedTexture2D_rgysg")
 expand_mode = 1
 stretch_mode = 4
 
@@ -40,7 +43,6 @@ grow_vertical = 2
 script = ExtResource("2_owihh")
 
 [node name="Menu" type="VBoxContainer" parent="Kernel"]
-visible = false
 layout_mode = 2
 
 [node name="Play" type="Button" parent="Kernel/Menu"]
@@ -84,6 +86,7 @@ layout_mode = 2
 text = "back"
 
 [node name="Options" type="VBoxContainer" parent="Kernel"]
+visible = false
 layout_mode = 2
 script = ExtResource("4_08yjr")
 

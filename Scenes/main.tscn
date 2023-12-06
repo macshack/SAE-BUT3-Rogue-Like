@@ -13,3 +13,7 @@ bus = &"Music"
 
 [node name="SFX" type="AudioStreamPlayer" parent="."]
 bus = &"Sound Effects"
+
+[node name="HUD" type="Node" parent="."]
+
+[node name="Game" type="Node" parent="."]
