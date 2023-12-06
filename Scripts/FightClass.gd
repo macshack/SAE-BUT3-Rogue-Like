@@ -60,7 +60,9 @@ func startFight():
 		
 		for i in range(len(order)):
 			var character = self.findID(order[i][0])
-			print(character.get_id())	
+			print(character.get_id())
+			if character.get_health_current() > 0:
+				character.set_state(0)
 		
 		alive_crew = self.crew.aliveCrew()
 		alive_ennemies = self.aliveEnnemies()
