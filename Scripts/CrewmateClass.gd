@@ -6,8 +6,8 @@ class_name Crewmate
 var background:String
 var skills:Dictionary
 
-func _init(identity = "defaultName", healthMax = 10, healthCurrent = 10, background = "-"):
-	super(identity,healthMax,healthCurrent)
+func _init(identity = "defaultName", healthMax = 10, healthCurrent = 10, attackPower = 1, speed = 1, state = State.LIVING):
+	super(identity,healthMax,healthCurrent, attackPower, speed, state)
 	self.background = background
 	#On cree le dictionnaire de skill du crewmate. On appelle les variables globales de Skills.gd.
 	for skill in Skills.skillDictionary:

@@ -40,8 +40,8 @@ func findCrewmate(id):
 			return crewmate
 	
 func aliveCrew():
+	var alive = false
 	for i in range(len(crewList)):
 		if crewList[i].get_state() == 0:
 			return true
-		else:
-			return false
+	return alive

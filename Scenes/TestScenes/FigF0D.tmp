@@ -17,13 +17,11 @@ func _on_pressed():
 	for i in range(3):
 		var En = Enemy.new()
 		En.set_speed(randi() % 10 + 1)
-		En.set_id(str(randi() % 100 + 1))
 		tabEn.append(En)
 	var crew = Crew.new()
 	for i in range(3):
 		var Cr = Crewmate.new()
 		Cr.set_speed(randi() % 10 + 1)
-		Cr.set_id(str(randi() % 100 + 1))
 		crew.crewList.append(Cr)
 	var fight = Fight.new(crew, tabEn)	
 	

@@ -9,18 +9,22 @@ var id:String
 var identity:String
 var healthMax:int
 var healthCurrent:int
+var attackPower:int
 var speed:int
 enum State {
 	LIVING,
 	KO,
-	DEAD
+	DEAD,
+	GUARD
 }
 var state:State
 
-func _init(identity = "", healthMax = 10, healthCurrent = 10, speed = 1, state = State.LIVING):
+func _init(identity = "defaultName", healthMax = 10, healthCurrent = 10, attackPower =1, speed = 1, state = State.LIVING):
 	self.identity = identity
 	self.healthMax = healthMax
 	self.healthCurrent = healthCurrent
+	self.attackPower = attackPower
+	self.speed = speed
 	self.state = state
 	self.id = createId(identity)
 
@@ -36,6 +40,9 @@ func get_health_current():
 	
 func get_health_max():
 	return healthMax
+
+func get_attackPower():
+	return self.attackPower
 
 func get_speed():
 	return self.speed
@@ -55,8 +62,20 @@ func set_health_current(value):
 func set_health_max(value):
 	healthMax = value
 
+func set_attackPower(value):
+	self.attackPower = value
+
 func set_speed(value):
 	self.speed = value
 
+func set_id(value):
+	self.id = value
+
 func set_state(value):
 	self.state = value
+
+func attack(target: Character):
+	if target.get_health_current() - self.get_attackPower() > 0:
+		target.set_health_current(target.get_health_current() - self.get_attackPower())
+	else:
+		target.set_state(State.KO)

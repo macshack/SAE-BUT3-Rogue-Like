@@ -19,13 +19,16 @@ func tri_insertion(tableau):
 			j = j - 1
 		tableau[j + 1] = cle
 
-func removeEnemy(id):
-	var tab = []
-	for i in range(self.ennemiesList.size()):
-		if int(self.ennemiesList[i].get_id()) != id:
-			tab.append(self.ennemiesList[i])
-	self.ennemiesList = tab
-
+func findID(id: String):
+	var character
+	for i in range(len(crew.crewList)):
+		if crew.crewList[i].get_id() == id:
+			character = crew.crewList[i]
+	for i in range(len(ennemiesList)):
+		if ennemiesList[i].get_id() == id:
+			character = ennemiesList[i]		
+	return character
+	
 func orderFight():
 	var tabSpeedEnnemies = []
 	var tabSpeedCrew = []
@@ -38,13 +41,33 @@ func orderFight():
 	tri_insertion(tabSpeed)
 	return tabSpeed
 	
+func aliveEnnemies():
+	var alive = false
+	for i in range(len(self.ennemiesList)):
+		if self.ennemiesList[i].get_state() == 0:
+			return true
+	return alive
+
 func startFight():
 	var order = orderFight()
 	print(order)
 	var alive_crew = true
-	while self.ennemiesList != [] and alive_crew == true:
-		print("Tour")
-		removeEnemy(1)
+	var alive_ennemies = true
+	var count = 1
+	
+	while alive_ennemies == true and alive_crew == true:
+		print("Tour: " + str(count))
+		
+		for i in range(len(order)):
+			var character = self.findID(order[i][0])
+			print(character.get_id())	
+		
 		alive_crew = self.crew.aliveCrew()
-		print(alive_crew)
-	print("Combat terminé")
+		alive_ennemies = self.aliveEnnemies()
+		count = count + 1
+		alive_ennemies = false #à enlever (pour test)
+		print("Fin du tour: " + str(count))
+	if alive_crew == true:
+		print("WIN")
+	else:
+		print("LOOSE")
