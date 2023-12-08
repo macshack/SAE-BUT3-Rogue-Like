@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bv7o2o7uvxxu7"]
 
 [ext_resource type="Shader" path="res://Shaders/crt.gdshader" id="1_5bn5g"]
-[ext_resource type="Texture2D" uid="uid://f7ob5km2trti" path="res://Assets/UI/gameui01.png" id="2_85f87"]
+[ext_resource type="Texture2D" uid="uid://f7ob5km2trti" path="res://Assets/UI/gameui01.png" id="2_pbbrc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dhael"]
 shader = ExtResource("1_5bn5g")
@@ -12,6 +12,7 @@ shader_parameter/scan_line_count = 200.0
 [node name="Node" type="Node"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 0
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
 top_level = true
@@ -28,5 +29,5 @@ metadata/_edit_use_anchors_ = true
 offset_right = 1920.0
 offset_bottom = 1080.0
 mouse_filter = 2
-texture = ExtResource("2_85f87")
+texture = ExtResource("2_pbbrc")
 metadata/_edit_use_anchors_ = true

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://e8ingyx27n6"]
 
 [ext_resource type="Shader" path="res://Shaders/crt.gdshader" id="1_5gbn1"]
-[ext_resource type="Texture2D" uid="uid://bg20qtd5weccg" path="res://Assets/UI/renderUI.png" id="2_ktgnq"]
+[ext_resource type="Texture2D" uid="uid://bg20qtd5weccg" path="res://Assets/UI/renderUI.png" id="2_dcaju"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_aty3p"]
 shader = ExtResource("1_5gbn1")
@@ -28,5 +28,5 @@ metadata/_edit_use_anchors_ = true
 offset_right = 1920.0
 offset_bottom = 1080.0
 mouse_filter = 2
-texture = ExtResource("2_ktgnq")
+texture = ExtResource("2_dcaju")
 metadata/_edit_use_anchors_ = true
