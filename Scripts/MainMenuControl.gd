@@ -8,11 +8,11 @@ func _ready():
 	$Options.hide()
 
 func show_hide(optionOne,optionTwo):
-	optionOne.show()
 	optionTwo.hide()
+	optionOne.show()
 
 func _on_play_pressed():
-	self.get_parent().get_parent().loadNewScene("res://Scenes/DestinationScene.tscn")
+	self.get_parent().get_parent().get_parent().loadNewScene("res://Scenes/DestinationScene.tscn")
 
 
 func _on_options_pressed():

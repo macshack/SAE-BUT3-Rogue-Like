@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bhy0sin6o8gnk"]
+[gd_scene load_steps=3 format=3 uid="uid://bhy0sin6o8gnk"]
 
-[ext_resource type="Texture2D" uid="uid://dogxnr8847sor" path="res://Assets/UI/DestinationUI.png" id="1_amdmj"]
 [ext_resource type="Script" path="res://Scripts/DestinationControl.gd" id="1_gpue2"]
-[ext_resource type="Texture2D" uid="uid://2ffek3cykt7m" path="res://Assets/GreenRadar/OccupiedSpace/occupiedSpace-green- (6).png" id="2_5q1nu"]
+[ext_resource type="PackedScene" uid="uid://bv7o2o7uvxxu7" path="res://Scenes/GameplayHud.tscn" id="2_i3iaw"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -15,93 +14,48 @@ script = ExtResource("1_gpue2")
 metadata/_edit_vertical_guides_ = [0.0]
 metadata/_edit_horizontal_guides_ = [0.0]
 
-[node name="DestinationAspectContainer" type="AspectRatioContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-stretch_mode = 3
-alignment_horizontal = 0
-alignment_vertical = 0
+[node name="Top" type="CanvasLayer" parent="."]
+layer = 4
 
-[node name="TextureRect" type="TextureRect" parent="DestinationAspectContainer"]
-layout_mode = 2
-texture = ExtResource("1_amdmj")
-expand_mode = 1
-stretch_mode = 4
-
-[node name="DestinationBackgroundAspectContainer" type="AspectRatioContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 40.0
-offset_top = 28.0
-offset_right = -433.0
-offset_bottom = -238.0
-grow_horizontal = 2
-grow_vertical = 2
-stretch_mode = 3
-alignment_horizontal = 0
-alignment_vertical = 0
-
-[node name="TextureRect" type="TextureRect" parent="DestinationBackgroundAspectContainer"]
-layout_mode = 2
-texture = ExtResource("2_5q1nu")
-expand_mode = 1
-stretch_mode = 4
-
-[node name="CrewmateBox" type="HBoxContainer" parent="."]
-layout_mode = 0
-offset_left = 26.0
-offset_top = 595.0
-offset_right = 665.0
-offset_bottom = 700.0
-
-[node name="SituationButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 1513.0
-offset_top = 29.0
-offset_right = 1612.0
-offset_bottom = 130.0
-text = "Situati"
-
-[node name="CrewButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 1513.0
-offset_top = 152.0
-offset_right = 1612.0
-offset_bottom = 253.0
+[node name="CrewButton" type="Button" parent="Top"]
+offset_left = 845.0
+offset_top = 860.0
+offset_right = 944.0
+offset_bottom = 961.0
 text = "Crew"
 
-[node name="InventoryButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 1513.0
-offset_top = 278.0
-offset_right = 1611.0
-offset_bottom = 375.0
+[node name="InventoryButton" type="Button" parent="Top"]
+offset_left = 979.0
+offset_top = 867.0
+offset_right = 1077.0
+offset_bottom = 964.0
 text = "Invent"
 
-[node name="SettingsButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 1514.0
-offset_top = 668.0
-offset_right = 1610.0
-offset_bottom = 769.0
+[node name="SettingsButton" type="Button" parent="Top"]
+offset_left = 1118.0
+offset_top = 866.0
+offset_right = 1214.0
+offset_bottom = 967.0
 text = "Setting"
 
-[node name="DepartButton" type="Button" parent="."]
-layout_mode = 0
+[node name="DepartButton" type="Button" parent="Top"]
 offset_left = 1510.0
 offset_top = 886.0
 offset_right = 1884.0
 offset_bottom = 1049.0
 text = "DEPART"
 
-[connection signal="pressed" from="SituationButton" to="." method="_on_situation_button_pressed"]
-[connection signal="pressed" from="CrewButton" to="." method="_on_crew_button_pressed"]
-[connection signal="pressed" from="InventoryButton" to="." method="_on_inventory_button_pressed"]
-[connection signal="pressed" from="SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="DepartButton" to="." method="_on_depart_button_pressed"]
+[node name="SituationButton" type="Button" parent="Top"]
+offset_left = 708.0
+offset_top = 855.0
+offset_right = 807.0
+offset_bottom = 956.0
+text = "Situati"
+
+[node name="UI" parent="." instance=ExtResource("2_i3iaw")]
+
+[connection signal="pressed" from="Top/CrewButton" to="." method="_on_crew_button_pressed"]
+[connection signal="pressed" from="Top/InventoryButton" to="." method="_on_inventory_button_pressed"]
+[connection signal="pressed" from="Top/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Top/DepartButton" to="." method="_on_depart_button_pressed"]
+[connection signal="pressed" from="Top/SituationButton" to="." method="_on_situation_button_pressed"]
