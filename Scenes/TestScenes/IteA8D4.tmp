@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://0y8dda2jl4to"]
+
+[sub_resource type="GDScript" id="GDScript_kfv5e"]
+script/source = "extends Node
+
+var items = [
+	{\"name\":\"Lame du roi dechu\",
+	\"flavor\":\"Une arme legendaire que l'on pensait perdu a tout jamais. Il est dit que l'arme disparaitra quand son porteur en aura le plus besoin. Prenez garde...\",
+	\"icon\":\"\",
+	\"price\":500,
+	\"stats\":{
+		\"ATK\":10
+	}
+	}
+	]
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	var itemObjectArray = []
+	for i in items:
+		var itemObject = Item.new(i[\"name\"],i[\"flavor\"],i[\"icon\"],i[\"stats\"],i[\"price\"])
+		itemObjectArray.append(itemObject)
+		print(itemObject.getName())
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[node name="Node" type="Node"]
+script = SubResource("GDScript_kfv5e")

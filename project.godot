@@ -22,7 +22,6 @@ Skills="*res://Scripts/Skills.gd"
 Characters="*res://Scripts/Characters.gd"
 Random="*res://Scripts/Random.gd"
 DestinationLib="*res://Library/destinationLib.gd"
-Destinations="*res://Scripts/Destinations.gd"
 
 [display]
 

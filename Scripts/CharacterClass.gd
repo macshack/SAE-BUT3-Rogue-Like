@@ -7,13 +7,23 @@ class_name Character
 #Variable id sert a identifier le personnage grace a une string unique
 var id:String
 var identity:String
+var healthBase:int
 var healthMax:int
 var healthCurrent:int
+var attackBase:int
+var speedBase:int
+var critBase:int
+var dodgeBase:float
 
-func _init(identity = "", healthMax = 10, healthCurrent = 10):
+func _init(identity = "", healthBase = 10, healthCurrent = healthBase, attackBase = 3, speedBase = 5, critBase = 5.0, dodgeBase = 5.0):
 	self.identity = identity
-	self.healthMax = healthMax
+	self.healthBase = healthBase
+	self.healthMax = self.healthBase
 	self.healthCurrent = healthCurrent
+	self.attackBase = attackBase
+	self.speedBase = speedBase
+	self.critBase = critBase
+	self.dodgeBase = dodgeBase
 	self.id = createId(identity)
 
 func createId(identity):
