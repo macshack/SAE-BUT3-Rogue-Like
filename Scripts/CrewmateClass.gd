@@ -4,20 +4,49 @@ extends Character
 class_name Crewmate
 
 var background:String
-var skills:Dictionary
+#Rework les skills comme sur le notion
+var skills
+var gear:Gear = Gear.new()
+var dodgeCurrent:float
+var attackCurrent:int
+var speedCurrent:int
+var critCurrent:int
 
-func _init(identity = "defaultName", healthMax = 10, healthCurrent = 10, background = "-"):
-	super(identity,healthMax,healthCurrent)
+func _init(identity = "", healthBase = 10, healthCurrent = healthBase, attackBase = 3, speedBase = 5, critBase = 5.0, dodgeBase = 5.0, background = "-", gear = []):
+	super(identity,healthMax,healthCurrent,attackBase,speedBase,critBase,dodgeBase)
 	self.background = background
-	#On cree le dictionnaire de skill du crewmate. On appelle les variables globales de Skills.gd.
-	for skill in Skills.skillDictionary:
-		skills[skill] = Skill.new(skill,6)
+	for item in gear:
+		self.gear.equipItem(item)
+	applyModifiersToCrewmate()
 
 
-func skillCheck(skill:String,roll:int):
-	#Un skillCheck retourne true si le skillCheck est reussi.
-	#Un skillCheck est reussi si le roll est inferieur ou egal a la valeur du skill.
-	if roll <= skills[skill].get_current_value():
-		return true
-	else:
-		return false
+func applyModifiersToCrewmate():
+	var tempATK = self.attackBase
+	var tempHP = self.healthBase
+	var tempSPD = self.speedBase
+	var tempCRT = self.critBase
+	var tempDDG = self.dodgeBase
+	for item in gear.getList():
+		for stat in item.getModifiers():
+			match stat:
+				"ATK":
+					tempATK += item.getModifiers()[stat]
+				"HP":
+					tempHP += item.getModifiers()[stat]
+				"SPD":
+					tempSPD += item.getModifiers()[stat]
+				"CRT":
+					tempCRT += item.getModifiers()[stat]
+				"DDG":
+					tempDDG += item.getModifiers()[stat]
+			
+	self.attackCurrent = tempATK
+	self.healthMax = tempHP
+	self.speedCurrent = tempSPD
+	self.critCurrent = tempCRT
+	self.dodgeCurrent = tempDDG
+	
+#Fonctionne uniquement si l'instance de Crewmate est dans l'arborescence des noeuds
+func _process(delta):
+	applyModifiersToCrewmate()
+	
