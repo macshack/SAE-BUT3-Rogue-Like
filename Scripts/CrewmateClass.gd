@@ -7,14 +7,16 @@ var background:String
 #Rework les skills comme sur le notion
 var skills
 var gear:Gear = Gear.new()
+var healthMax:int
 var dodgeCurrent:float
 var attackCurrent:int
 var speedCurrent:int
 var critCurrent:int
 
-func _init(identity = "", healthBase = 10, healthCurrent = healthBase, attackBase = 3, speedBase = 5, critBase = 5.0, dodgeBase = 5.0, background = "-", gear = []):
+func _init(identity = "", gear = [], healthBase = 10, healthCurrent = healthBase, attackBase = 3, speedBase = 5, critBase = 5.0, dodgeBase = 5.0, background = "-"):
 	super(identity,healthMax,healthCurrent,attackBase,speedBase,critBase,dodgeBase)
 	self.background = background
+	self.healthMax = self.healthBase
 	for item in gear:
 		self.gear.equipItem(item)
 	applyModifiersToCrewmate()
@@ -48,5 +50,5 @@ func applyModifiersToCrewmate():
 	
 #Fonctionne uniquement si l'instance de Crewmate est dans l'arborescence des noeuds
 func _process(delta):
-	applyModifiersToCrewmate()
+	pass
 	
