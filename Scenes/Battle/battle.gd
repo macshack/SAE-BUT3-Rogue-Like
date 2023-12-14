@@ -2,6 +2,8 @@ extends Control
 
 signal textbox_closed
 
+var is_defending = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	set_health($PlayerPanel/PlayerData/ProgressBar, PlayerState.health, PlayerState.health_max)
@@ -32,8 +34,9 @@ func _process(delta):
 	pass
 
 func _on_defend_pressed():
+	is_defending = true
 	display_text("You are on guard !")
-	await textbox_closed
+	await textbox_closed	
 
 func _on_attack_pressed():
 	display_text("You attack the enemy !")
@@ -48,15 +51,18 @@ func _on_attack_pressed():
 	display_text("You dealt %d damage !" % PlayerState.attack)
 	await textbox_closed
 	
+	enemy_turn()
+	
 func enemy_turn():
-	display_text("You attack the enemy !")
+	display_text("Fischstick takes a swing at you !")
 	await textbox_closed
 	
-	EnemyState.health -= max(0, EnemyState.health - PlayerState.attack)
-	set_health($EnnemyContainer/ProgressBar, EnemyState.health, EnemyState.health_max)
+	if is_defending == false:
+		PlayerState.health -= max(0, PlayerState.health - EnemyState.attack)
+		set_health($PlayerPanel/PlayerData/ProgressBar, PlayerState.health, PlayerState.health_max)
 	
-	$AnimationPlayer.play("enemy_damaged")
+	$AnimationPlayer.play("shake")
 	await $AnimationPlayer.animation_finished
 	
-	display_text("You dealt %d damage !" % PlayerState.attack)
+	display_text("Fishstick dealts %d damage !" % EnemyState.attack)
 	await textbox_closed
