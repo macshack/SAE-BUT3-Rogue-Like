@@ -26,7 +26,7 @@ func _init(identity = "defaultName", healthMax = 10, healthCurrent = 10, attackP
 	self.attackPower = attackPower
 	self.speed = speed
 	self.state = state
-	self.id = createId(identity)
+	#self.id = createId(identity)
 
 func createId(identity):
 	var id = str(Characters.charactersList.size()+1)
