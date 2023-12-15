@@ -1,8 +1,8 @@
 [gd_scene load_steps=15 format=3 uid="uid://djvo81yru6mtq"]
 
 [ext_resource type="Script" path="res://Scenes/Battle/battle.gd" id="1_b6msc"]
-[ext_resource type="Texture2D" uid="uid://b6gljtipthbo6" path="res://Assets/Radar/BlueRadar/OccupiedSpace/occupiedSpace-blue- (1).png" id="1_jtam2"]
-[ext_resource type="Texture2D" uid="uid://e0tgr4u753km" path="res://Assets/Ennemy/23.png" id="2_hl3ie"]
+[ext_resource type="Texture2D" uid="uid://b33ho2s5lnd26" path="res://Assets/Background/Radar/BlueRadar/blueRadar (1).png" id="2_he1rb"]
+[ext_resource type="Texture2D" uid="uid://b1vycdwapnoys" path="res://Assets/Portraits/Monster (2).jpg" id="3_qhvh5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r8630"]
 bg_color = Color(0.803922, 0.172549, 0.0352941, 1)
@@ -24,21 +24,6 @@ bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prscs"]
 bg_color = Color(0.00392157, 0.00392157, 0.00392157, 1)
-
-[sub_resource type="Animation" id="Animation_tb515"]
-resource_name = "enemy_damaged"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("EnnemyContainer/Ennemy:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.1, 0.3, 0.5, 0.7, 0.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_nhwmy"]
 length = 0.001
@@ -65,6 +50,21 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(13, -55.2779)]
+}
+
+[sub_resource type="Animation" id="Animation_tb515"]
+resource_name = "enemy_damaged"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnnemyContainer/Ennemy:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.3, 0.5, 0.7, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_8dptj"]
@@ -110,7 +110,7 @@ anchor_bottom = 1.36708
 offset_right = 767.845
 offset_bottom = 433.809
 scale = Vector2(0.60008, 0.598325)
-texture = ExtResource("1_jtam2")
+texture = ExtResource("2_he1rb")
 metadata/_edit_use_anchors_ = true
 
 [node name="EnnemyContainer" type="VBoxContainer" parent="."]
@@ -120,10 +120,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -152.0
-offset_top = -190.328
-offset_right = 448.0
-offset_bottom = 436.672
+offset_left = -226.0
+offset_top = -326.0
+offset_right = 663.0
+offset_bottom = 901.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.482026, 0.516139)
@@ -133,7 +133,7 @@ layout_mode = 2
 size_flags_vertical = 4
 theme_override_styles/background = SubResource("StyleBoxFlat_r8630")
 theme_override_styles/fill = SubResource("StyleBoxFlat_b61lo")
-value = 50.0
+show_percentage = false
 
 [node name="Label" type="Label" parent="EnnemyContainer/ProgressBar"]
 layout_mode = 1
@@ -152,7 +152,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("2_hl3ie")
+texture = ExtResource("3_qhvh5")
 
 [node name="PlayerPanel" type="Panel" parent="."]
 layout_mode = 1
@@ -187,7 +187,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_styles/background = SubResource("StyleBoxFlat_r8630")
 theme_override_styles/fill = SubResource("StyleBoxFlat_b61lo")
-value = 50.0
+show_percentage = false
 
 [node name="Label" type="Label" parent="PlayerPanel/PlayerData/ProgressBar"]
 layout_mode = 1
