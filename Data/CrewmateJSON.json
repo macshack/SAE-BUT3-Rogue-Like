@@ -1,0 +1,20 @@
+{
+	"0":{
+		"identity":"Leeroy Jenkins",
+		"background":"Une tete brulee.",
+		"icon":"Human (40).jpg",
+		"hirePrice":100
+	},
+	"1":{
+		"identity":"Abdelakim Farphadelos Loukoumio",
+		"background":"yes",
+		"icon":"Human (41).jpg",
+		"hirePrice":500
+	},
+	"2":{
+		"identity":"Smkoin' Joe",
+		"background":"Rude boy.",
+		"icon":"Human (42).jpg",
+		"hirePrice":20
+	}
+}

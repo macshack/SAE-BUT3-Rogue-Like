@@ -12,10 +12,21 @@ var dodgeCurrent:float
 var attackCurrent:int
 var speedCurrent:int
 var critCurrent:int
+var hirePrice:int
 
-func _init(identity = "", gear = [], healthBase = 10, healthCurrent = healthBase, attackBase = 3, speedBase = 5, critBase = 5.0, dodgeBase = 5.0, background = "-"):
-	super(identity,healthMax,healthCurrent,attackBase,speedBase,critBase,dodgeBase)
+func get_health_max():
+	return healthMax
+
+func set_health_current(value):
+	healthCurrent = clamp(value,0,healthMax)
+	
+func set_health_max(value):
+	healthMax = value
+
+func _init(identity = "",icon="", background = "",price = "", gear = [], healthBase = 10, healthCurrent = healthBase, attackBase = 3, speedBase = 5, critBase = 5.0, dodgeBase = 5.0):
+	super(identity,icon,healthMax,healthCurrent,attackBase,speedBase,critBase,dodgeBase)
 	self.background = background
+	self.hirePrice = price
 	self.healthMax = self.healthBase
 	for item in gear:
 		self.gear.equipItem(item)
