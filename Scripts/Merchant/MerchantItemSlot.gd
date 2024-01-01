@@ -10,10 +10,12 @@ var item:Item
 #Pour l'auto scroll
 var previousScroll
 var timer = 0.05
+var secondTimer = 0.25
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$VBoxContainer/Label.text = str(item.itemPrice)
+	$VBoxContainer/ScrollContainer.scroll_horizontal = 0
+	$VBoxContainer/Label.text = str(item.itemPrice)+"C"
 	$VBoxContainer/TextureRect.texture = load("res://Assets/Portraits/"+item.itemIconLink)
 	$VBoxContainer/ScrollContainer/Label2.text = item.itemName
 
@@ -23,7 +25,10 @@ func _process(delta):
 	else:
 		$VBoxContainer/ScrollContainer.scroll_horizontal += 1
 		if (previousScroll == $VBoxContainer/ScrollContainer.scroll_horizontal):
-			$VBoxContainer/ScrollContainer.scroll_horizontal = 0
+			secondTimer -= delta
+			if secondTimer <= 0:
+				secondTimer = 0.25
+				$VBoxContainer/ScrollContainer.scroll_horizontal = 0
 		else:
 			previousScroll = $VBoxContainer/ScrollContainer.scroll_horizontal
 		timer = 0.05

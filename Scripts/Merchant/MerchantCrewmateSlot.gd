@@ -8,7 +8,7 @@ var available = true
 #Pour l'auto scroll
 var previousScroll
 var timer = 0.05
-var secondTimer = 0.5
+var secondTimer = 0.25
 
 signal merchant_error(message:String)
 signal merchant_success(message:String)
@@ -16,7 +16,7 @@ signal merchant_success(message:String)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$VBoxContainer/ScrollContainer.scroll_horizontal = 0
-	$VBoxContainer/Label.text = str(crewmate.hirePrice)
+	$VBoxContainer/Label.text = str(crewmate.hirePrice)+"C"
 	$VBoxContainer/TextureRect.texture = load("res://Assets/Portraits/"+crewmate.icon)
 	$VBoxContainer/ScrollContainer/Label2.text = crewmate.identity
 
@@ -26,11 +26,13 @@ func _process(delta):
 	else:
 		$VBoxContainer/ScrollContainer.scroll_horizontal += 1
 		if (previousScroll == $VBoxContainer/ScrollContainer.scroll_horizontal):
-			$VBoxContainer/ScrollContainer.scroll_horizontal = 0
+			secondTimer -= delta
+			if secondTimer <= 0:
+				secondTimer = 0.25
+				$VBoxContainer/ScrollContainer.scroll_horizontal = 0
 		else:
 			previousScroll = $VBoxContainer/ScrollContainer.scroll_horizontal
 		timer = 0.05
-		
 	
 
 func init(crewmateParam):
@@ -47,7 +49,7 @@ func _on_slot_input(event):
 					$VBoxContainer.modulate = Color(1.0,1.0,1.0,0.25)
 					Game.credits -= crewmate.hirePrice
 					Game.playerCrew.addCrewmate(crewmate)
-					merchant_success.emit(crewmate.identity+" a te recrute avec succes.")
+					merchant_success.emit(crewmate.identity+" a ete recrute avec succes.")
 				else:
 					merchant_error.emit("Pas assez de credits.")
 			else:

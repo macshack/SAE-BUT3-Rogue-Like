@@ -2,6 +2,8 @@ extends Node2D
 
 var merchantData
 var itemData
+var refreshCost = 100
+var merchantMessageFadeawayTimer = 3.0
 
 func _ready():
 	if randi() % 2 == 0:
@@ -15,3 +17,10 @@ func _ready():
 
 func _process(delta):
 	$VBoxContainer/Credits.text = "Credits : "+str(Game.credits)
+	if $VBoxContainer/merchantSignal.label_settings.font_color.a > 0:
+		merchantMessageFadeawayTimer -= delta
+	else:
+		merchantMessageFadeawayTimer = 3.0
+	if merchantMessageFadeawayTimer <= 0:
+		$VBoxContainer/merchantSignal.label_settings.font_color.a -= 0.005
+		

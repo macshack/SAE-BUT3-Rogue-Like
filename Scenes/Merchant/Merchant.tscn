@@ -1,10 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://csownx4hpkpuk"]
+[gd_scene load_steps=6 format=3 uid="uid://csownx4hpkpuk"]
 
 [ext_resource type="Script" path="res://Scripts/Merchant/Merchant.gd" id="1_vfpkb"]
 [ext_resource type="Script" path="res://Scripts/Merchant/MerchantItemGrid.gd" id="3_1o7sx"]
 [ext_resource type="Script" path="res://Scripts/Merchant/MerchantCrewmateGrid.gd" id="4_s8h3b"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pdd46"]
+
+[sub_resource type="GDScript" id="GDScript_2xpoo"]
+script/source = "extends Label
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	self.label_settings = LabelSettings.new()
+"
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_vfpkb")
@@ -20,8 +29,8 @@ size_flags_vertical = 3
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 offset_left = 486.0
 offset_top = 144.0
-offset_right = 1268.0
-offset_bottom = 664.0
+offset_right = 1276.0
+offset_bottom = 671.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -48,64 +57,80 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+[node name="BuyContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/BuyContainer"]
 layout_mode = 2
 
-[node name="ItemLabel" type="Label" parent="VBoxContainer/HBoxContainer3"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/BuyContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ItemLabel" type="Label" parent="VBoxContainer/BuyContainer/HBoxContainer3/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Objets
 "
 
-[node name="CrewmateLabel" type="Label" parent="VBoxContainer/HBoxContainer3"]
+[node name="Refresh" type="Button" parent="VBoxContainer/BuyContainer/HBoxContainer3/HBoxContainer"]
+layout_mode = 2
+text = "Rafraichir"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/BuyContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CrewmateLabel" type="Label" parent="VBoxContainer/BuyContainer/HBoxContainer3/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Membres d'equipage"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/BuyContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ItemGrid" type="GridContainer" parent="VBoxContainer/HBoxContainer2"]
+[node name="ItemGrid" type="GridContainer" parent="VBoxContainer/BuyContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/h_separation = 30
 columns = 3
 script = ExtResource("3_1o7sx")
 
-[node name="Slot1" type="Panel" parent="VBoxContainer/HBoxContainer2/ItemGrid"]
+[node name="Slot1" type="Panel" parent="VBoxContainer/BuyContainer/HBoxContainer2/ItemGrid"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_pdd46")
 
-[node name="Slot2" type="Panel" parent="VBoxContainer/HBoxContainer2/ItemGrid"]
+[node name="Slot2" type="Panel" parent="VBoxContainer/BuyContainer/HBoxContainer2/ItemGrid"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_pdd46")
 
-[node name="Slot3" type="Panel" parent="VBoxContainer/HBoxContainer2/ItemGrid"]
+[node name="Slot3" type="Panel" parent="VBoxContainer/BuyContainer/HBoxContainer2/ItemGrid"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_pdd46")
 
-[node name="CrewmateGrid" type="GridContainer" parent="VBoxContainer/HBoxContainer2"]
+[node name="CrewmateGrid" type="GridContainer" parent="VBoxContainer/BuyContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/h_separation = 30
 columns = 3
 script = ExtResource("4_s8h3b")
 
-[node name="Slot1" type="Panel" parent="VBoxContainer/HBoxContainer2/CrewmateGrid"]
+[node name="Slot1" type="Panel" parent="VBoxContainer/BuyContainer/HBoxContainer2/CrewmateGrid"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_pdd46")
 
-[node name="Slot2" type="Panel" parent="VBoxContainer/HBoxContainer2/CrewmateGrid"]
+[node name="Slot2" type="Panel" parent="VBoxContainer/BuyContainer/HBoxContainer2/CrewmateGrid"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_pdd46")
 
-[node name="Slot3" type="Panel" parent="VBoxContainer/HBoxContainer2/CrewmateGrid"]
+[node name="Slot3" type="Panel" parent="VBoxContainer/BuyContainer/HBoxContainer2/CrewmateGrid"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_pdd46")
@@ -114,6 +139,11 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_pdd46")
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+script = SubResource("GDScript_2xpoo")
 
 [node name="Credits" type="Label" parent="VBoxContainer"]
 layout_mode = 2
+
+[connection signal="pressed" from="VBoxContainer/BuyContainer/HBoxContainer3/HBoxContainer/Refresh" to="VBoxContainer/BuyContainer/HBoxContainer2/ItemGrid" method="_on_refresh_pressed"]
+[connection signal="merchant_error" from="VBoxContainer/BuyContainer/HBoxContainer2/ItemGrid" to="VBoxContainer/BuyContainer/HBoxContainer2/ItemGrid" method="_on_merchant_error"]
+[connection signal="merchant_success" from="VBoxContainer/BuyContainer/HBoxContainer2/ItemGrid" to="VBoxContainer/BuyContainer/HBoxContainer2/ItemGrid" method="_on_merchant_success"]
