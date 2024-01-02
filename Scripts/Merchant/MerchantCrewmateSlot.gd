@@ -1,5 +1,4 @@
-extends Node2D
-
+extends MarginContainer
 class_name MerchantCrewmateSlot
 
 var crewmate:Crewmate
@@ -39,7 +38,7 @@ func init(crewmateParam):
 	crewmate = Crewmate.new(crewmateParam.identity,crewmateParam.icon,crewmateParam.background,crewmateParam.hirePrice)
 	return self
 
-func _on_slot_input(event):
+func _on_gui_input(event):
 	if event is InputEventMouseButton  && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 		if available:
 			if Game.playerCrew.crewList.size() < 5:

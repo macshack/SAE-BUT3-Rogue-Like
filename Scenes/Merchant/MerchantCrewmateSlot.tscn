@@ -3,12 +3,13 @@
 [ext_resource type="Script" path="res://Scripts/Merchant/MerchantCrewmateSlot.gd" id="1_sbcpf"]
 [ext_resource type="Texture2D" uid="uid://b1f8gka4f1pfv" path="res://Assets/Portraits/Human (1).jpg" id="2_fbpkx"]
 
-[node name="Node2D" type="Node2D"]
+[node name="MarginContainer" type="MarginContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
 script = ExtResource("1_sbcpf")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-offset_right = 86.0
-offset_bottom = 128.0
+layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -20,7 +21,7 @@ layout_mode = 2
 text = "AGGAGAGAGAGAGA"
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
-custom_minimum_size = Vector2(120, 0)
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 texture = ExtResource("2_fbpkx")
 expand_mode = 5
@@ -31,4 +32,4 @@ text = "
 "
 horizontal_alignment = 1
 
-[connection signal="gui_input" from="VBoxContainer" to="." method="_on_slot_input"]
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

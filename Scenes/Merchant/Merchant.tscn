@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://csownx4hpkpuk"]
+[gd_scene load_steps=8 format=3 uid="uid://csownx4hpkpuk"]
 
 [ext_resource type="Script" path="res://Scripts/Merchant/Merchant.gd" id="1_vfpkb"]
 [ext_resource type="Script" path="res://Scripts/Merchant/MerchantItemGrid.gd" id="3_1o7sx"]
+[ext_resource type="Script" path="res://Scripts/Merchant/MerchantCrewSellableItemGrid.gd" id="4_dq72v"]
 [ext_resource type="Script" path="res://Scripts/Merchant/MerchantCrewmateGrid.gd" id="4_s8h3b"]
+[ext_resource type="Script" path="res://Scripts/Merchant/MerchantCrewSoldItemGrid.gd" id="5_bkd4h"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pdd46"]
 
@@ -57,7 +59,25 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Acheter"
+horizontal_alignment = 2
+
+[node name="CheckButton" type="CheckButton" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Vendre"
+
 [node name="BuyContainer" type="VBoxContainer" parent="VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -135,6 +155,39 @@ custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_pdd46")
 
+[node name="SellContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/SellContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/SellContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.22
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="CrewSellableItemGrid" type="GridContainer" parent="VBoxContainer/SellContainer/HBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 4
+script = ExtResource("4_dq72v")
+
+[node name="SoldItemScroll" type="ScrollContainer" parent="VBoxContainer/SellContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="CrewSoldItemGrid" type="GridContainer" parent="VBoxContainer/SellContainer/HBoxContainer/SoldItemScroll"]
+layout_mode = 2
+columns = 2
+script = ExtResource("5_bkd4h")
+
 [node name="merchantSignal" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -144,6 +197,7 @@ script = SubResource("GDScript_2xpoo")
 [node name="Credits" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 
+[connection signal="toggled" from="VBoxContainer/HBoxContainer2/CheckButton" to="." method="_on_check_button_toggled"]
 [connection signal="pressed" from="VBoxContainer/BuyContainer/HBoxContainer3/HBoxContainer/Refresh" to="VBoxContainer/BuyContainer/HBoxContainer2/ItemGrid" method="_on_refresh_pressed"]
 [connection signal="merchant_error" from="VBoxContainer/BuyContainer/HBoxContainer2/ItemGrid" to="VBoxContainer/BuyContainer/HBoxContainer2/ItemGrid" method="_on_merchant_error"]
 [connection signal="merchant_success" from="VBoxContainer/BuyContainer/HBoxContainer2/ItemGrid" to="VBoxContainer/BuyContainer/HBoxContainer2/ItemGrid" method="_on_merchant_success"]
