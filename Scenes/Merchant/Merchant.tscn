@@ -159,6 +159,26 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_pdd46")
 layout_mode = 2
 size_flags_vertical = 3
 
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/SellContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/SellContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.2
+
+[node name="SellableLabel" type="Label" parent="VBoxContainer/SellContainer/HBoxContainer2/HBoxContainer2"]
+layout_mode = 2
+text = "Vendre"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/SellContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SoldLabel" type="Label" parent="VBoxContainer/SellContainer/HBoxContainer2/HBoxContainer3"]
+layout_mode = 2
+text = "Racheter"
+
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/SellContainer"]
 layout_mode = 2
 size_flags_vertical = 3

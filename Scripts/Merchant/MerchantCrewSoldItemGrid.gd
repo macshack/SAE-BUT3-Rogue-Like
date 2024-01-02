@@ -37,7 +37,7 @@ func makeSoldItemsGrid():
 		
 func _merchant_success(message:String):
 	rootNode.merchantMessageFadeawayTimer = 3.0
-	merchantSignal.label_settings.font_color = Color(1,0,0)
+	merchantSignal.label_settings.font_color = Color(0,1,0)
 	merchantSignal.text = message
 	
 func _merchant_reverse(item:Item):
