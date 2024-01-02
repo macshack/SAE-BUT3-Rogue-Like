@@ -1,0 +1,41 @@
+{
+	"0":{
+		"itemName":"Lame du roi 3rbi",
+		"itemFlavorText":"La lame de l'unique",
+		"itemIconLink":"Human (3).jpg",
+		"itemModifiers":{
+			"ATK":5,
+			"HP":0,
+			"SPD":1,
+			"CRT":5.00,
+			"DDG":0,
+		},
+		"itemPrice":100
+	},
+	"1":{
+		"itemName":"Marteau de clochard",
+		"itemFlavorText":"Ca pue la 8.6 et le caca",
+		"itemIconLink":"Human (4).jpg",
+		"itemModifiers":{
+			"ATK":7,
+			"HP":2,
+			"SPD":0,
+			"CRT":0.00,
+			"DDG":0,
+		},
+		"itemPrice":10
+	},
+	"2":{
+		"itemName":"Force de la tritine",
+		"itemFlavorText":"Un peu de tout",
+		"itemIconLink":"Human (5).jpg",
+		"itemModifiers":{
+			"ATK":1,
+			"HP":1,
+			"SPD":1,
+			"CRT":1.00,
+			"DDG":1,
+		},
+		"itemPrice":200
+	},
+}

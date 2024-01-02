@@ -11,17 +11,15 @@ config_version=5
 [application]
 
 config/name="Kobi"
-run/main_scene="res://testRapide.tscn"
+run/main_scene="res://Scenes/Merchant/Merchant.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
 
 [autoload]
 
 Game="*res://Global/Game.gd"
 Utils="*res://Global/Utils.gd"
-Skills="*res://Scripts/Skills.gd"
-Characters="*res://Scripts/Characters.gd"
-Random="*res://Scripts/Random.gd"
 DestinationLib="*res://Library/destinationLib.gd"
+JsonHandling="*res://Global/JSONHandling.gd"
 
 [display]
 

@@ -1,0 +1,223 @@
+[gd_scene load_steps=8 format=3 uid="uid://csownx4hpkpuk"]
+
+[ext_resource type="Script" path="res://Scripts/Merchant/Merchant.gd" id="1_vfpkb"]
+[ext_resource type="Script" path="res://Scripts/Merchant/MerchantItemGrid.gd" id="3_1o7sx"]
+[ext_resource type="Script" path="res://Scripts/Merchant/MerchantCrewSellableItemGrid.gd" id="4_dq72v"]
+[ext_resource type="Script" path="res://Scripts/Merchant/MerchantCrewmateGrid.gd" id="4_s8h3b"]
+[ext_resource type="Script" path="res://Scripts/Merchant/MerchantCrewSoldItemGrid.gd" id="5_bkd4h"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pdd46"]
+
+[sub_resource type="GDScript" id="GDScript_2xpoo"]
+script/source = "extends Label
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	self.label_settings = LabelSettings.new()
+"
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_vfpkb")
+
+[node name="BackgroundPanel" type="Panel" parent="."]
+offset_left = 455.0
+offset_top = 119.0
+offset_right = 1291.0
+offset_bottom = 686.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_left = 486.0
+offset_top = 144.0
+offset_right = 1276.0
+offset_bottom = 671.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(780, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MerchantIcon" type="TextureRect" parent="VBoxContainer/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+expand_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MerchantName" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer"]
+clip_contents = true
+layout_mode = 2
+
+[node name="MerchantDescription" type="RichTextLabel" parent="VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Acheter"
+horizontal_alignment = 2
+
+[node name="CheckButton" type="CheckButton" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Vendre"
+
+[node name="BuyContainer" type="VBoxContainer" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/BuyContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/BuyContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ItemLabel" type="Label" parent="VBoxContainer/BuyContainer/HBoxContainer3/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Objets
+"
+
+[node name="Refresh" type="Button" parent="VBoxContainer/BuyContainer/HBoxContainer3/HBoxContainer"]
+layout_mode = 2
+text = "Rafraichir"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/BuyContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CrewmateLabel" type="Label" parent="VBoxContainer/BuyContainer/HBoxContainer3/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Membres d'equipage"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/BuyContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ItemGrid" type="GridContainer" parent="VBoxContainer/BuyContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 30
+columns = 3
+script = ExtResource("3_1o7sx")
+
+[node name="Slot1" type="Panel" parent="VBoxContainer/BuyContainer/HBoxContainer2/ItemGrid"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_pdd46")
+
+[node name="Slot2" type="Panel" parent="VBoxContainer/BuyContainer/HBoxContainer2/ItemGrid"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_pdd46")
+
+[node name="Slot3" type="Panel" parent="VBoxContainer/BuyContainer/HBoxContainer2/ItemGrid"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_pdd46")
+
+[node name="CrewmateGrid" type="GridContainer" parent="VBoxContainer/BuyContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 30
+columns = 3
+script = ExtResource("4_s8h3b")
+
+[node name="Slot1" type="Panel" parent="VBoxContainer/BuyContainer/HBoxContainer2/CrewmateGrid"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_pdd46")
+
+[node name="Slot2" type="Panel" parent="VBoxContainer/BuyContainer/HBoxContainer2/CrewmateGrid"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_pdd46")
+
+[node name="Slot3" type="Panel" parent="VBoxContainer/BuyContainer/HBoxContainer2/CrewmateGrid"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_pdd46")
+
+[node name="SellContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/SellContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/SellContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.2
+
+[node name="SellableLabel" type="Label" parent="VBoxContainer/SellContainer/HBoxContainer2/HBoxContainer2"]
+layout_mode = 2
+text = "Vendre"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/SellContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SoldLabel" type="Label" parent="VBoxContainer/SellContainer/HBoxContainer2/HBoxContainer3"]
+layout_mode = 2
+text = "Racheter"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/SellContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/SellContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.22
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="CrewSellableItemGrid" type="GridContainer" parent="VBoxContainer/SellContainer/HBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 4
+script = ExtResource("4_dq72v")
+
+[node name="SoldItemScroll" type="ScrollContainer" parent="VBoxContainer/SellContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="CrewSoldItemGrid" type="GridContainer" parent="VBoxContainer/SellContainer/HBoxContainer/SoldItemScroll"]
+layout_mode = 2
+columns = 2
+script = ExtResource("5_bkd4h")
+
+[node name="merchantSignal" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+script = SubResource("GDScript_2xpoo")
+
+[node name="Credits" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+
+[connection signal="toggled" from="VBoxContainer/HBoxContainer2/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="VBoxContainer/BuyContainer/HBoxContainer3/HBoxContainer/Refresh" to="VBoxContainer/BuyContainer/HBoxContainer2/ItemGrid" method="_on_refresh_pressed"]
+[connection signal="merchant_error" from="VBoxContainer/BuyContainer/HBoxContainer2/ItemGrid" to="VBoxContainer/BuyContainer/HBoxContainer2/ItemGrid" method="_on_merchant_error"]
+[connection signal="merchant_success" from="VBoxContainer/BuyContainer/HBoxContainer2/ItemGrid" to="VBoxContainer/BuyContainer/HBoxContainer2/ItemGrid" method="_on_merchant_success"]

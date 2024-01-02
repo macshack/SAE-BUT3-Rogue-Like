@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=3 uid="uid://dc57kndbx7m1d"]
+
+[ext_resource type="PackedScene" uid="uid://c55yqs3gnnnwm" path="res://Scenes/Merchant/MerchantItemSlot.tscn" id="1_dnghj"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 334.0
+offset_bottom = 239.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 331.0
+offset_bottom = 236.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="GridContainer" type="GridContainer" parent="HBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 3
+
+[node name="MarginContainer" parent="HBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("1_dnghj")]
+layout_mode = 2
+
+[node name="ScrollContainer2" type="ScrollContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GridContainer" type="GridContainer" parent="HBoxContainer/ScrollContainer2"]
+layout_mode = 2
