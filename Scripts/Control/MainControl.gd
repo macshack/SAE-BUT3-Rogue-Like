@@ -1,6 +1,7 @@
 extends Node
 
-@onready var mainMenu = preload("res://Scenes/MainMenuScene.tscn")
+# TODO add the preload link 
+@onready var mainMenu
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

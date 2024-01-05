@@ -1,4 +1,30 @@
 Merchant :
 
-- Sell window
 - Sell junk
+
+UI/UX :
+
+-Change themes
+
+
+Main menu :
+
+- Refactor character creator
+- Start a game
+
+Objectives :
+
+- MAKE IT
+
+{
+	"speech":{
+		"name":"Eloquence",
+		"icon":"Human (1).png",
+		"description":"Parles bien",
+		"passive":{},
+		"active":{},
+		"flags":[
+			"discount","speech"
+		]
+	}
+}

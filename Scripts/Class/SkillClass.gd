@@ -2,29 +2,19 @@ extends Node
 
 class_name Skill
 
+var skillId:int
 var skillName:String
-var baseValue:int
-var currentValue:int
+var skillIcon:String
+var skillDescription:String
+var passiveAbility
+var activeAbility
+var skillFlags:Array
 
-func _init(skillNamet = "Default name", baseValuet = 6):
-	skillName = skillNamet
-	baseValue = clamp(baseValuet,2,11)
-	currentValue = clamp(baseValue,2,11)
-
-func get_skill_name():
-	return skillName
-
-func get_base_value():
-	return baseValue
-
-func get_current_value():
-	return currentValue
-
-func set_skill_name(value):
-	skillName = value
-
-func set_base_value(value):
-	baseValue = clamp(value,2,11)
-
-func set_current_value(value):
-	currentValue = clamp(value,2,11)
+func _init(skillId:int,skillName:String,skillIcon:String,skillDescription:String,skillFlags:Array,passiveAbility,activeAbility):
+	self.skillId = skillId
+	self.skillName = skillName
+	self.skillIcon = skillIcon
+	self.skillDescription = skillDescription
+	self.skillFlags = skillFlags
+	self.passiveAbility = passiveAbility
+	self.activeAbility = activeAbility

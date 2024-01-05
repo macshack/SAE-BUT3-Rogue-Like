@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dqcxqkfxqq1u7"]
+
+[ext_resource type="Script" path="res://Scripts/Control/ObjectiveControl.gd" id="1_vjqxd"]
+
+[node name="Root" type="Node"]
+script = ExtResource("1_vjqxd")
+
+[node name="Timer" type="Timer" parent="."]

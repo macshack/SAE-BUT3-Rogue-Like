@@ -5,7 +5,8 @@ class_name Crewmate
 
 var background:String
 #Rework les skills comme sur le notion
-var skills
+var skillOne
+var skillTwo
 var gear:Gear = Gear.new()
 var healthMax:int
 var dodgeCurrent:float
@@ -23,11 +24,13 @@ func set_health_current(value):
 func set_health_max(value):
 	healthMax = value
 
-func _init(identity = "",icon="", background = "",price = "", gear = [], healthBase = 10, healthCurrent = healthBase, attackBase = 3, speedBase = 5, critBase = 5.0, dodgeBase = 5.0):
+func _init(identity = "",icon="", background = "",skills:Array[int]=[100,101],price = 0, gear = [], healthBase = 10, healthCurrent = healthBase, attackBase = 3, speedBase = 5, critBase = 5.0, dodgeBase = 5.0):
 	super(identity,icon,healthMax,healthCurrent,attackBase,speedBase,critBase,dodgeBase)
 	self.background = background
 	self.hirePrice = price
 	self.healthMax = self.healthBase
+	self.skillOne = Game.skillList[skills[0]]
+	self.skillTwo = Game.skillList[skills[1]]
 	for item in gear:
 		self.gear.equipItem(item)
 	applyModifiersToCrewmate()
