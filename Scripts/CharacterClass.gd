@@ -5,7 +5,7 @@ extends Node
 class_name Character
 
 #Variable id sert a identifier le personnage grace a une string unique
-var id:String
+var id:int
 var identity:String
 var healthMax:int
 var healthCurrent:int
@@ -26,11 +26,7 @@ func _init(identity = "defaultName", healthMax = 10, healthCurrent = 10, attackP
 	self.attackPower = attackPower
 	self.speed = speed
 	self.state = state
-	#self.id = createId(identity)
-
-func createId(identity):
-	var id = str(Characters.charactersList.size()+1)
-	return id
+	self.id = randi() % 100 + 1
 
 func get_identity():
 	return self.identity

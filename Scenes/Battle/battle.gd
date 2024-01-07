@@ -42,7 +42,7 @@ func _on_attack_pressed():
 	display_text("You attack the enemy !")
 	await textbox_closed
 	
-	EnemyState.health -= max(0, EnemyState.health - PlayerState.attack)
+	EnemyState.health = max(0, EnemyState.health - PlayerState.attack)
 	set_health($EnnemyContainer/ProgressBar, EnemyState.health, EnemyState.health_max)
 	
 	$AnimationPlayer.play("enemy_damaged")
@@ -58,7 +58,7 @@ func enemy_turn():
 	await textbox_closed
 	
 	if is_defending == false:
-		PlayerState.health -= max(0, PlayerState.health - EnemyState.attack)
+		PlayerState.health = max(0, PlayerState.health - EnemyState.attack)
 		set_health($PlayerPanel/PlayerData/ProgressBar, PlayerState.health, PlayerState.health_max)
 	
 	$AnimationPlayer.play("shake")
