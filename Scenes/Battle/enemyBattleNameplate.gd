@@ -1,5 +1,7 @@
 extends VBoxContainer
 
+signal click_on_nameplate(index: int) 
+
 @onready var healthbar = %HealthBar
 @onready var icon = %Icon
 
@@ -27,4 +29,7 @@ func set_health(progress_bar, health, max_health):
 	healthbar.value = health
 	healthbar.max_value = max_health
 	healthbar.get_node("Label").text = "Hp: %d/%d" % [health, max_health]
-	
+
+func _on_gui_input(event):
+	if event is InputEventMouseButton  && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
+		click_on_nameplate.emit(enemyIndex)

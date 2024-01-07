@@ -8,6 +8,8 @@ signal textbox_closed
 
 var is_defending = false
 
+var enemyTarget: int
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
@@ -20,6 +22,7 @@ func _ready():
 	
 	for c in Game.enemyCrew.size():
 		var new = enemyBattleNameplate.instantiate().init(c)
+		new.click_on_nameplate.connect(_on_enemy_click)
 		EnemyCrewContainer.add_child(new)
 	
 	$Textbox.hide()
@@ -50,6 +53,10 @@ func _on_defend_pressed():
 	is_defending = true
 	display_text("You are on guard !")
 	await textbox_closed	
+
+func _on_enemy_click(index: int):
+	enemyTarget = index
+	print("ENNEMY INDEX: " + str(enemyTarget))
 
 """func _on_attack_pressed():
 	display_text("You attack the enemy !")
