@@ -3,11 +3,16 @@ extends Node
 var merchant_data:Dictionary
 var item_data:Dictionary
 var crewmate_data:Dictionary
+var skill_data:Dictionary
+var objective_data:Dictionary
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	merchant_data = loadData("res://Data/MerchantJSON.json")
 	item_data = loadData("res://Data/ItemJSON.json")
 	crewmate_data = loadData("res://Data/CrewmateJSON.json")
+	skill_data = loadData("res://Data/skillJSON.json")
+	objective_data = loadData("res://Data/ObjectiveJSON.json")
+	Game.skillList = Game.loadSkillList()
 
 func loadData(file_path):
 	var json_data = JSON.new()

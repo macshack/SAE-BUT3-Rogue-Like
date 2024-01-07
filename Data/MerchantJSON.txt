@@ -1,4 +1,8 @@
 Merchant :
 
-- Sell window
 - Sell junk
+
+UI/UX :
+
+-Change themes
+

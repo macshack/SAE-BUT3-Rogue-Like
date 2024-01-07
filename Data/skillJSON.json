@@ -1,0 +1,153 @@
+{
+   "speech":{
+	  "id":100,
+	  "name":"Eloquence",
+	  "icon":"Human (1).png",
+	  "description":"Parles bien",
+	  "passive":{
+		 
+	  },
+	  "active":{
+		 
+	  },
+	  "flags":[
+		 "speech"
+	  ]
+   },
+   "stealth":{
+	  "id":101,
+	  "name":"Discretion",
+	  "icon":"Human (1).png",
+	  "description":"Dissimules bien",
+	  "passive":{
+		 
+	  },
+	  "active":{
+		 
+	  },
+	  "flags":[
+		 "stealth"
+	  ]
+   },
+   "ranged":{
+	  "id":102,
+	  "name":"Arme a distance",
+	  "icon":"Human (1).png",
+	  "description":"Tires bien",
+	  "passive":{
+		 
+	  },
+	  "active":{
+		 
+	  },
+	  "flags":[
+		 "discount",
+		 "speech"
+	  ]
+   },
+   "melee":{
+	  "id":103,
+	  "name":"Arme de melee",
+	  "icon":"Human (1).png",
+	  "description":"Attaques bien",
+	  "passive":{
+		 
+	  },
+	  "active":{
+		 
+	  },
+	  "flags":[
+		 "melee"
+	  ]
+   },
+   "strength":{
+	  "id":104,
+	  "name":"Force",
+	  "icon":"Human (1).png",
+	  "description":"Bien fort",
+	  "passive":{
+		 
+	  },
+	  "active":{
+		 
+	  },
+	  "flags":[
+		 "strength"
+	  ]
+   },
+   "agility":{
+	  "id":105,
+	  "name":"Agilite",
+	  "icon":"Human (1).png",
+	  "description":"Bouges bien",
+	  "passive":{
+		 
+	  },
+	  "active":{
+		 
+	  },
+	  "flags":[
+		 "speech"
+	  ]
+   },
+   "knowledge":{
+	  "id":106,
+	  "name":"Savoir",
+	  "icon":"Human (1).png",
+	  "description":"Connais bien",
+	  "passive":{
+		 
+	  },
+	  "active":{
+		 
+	  },
+	  "flags":[
+		 "knowledge",
+	  ]
+   },
+   "medecine":{
+	  "id":107,
+	  "name":"Medecine",
+	  "icon":"Human (1).png",
+	  "description":"Soignes bien",
+	  "passive":{
+		 
+	  },
+	  "active":{
+		 
+	  },
+	  "flags":[
+		 "medecine"
+	  ]
+   },
+   "hacking":{
+	  "id":108,
+	  "name":"Piratage",
+	  "icon":"Human (1).png",
+	  "description":"Pirates bien",
+	  "passive":{
+		 
+	  },
+	  "active":{
+		 
+	  },
+	  "flags":[
+		 "hacking"
+	  ]
+   },
+   "technology":{
+	  "id":109,
+	  "name":"Technologie",
+	  "icon":"Human (1).png",
+	  "description":"Bricoles bien",
+	  "passive":{
+		 
+	  },
+	  "active":{
+		 
+	  },
+	  "flags":[
+		 "technology"
+	  ]
+   },
+}
