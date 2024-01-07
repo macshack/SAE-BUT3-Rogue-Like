@@ -13,12 +13,17 @@ var enemyTarget: int
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
+	#Lancer fonction qui definie l'ordre du combat
+	#Donne la main au premier
+	
 	for i in JsonHandling.crewmate_data.size():
 		var tab: Array[int] = [JsonHandling.crewmate_data[str(i)].skills[0], JsonHandling.crewmate_data[str(i)].skills[1]]
 		var crewmate = Crewmate.new(JsonHandling.crewmate_data[str(i)].identity, JsonHandling.crewmate_data[str(i)].background, JsonHandling.crewmate_data[str(i)].icon, tab, JsonHandling.crewmate_data[str(i)].hirePrice)
 		var enemy = Enemy.new(JsonHandling.crewmate_data[str(i)].identity, JsonHandling.crewmate_data[str(i)].icon)
 		Game.crew.append(crewmate)
 		Game.enemyCrew.append(enemy)
+	
+	var order = orderFight(Game.crew, Game.enemyCrew)
 	
 	for c in Game.enemyCrew.size():
 		var new = enemyBattleNameplate.instantiate().init(c)
@@ -57,6 +62,29 @@ func _on_defend_pressed():
 func _on_enemy_click(index: int):
 	enemyTarget = index
 	print("ENNEMY INDEX: " + str(enemyTarget))
+
+func tri_insertion(tableau):
+	var longueur = tableau.size()
+	for i in range(1, longueur):
+		var cle = tableau[i]
+		var j = i - 1
+		while j >= 0 and tableau[j][1] < cle[1]:
+			tableau[j + 1] = tableau[j]
+			j = j - 1
+		tableau[j + 1] = cle
+	return tableau
+	
+func orderFight(crewTab: Array[Crewmate], enemyTab:Array[Enemy]):
+	var enemySpeed: Array = []
+	var crewSpeed: Array = []
+	var Speed: Array = []
+	for e in enemyTab:
+		enemySpeed.append([e.identity, e.speedBase])
+	for c in crewTab:
+		crewSpeed.append([c.identity, c.speedBase])
+	Speed = enemySpeed + crewSpeed
+	Speed = tri_insertion(Speed)
+	return Speed
 
 """func _on_attack_pressed():
 	display_text("You attack the enemy !")
