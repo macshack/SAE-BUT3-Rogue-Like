@@ -1,18 +1,31 @@
 extends Control
 
+@onready var EnemyCrewContainer = %EnemyCrewContainer
+
+var enemyBattleNameplate = preload("res://Scenes/Battle/enemyBattleNameplate.tscn")
+
 signal textbox_closed
 
 var is_defending = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	set_health($PlayerPanel/PlayerData/ProgressBar, PlayerState.health, PlayerState.health_max)
-	set_health($EnnemyContainer/ProgressBar, EnemyState.health, EnemyState.health_max)
+	
+	for i in JsonHandling.crewmate_data.size():
+		var tab: Array[int] = [JsonHandling.crewmate_data[str(i)].skills[0], JsonHandling.crewmate_data[str(i)].skills[1]]
+		var crewmate = Crewmate.new(JsonHandling.crewmate_data[str(i)].identity, JsonHandling.crewmate_data[str(i)].background, JsonHandling.crewmate_data[str(i)].icon, tab, JsonHandling.crewmate_data[str(i)].hirePrice)
+		var enemy = Enemy.new(JsonHandling.crewmate_data[str(i)].identity, JsonHandling.crewmate_data[str(i)].icon)
+		Game.crew.append(crewmate)
+		Game.enemyCrew.append(enemy)
+	
+	for c in Game.enemyCrew.size():
+		var new = enemyBattleNameplate.instantiate().init(c)
+		EnemyCrewContainer.add_child(new)
 	
 	$Textbox.hide()
 	$ActionPanel.hide()
 	
-	display_text("A FISHSTICK appears !")
+	display_text("An enemy crew appears !")
 	await textbox_closed
 	$ActionPanel.show()
 
@@ -38,7 +51,7 @@ func _on_defend_pressed():
 	display_text("You are on guard !")
 	await textbox_closed	
 
-func _on_attack_pressed():
+"""func _on_attack_pressed():
 	display_text("You attack the enemy !")
 	await textbox_closed
 	
@@ -51,9 +64,9 @@ func _on_attack_pressed():
 	display_text("You dealt %d damage !" % PlayerState.attack)
 	await textbox_closed
 	
-	enemy_turn()
+	enemy_turn()"""
 	
-func enemy_turn():
+"""func enemy_turn():
 	display_text("Fischstick takes a swing at you !")
 	await textbox_closed
 	
@@ -65,4 +78,4 @@ func enemy_turn():
 	await $AnimationPlayer.animation_finished
 	
 	display_text("Fishstick dealts %d damage !" % EnemyState.attack)
-	await textbox_closed
+	await textbox_close"""

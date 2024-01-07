@@ -1,7 +1,7 @@
 extends Node
 
 @onready var crew:Array[Crewmate] = []
-@onready var enemyCrew
+@onready var enemyCrew:Array[Enemy] = []
 @onready var currentScene
 @onready var credits=200
 @onready var inventory: Array[Item]

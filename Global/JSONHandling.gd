@@ -10,6 +10,7 @@ func _ready():
 	merchant_data = loadData("res://Data/MerchantJSON.json")
 	item_data = loadData("res://Data/ItemJSON.json")
 	crewmate_data = loadData("res://Data/CrewmateJSON.json")
+	print(crewmate_data)
 	skill_data = loadData("res://Data/skillJSON.json")
 	objective_data = loadData("res://Data/ObjectiveJSON.json")
 	Game.skillList = Game.loadSkillList()
