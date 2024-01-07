@@ -13,8 +13,6 @@ func _ready():
 	nameNode = $MarginContainer/VBoxContainer/Name
 	iconNode = $MarginContainer/VBoxContainer/HBoxContainer/Simple/Icon
 	healthNode = $MarginContainer/VBoxContainer/HBoxContainer/Simple/ProgressBar
-	skillOneNode = $MarginContainer/VBoxContainer/HBoxContainer/Extended/Skill1
-	skillTwoNode = $MarginContainer/VBoxContainer/HBoxContainer/Extended/Skill2
 	nameNode.text = crewmate.identity
 	iconNode.texture = load("res://Assets/Portraits/"+crewmate.icon)
 

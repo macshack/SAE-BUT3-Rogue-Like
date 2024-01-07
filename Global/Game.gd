@@ -1,6 +1,6 @@
 extends Node
 
-@onready var playerCrew = Crew.new()
+@onready var crew:Array[Crewmate] = []
 @onready var enemyCrew
 @onready var currentScene
 @onready var credits=200

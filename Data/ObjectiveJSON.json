@@ -1,0 +1,22 @@
+{
+	"0":{
+		"title":"Voie du pirate",
+		"description":"Vous revez de grands butins, de fortunes inefables, de luxe et vous ne souciez guere des moyens a employer pour y arriver.",
+		"family":"ACCUMULATION",
+		"type":"CREDITS",
+		"text":"Accumulez 10,000 credits.",
+		"goal":10000,
+		"constraint":false,
+		"constraintType":"",
+	},
+	"1":{
+		"title":"Voie du collectionneur",
+		"description":"Les biens materiels, il n'y a que ca de vrai, vous ne jurez que par l'accumulation de tresors, d'objets technologiques uniques.",
+		"family":"ACCUMULATION",
+		"type":"GEAR",
+		"text":"Obtenez 30 objets grace aux combats et explorations.",
+		"goal":30,
+		"constraint":false,
+		"constraintType":"",
+	}
+}

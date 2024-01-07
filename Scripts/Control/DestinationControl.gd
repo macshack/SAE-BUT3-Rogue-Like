@@ -1,38 +1,49 @@
 extends Control
 
+var crewmateNameplate = preload("res://Scenes/Destination/crewmateDestinationNameplate.tscn")
+var merchandScene = preload("res://Scenes/Merchant/Merchant.tscn")
+
+
+@onready var crewmateNode = %Crewmate
+@onready var screensNode = %Screens
+@onready var optionsNode = %OptionsMenu
+@onready var inventoryNode = %InventoryMenu
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	var merchant = merchandScene.instantiate()
+	merchant.set_name("situationMenu")
+	screensNode.add_child(merchant)
+	for c in Game.crew.size():
+		var new = crewmateNameplate.instantiate().init(c)
+		crewmateNode.add_child(new)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 
-func load_destination(destinationObject,crewObject):
+
+func _on_situation_pressed():
 	pass
 
-func show_hide(toShow,toHide):
-	toShow.show()
-	toHide.hide()
 
-
-func _on_situation_button_pressed():
+func _on_objectif_pressed():
 	pass # Replace with function body.
 
 
-func _on_depart_button_pressed():
+func _on_equipage_pressed():
 	pass # Replace with function body.
 
 
-func _on_crew_button_pressed():
-	pass # Replace with function body.
+func _on_inventaire_pressed():
+	for c in screensNode.get_children():
+		c.hide()
+	inventoryNode.show()
 
 
-func _on_inventory_button_pressed():
-	pass # Replace with function body.
-
-
-func _on_settings_button_pressed():
-	pass # Replace with function body.
+func _on_options_pressed():
+	for c in screensNode.get_children():
+		c.hide()
+	optionsNode.show()
+	

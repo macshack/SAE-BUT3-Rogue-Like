@@ -13,6 +13,7 @@ func _ready():
 	var children = get_children()
 	for i in children:
 		var crewmate = JsonHandling.crewmate_data[str(randi()%3)]
+		print(crewmate)
 		var slot = crewmateSlot.instantiate().init(crewmate)
 		slot.merchant_success.connect(_merchant_success)
 		slot.merchant_error.connect(_merchant_error)

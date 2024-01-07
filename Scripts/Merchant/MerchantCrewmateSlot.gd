@@ -35,7 +35,8 @@ func _process(delta):
 	
 
 func init(crewmateParam):
-	crewmate = Crewmate.new(crewmateParam.identity,crewmateParam.icon,crewmateParam.background,crewmateParam.hirePrice)
+	var skillArray:Array[int] = [crewmateParam.skills[0],crewmateParam.skills[1]]
+	crewmate = Crewmate.new(crewmateParam.identity,crewmateParam.icon,crewmateParam.background,skillArray,crewmateParam.hirePrice)
 	return self
 
 func _on_gui_input(event):

@@ -1,0 +1,78 @@
+[gd_scene load_steps=9 format=3 uid="uid://cf6e3qxniwruc"]
+
+[ext_resource type="Texture2D" uid="uid://b1f8gka4f1pfv" path="res://Assets/Portraits/Human (1).jpg" id="1_kkd5a"]
+[ext_resource type="Texture2D" uid="uid://dn1ely4x28j4u" path="res://Assets/UI/MiniPanel01.jpg" id="1_phpiu"]
+[ext_resource type="Texture2D" uid="uid://dwmo0522m0a6g" path="res://Assets/UI/Cell01.png" id="2_86pwu"]
+[ext_resource type="Script" path="res://Scripts/Destination/crewmateInventoryNameplate.gd" id="2_eab4p"]
+[ext_resource type="FontFile" uid="uid://j5854hdtucyt" path="res://Assets/Font/Montserrat-VariableFont_wght.ttf" id="2_yrsk8"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tcptu"]
+texture = ExtResource("1_phpiu")
+
+[sub_resource type="LabelSettings" id="LabelSettings_6n3er"]
+font = ExtResource("2_yrsk8")
+font_size = 24
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ewpg6"]
+texture = ExtResource("2_86pwu")
+
+[node name="Root" type="PanelContainer"]
+offset_right = 333.0
+offset_bottom = 340.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_tcptu")
+script = ExtResource("2_eab4p")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="Infos" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="CrewmateName" type="Label" parent="MarginContainer/HBoxContainer/Infos"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+text = "Michel"
+label_settings = SubResource("LabelSettings_6n3er")
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="CrewmateIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/Infos"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 275)
+layout_mode = 2
+texture = ExtResource("1_kkd5a")
+expand_mode = 3
+
+[node name="Items" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="Item1" type="Panel" parent="MarginContainer/HBoxContainer/Items"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ewpg6")
+
+[node name="Item2" type="Panel" parent="MarginContainer/HBoxContainer/Items"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ewpg6")
+
+[node name="Item3" type="Panel" parent="MarginContainer/HBoxContainer/Items"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ewpg6")

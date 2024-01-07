@@ -1,6 +1,8 @@
 extends Control
 
 signal crewmateCreated(crewmate:Crewmate)
+signal back()
+signal finalNext(crew:Array[Crewmate])
 
 var crewmateNameplateScene = load("res://Scenes/UI/CrewmateNameplate.tscn")
 
@@ -16,36 +18,43 @@ var regex = RegEx.new()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	regex.compile("^[A-z\\s]+$")
-	iconNode = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Creator/IconSelector/HBoxContainer
-	crewmateNameEdit = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Creator/CrewmateName/LineEdit
-	skillMenu1 = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Creator/CrewmateSkill1/OptionButton
-	skillMenu2 = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Creator/CrewmateSkill2/OptionButton
-	backgroundNode = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Creator/DescriptionBox/TextEdit
-	crewNode = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Crew
+	iconNode = %HBoxContainer
+	crewmateNameEdit = %LineEdit
+	skillMenu1 = %Cewskill1IOption
+	skillMenu2 = %Cewskill2IOption
+	backgroundNode = %TextEdit
+	crewNode = %Crew
 	for s in Game.skillList:
 		skillMenu1.get_popup().add_item(Game.skillList[s].skillName,Game.skillList[s].skillId)
 		skillMenu2.get_popup().add_item(Game.skillList[s].skillName,Game.skillList[s].skillId)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	if skillMenu1:
+		if skillMenu1.get_selected_id() == -1:
+			%Validate.disabled = true
+	if skillMenu2:
+		if skillMenu2.get_selected_id() == -1:
+			%Validate.disabled = true
+	if skillMenu1.get_selected_id() != -1 && skillMenu2.get_selected_id() != -1:
+		%Validate.disabled = false
 
 func fillForm(crewmate:Crewmate):
 	crewmateNameEdit.text = crewmate.identity
 	skillMenu1.select(-1)
 	skillMenu2.select(-1)
 	skillMenu1.select(skillMenu1.get_popup().get_item_index(crewmate.skillOne.skillId))
-	skillMenu2.select(skillMenu1.get_popup().get_item_index(crewmate.skillTwo.skillId))
+	skillMenu2.select(skillMenu2.get_popup().get_item_index(crewmate.skillTwo.skillId))
 	backgroundNode.text = crewmate.background
 	iconNode.loadFromString(crewmate.icon)
 	
 
 func _on_start_pressed():
-	pass # Replace with function body.
+	finalNext.emit(crew)
 
 
 func _on_previous_menu_pressed():
-	pass # Replace with function body.
+	back.emit()
 
 
 func _on_validate_pressed():

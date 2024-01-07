@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cn67qiae5ykxv"]
+
+[ext_resource type="Script" path="res://Scripts/GameStart/GameStartWrapperRoot.gd" id="1_7lqkc"]
+[ext_resource type="PackedScene" uid="uid://b0e4b72a362y1" path="res://Scenes/GameStart/ObjectiveSelectorScene.tscn" id="2_2k6ga"]
+[ext_resource type="PackedScene" uid="uid://dmyfhthondwr" path="res://Scenes/GameStart/CrewCreatorScene.tscn" id="3_ld5l2"]
+
+[node name="Root" type="Node"]
+script = ExtResource("1_7lqkc")
+
+[node name="Objective" parent="." instance=ExtResource("2_2k6ga")]
+visible = false
+
+[node name="Crew" parent="." instance=ExtResource("3_ld5l2")]
+visible = false
+
+[connection signal="backtomenu" from="Objective" to="." method="_on_objective_backtomenu"]
+[connection signal="objchosen" from="Objective" to="." method="_on_objective_objchosen"]
+[connection signal="back" from="Crew" to="." method="_on_crew_back"]
+[connection signal="finalNext" from="Crew" to="." method="_on_crew_final_next"]

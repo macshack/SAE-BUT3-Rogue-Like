@@ -4,5 +4,3 @@
 
 [node name="Root" type="Node"]
 script = ExtResource("1_vjqxd")
-
-[node name="Timer" type="Timer" parent="."]
