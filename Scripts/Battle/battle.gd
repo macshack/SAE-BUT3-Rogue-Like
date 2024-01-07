@@ -13,8 +13,9 @@ var enemyTarget: int
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
-	#Lancer fonction qui definie l'ordre du combat
-	#Donne la main au premier
+	#Update le PlayerPanel a chaque changement de tour
+	#Faire les fonctions attack, ennemyTurn, (defend, skill)
+	#Mettre au propre l'interface
 	
 	for i in JsonHandling.crewmate_data.size():
 		var tab: Array[int] = [JsonHandling.crewmate_data[str(i)].skills[0], JsonHandling.crewmate_data[str(i)].skills[1]]
@@ -24,6 +25,7 @@ func _ready():
 		Game.enemyCrew.append(enemy)
 	
 	var order = orderFight(Game.crew, Game.enemyCrew)
+	print(order)
 	
 	for c in Game.enemyCrew.size():
 		var new = enemyBattleNameplate.instantiate().init(c)
@@ -73,16 +75,19 @@ func tri_insertion(tableau):
 			j = j - 1
 		tableau[j + 1] = cle
 	return tableau
-	
+
+func updatePlayerPanel():
+	pass
+
 func orderFight(crewTab: Array[Crewmate], enemyTab:Array[Enemy]):
 	var enemySpeed: Array = []
 	var crewSpeed: Array = []
 	var Speed: Array = []
-	for e in enemyTab:
-		enemySpeed.append([e.identity, e.speedBase])
 	for c in crewTab:
-		crewSpeed.append([c.identity, c.speedBase])
-	Speed = enemySpeed + crewSpeed
+		crewSpeed.append([c, c.speedBase])
+	for e in enemyTab:
+		enemySpeed.append([e, e.speedBase])
+	Speed = crewSpeed +  enemySpeed 
 	Speed = tri_insertion(Speed)
 	return Speed
 
@@ -114,3 +119,4 @@ func orderFight(crewTab: Array[Crewmate], enemyTab:Array[Enemy]):
 	
 	display_text("Fishstick dealts %d damage !" % EnemyState.attack)
 	await textbox_close"""
+
