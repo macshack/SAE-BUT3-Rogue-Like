@@ -1,14 +1,21 @@
 extends Control
 
 @onready var EnemyCrewContainer = %EnemyCrewContainer
+@onready var PlayerName = %PlayerName
+@onready var HP = %HP
+@onready var enemyTarget: int
 
 var enemyBattleNameplate = preload("res://Scenes/Battle/enemyBattleNameplate.tscn")
 
-signal textbox_closed
+var character: Character
+
+var isFunctionRunning = false
+
+var i = 0
 
 var is_defending = false
 
-var enemyTarget: int
+signal textbox_closed
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -38,11 +45,10 @@ func _ready():
 	display_text("An enemy crew appears !")
 	await textbox_closed
 	$ActionPanel.show()
-
-func set_health(progress_bar, health, max_health):
-	progress_bar.value = health
-	progress_bar.max_value = max_health
-	progress_bar.get_node("Label").text = "Hp: %d/%d" % [health, max_health]
+	
+	character = order[i][0]
+	print("HEALTHMAX: " + str(character.healthMax))
+	print("HEALTHCURRENT: " + str(character.healthCurrent))
 	
 func _input(event):
 	if (Input.is_action_just_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and $Textbox.visible:
@@ -54,7 +60,19 @@ func display_text(text):
 	$Textbox/Label.text = text
 
 func _process(delta):
-	pass
+	if character is Crewmate:
+		updatePlayerPanel(character)
+	elif character is Enemy:
+		if not isFunctionRunning:
+			# Si elle n'est pas en cours d'exécution, la démarrer
+			startFunction()
+
+func startFunction():
+	# Marquer la fonction comme étant en cours d'exécution
+	isFunctionRunning = true
+
+	# Appeler la fonction à exécuter
+	enemy_turn()
 
 func _on_defend_pressed():
 	is_defending = true
@@ -76,8 +94,9 @@ func tri_insertion(tableau):
 		tableau[j + 1] = cle
 	return tableau
 
-func updatePlayerPanel():
-	pass
+func updatePlayerPanel(crewmate: Crewmate):
+	PlayerName.text = crewmate.identity
+	HP.text = "Hp: %d/%d" % [crewmate.healthCurrent, crewmate.healthMax]
 
 func orderFight(crewTab: Array[Crewmate], enemyTab:Array[Enemy]):
 	var enemySpeed: Array = []
@@ -91,32 +110,44 @@ func orderFight(crewTab: Array[Crewmate], enemyTab:Array[Enemy]):
 	Speed = tri_insertion(Speed)
 	return Speed
 
-"""func _on_attack_pressed():
+func _on_attack_pressed():
 	display_text("You attack the enemy !")
 	await textbox_closed
 	
-	EnemyState.health = max(0, EnemyState.health - PlayerState.attack)
-	set_health($EnnemyContainer/ProgressBar, EnemyState.health, EnemyState.health_max)
+	Game.enemyCrew[enemyTarget].healthCurrent = max(0, Game.enemyCrew[enemyTarget].healthCurrent - character.attackCurrent)
 	
 	$AnimationPlayer.play("enemy_damaged")
 	await $AnimationPlayer.animation_finished
 	
-	display_text("You dealt %d damage !" % PlayerState.attack)
+	display_text("You dealt %d damage !" % character.attackBase)
 	await textbox_closed
 	
-	enemy_turn()"""
+	var order = orderFight(Game.crew, Game.enemyCrew)
+	if i >= order.size()-1:
+		i = -1
+	character = order[i+1][0]
+	i = i+1
 	
-"""func enemy_turn():
-	display_text("Fischstick takes a swing at you !")
+func enemy_turn():
+	
+	var index = randi() % Game.crew.size()
+	
+	display_text(character.identity + " takes a swing at " + Game.crew[index].identity)
 	await textbox_closed
 	
-	if is_defending == false:
-		PlayerState.health = max(0, PlayerState.health - EnemyState.attack)
-		set_health($PlayerPanel/PlayerData/ProgressBar, PlayerState.health, PlayerState.health_max)
+	Game.crew[index].healthCurrent = max(0, Game.crew[index].healthCurrent - character.attackBase)
 	
 	$AnimationPlayer.play("shake")
 	await $AnimationPlayer.animation_finished
 	
-	display_text("Fishstick dealts %d damage !" % EnemyState.attack)
-	await textbox_close"""
+	display_text(character.identity + " dealts %d damage " % character.attackBase + "to " + Game.crew[index].identity)
+	await textbox_closed
+	
+	var order = orderFight(Game.crew, Game.enemyCrew)
+	if i >= order.size()-1:
+		i = -1
+	character = order[i+1][0]
+	i = i+1
+	
+	isFunctionRunning = false
 

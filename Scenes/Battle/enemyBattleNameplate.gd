@@ -14,12 +14,14 @@ func _ready():
 		icon.texture = load("res://Assets/Portraits/"+Game.enemyCrew[enemyIndex].icon)
 		healthbar.max_value = Game.enemyCrew[enemyIndex].healthMax
 		healthbar.value = Game.enemyCrew[enemyIndex].healthCurrent
+		$HealthBar/Label.text = "Hp: %d/%d" % [healthbar.value, healthbar.max_value]
 	
 func _process(delta):
 	if Game.enemyCrew[enemyIndex] is Enemy:
 		icon.texture = load("res://Assets/Portraits/"+Game.enemyCrew[enemyIndex].icon)
 		healthbar.max_value = Game.enemyCrew[enemyIndex].healthMax
 		healthbar.value = Game.enemyCrew[enemyIndex].healthCurrent
+		$HealthBar/Label.text = "Hp: %d/%d" % [healthbar.value, healthbar.max_value]
 
 func init(value):
 	enemyIndex = value
