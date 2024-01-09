@@ -1,16 +1,28 @@
 extends Panel
 
+signal toMainMenu()
+signal emitFightResult()
+
 var merchantScene = preload("res://Scenes/Merchant/Merchant.tscn")
 
 var destination
-
 var situation
 
 @onready var crewmates = %Crewmates
 @onready var inventory = %Inventory
-@onready var settings = %Settings
 @onready var main = %Main
 @onready var crew = %Equipage
+@onready var menuNode = %Menu
+
+@onready var settings = %Settings
+@onready var optionsNode = %OptionsMenu
+@onready var menuSaveNode = %Sauvegarder
+@onready var menuSettingsNode = %Options
+@onready var menuQuitNode = %Quitter
+@onready var objectiveNode = %Objective
+@onready var objectiveScreenNode = %ObjectiveScreen
+@onready var widgetNode = %ObjectiveWidget
+
 var situationNode
 #var situation
 # Called when the node enters the scene tree for the first time.
@@ -34,6 +46,9 @@ func _ready():
 func _process(delta):
 	pass
 
+func _on_objectiveUpdate_received(data:ObjectiveSettings):
+	widgetNode.updateObjective(data)
+	objectiveScreenNode.updateObjective(data)
 
 func _on_settings_pressed():
 	for i in main.get_children():
@@ -67,3 +82,32 @@ func _on_equipage_pressed():
 	for i in main.get_children():
 		i.hide()
 	crew.show()
+
+
+func _on_menuSettings_pressed():
+	menuNode.hide()
+	optionsNode.show()
+
+
+func _on_menuSauvegarder_pressed():
+	pass # Replace with function body.
+
+
+func _on_menuQuitter_pressed():
+	toMainMenu.emit()
+	self.queue_free()
+
+
+func _on_options_menu_exit():
+	optionsNode.hide()
+	menuNode.show()
+
+
+func _on_destination_toggled(button_pressed):
+	pass # Replace with function body.
+
+func _on_small_objective_container_gui_input(event):
+	if (event is InputEventMouseButton) && (event.button_index == MOUSE_BUTTON_LEFT) && (event.pressed):
+		for i in main.get_children():
+			i.hide()
+		objectiveNode.show()

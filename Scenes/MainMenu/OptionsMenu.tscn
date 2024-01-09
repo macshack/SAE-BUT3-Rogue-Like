@@ -11,7 +11,6 @@ clip_tabs = false
 all_tabs_in_front = true
 
 [node name="Audio" type="MarginContainer" parent="TabContainer"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 10
@@ -102,6 +101,7 @@ step = 0.01
 update_on_text_changed = true
 
 [node name="Video" type="MarginContainer" parent="TabContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 10

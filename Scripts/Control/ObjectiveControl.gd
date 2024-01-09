@@ -3,6 +3,7 @@ extends Node
 enum objFamilies {ACCUMULATION=0,NEVER=1,LESSER=2,MORE=3}
 enum objTypes {CREDITS=0,DEAD_CREWMATE=1,DAMAGE_DEALT=2,GEAR=3,ENEMIES_KILLED=5,FIGHTS_WON=6,EXPLORATION_DONE=7,BOSS_KILLED=8}
 
+signal newData(objectiveData:ObjectiveSettings)
 signal victory(objectiveResult:Dictionary)
 signal defeat(objectiveResult:Dictionary)
 
@@ -29,90 +30,124 @@ var objTimeConstraint:int = -1
 #Round constraint measured in a number of rounds
 var objRoundConstraint:int = -1
 
+
+var objective_settings:ObjectiveSettings
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if objConstraint:
-		if objTimeConstraint > 0:
-			var timer = Timer.new()
-			timer.one_shot=true
-			timer.autostart = true
-			timer.wait_time = objTimeConstraint
-			timer.timeout.connect(_endGame)
-			self.add_child(timer)
-		elif objRoundConstraint > 0:
-			Game.roundConstraint = objRoundConstraint+1
-			
+	if objective_settings:
+		if objective_settings.constraint:
+			if objective_settings.constraintValue > 0:
+				if objective_settings.constraintType == "TIMER":
+					var timer = Timer.new()
+					timer.one_shot=true
+					timer.autostart = true
+					timer.wait_time = objective_settings.constraintValue
+					timer.timeout.connect(_endGame)
+					self.add_child(timer)
+				elif objective_settings.constraintType == "ROUND":
+					Game.roundConstraint = objective_settings.constraintValue+1
+				else:
+					objective_settings.constraint = false
+	else:
+		objective_settings = ObjectiveSettings.load_or_create()
+
+func forceSave():
+	if objective_settings.constraint:
+		if objective_settings.constraintType == "ROUND":
+			objective_settings.constraintRemaining = Game.roundConstraint
+		elif objective_settings.constraintType == "TIMER":
+			if self.get_child(0) is Timer:
+				objective_settings.constraintRemaining = snapped(self.get_child(0).time_left,1)
+	objective_settings.save()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	saveAndEmit()
 	if Game.roundConstraint < 0:
 		_endGame()
+		
+func saveAndEmit():
+	objective_settings.save()
+	newData.emit(objective_settings)
 
-func init(data):
-	objTitle = data["title"]
-	objDescription = data["description"]
-	objFamily = objFamilies[data["family"]]
-	objType = objTypes[data["type"]]
-	objText = data["text"]
-	objGoal = data["goal"]
-	objConstraint = data["constraint"]
-	if objConstraint:
-		if data["constraintType"] == "time":
-			objTimeConstraint = data["constraintValue"]
-		elif data["constraintType"] == "round":
-			objRoundConstraint = data["constraintValue"]
+func init(load:bool,data:Dictionary):
+	if load:
+		objective_settings = ObjectiveSettings.load_or_create()
+	elif (data is Dictionary):
+		objective_settings = ObjectiveSettings.load_or_create()
+		objective_settings.title = data["title"]
+		objective_settings.desc = data["description"]
+		objective_settings.family = data["family"]
+		objective_settings.type = data["type"]
+		objective_settings.text = data["text"]
+		objective_settings.goal = data["goal"]
+		objective_settings.constraint = data["constraint"]
+		if objective_settings.constraint:
+			objective_settings.constraintType = data["constraintType"]
+			objective_settings.constraintValue = data["constraintValue"]
 		else:
-			objConstraint = false
+			objective_settings.constraint = false
+		saveAndEmit()
 	return self
 	
 func analyze(finalAnalysis:bool = false,situationResult:Dictionary = {}):
-	match(objType):
-		objTypes.CREDITS:
-			self.objValue = Game.credits
-		objTypes.DAMAGE_DEALT:
+	match(objective_settings.type):
+		"CREDITS":
+			if situationResult.has("credits"):
+				self.objective_settings.current += situationResult["credits"]
+				saveAndEmit()
+		"DAMAGE_DEALT":
 			if situationResult.has("total_damage_dealt"):
-				self.objValue += situationResult["total_damage_dealt"]
-		objTypes.GEAR:
+				self.objective_settings.current += situationResult["total_damage_dealt"]
+				saveAndEmit()
+		"GEAR":
 			#The amount of gear dropped through exploration/fights
 			if situationResult.has("item_drops"):
-				self.objValue += situationResult["item_drops"].size()
-		objTypes.ENEMIES_KILLED:
+				self.objective_settings.current += situationResult["item_drops"].size()
+				saveAndEmit()
+		"ENEMIES_KILLED":
 			if situationResult.has("enemies_killed"):
-				self.objValue += situationResult["enemies_killed"]
-		objTypes.FIGHTS_WON:
+				self.objective_settings.current += situationResult["enemies_killed"]
+				saveAndEmit()
+		"FIGHTS_WON":
 			if situationResult.has("fight_result"):
 				if situationResult["fight_result"]:
-					self.objValue += 1
-		objTypes.EXPLORATION_DONE:
+					self.objective_settings.current += 1
+					saveAndEmit()
+		"EXPLORATION_DONE":
 			if situationResult.has("exploration_result"):
 				if situationResult["exploration_result"]:
-					self.objValue += 1
-		objTypes.BOSS_KILLED:
+					self.objective_settings.current += 1
+					saveAndEmit()
+		"BOSS_KILLED":
 			if situationResult.has("boss_fight"):
 				if situationResult["boss_fight"]:
-					self.objValue += 1
-	match(objFamily):
-		objFamilies.ACCUMULATION:
-			if self.objValue >= self.objGoal:
+					self.objective_settings.current += 1
+					saveAndEmit()
+	
+	match(objective_settings.family):
+		"ACCUMULATION":
+			if self.objective_settings.current >= self.objective_settings.goal:
 				victory.emit(objectiveDataToDictionnary())
 				
-		objFamilies.NEVER:
-			if self.objValue > 0:
+		"NEVER":
+			if self.objective_settings.current > 0:
 				defeat.emit(objectiveDataToDictionnary())
 			else:
 				if finalAnalysis:
 					victory.emit(objectiveDataToDictionnary())
 				
-		objFamilies.LESSER:
-			if self.objValue > self.objGoal:
+		"LESSER":
+			if self.objective_settings.current > self.objective_settings.goal:
 				defeat.emit(objectiveDataToDictionnary())
 			else:
 				if finalAnalysis:
 					victory.emit(objectiveDataToDictionnary())
 				
-		objFamilies.MORE:
+		"MORE":
 			if finalAnalysis:
-				if self.objValue >= self.objGoal:
+				if self.objective_settings.current >= self.objective_settings.goal:
 					victory.emit(objectiveDataToDictionnary())
 				else:
 					defeat.emit(objectiveDataToDictionnary())
