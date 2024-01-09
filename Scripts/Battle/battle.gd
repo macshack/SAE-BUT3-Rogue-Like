@@ -1,7 +1,6 @@
 extends Control
 
-#Faire defaite si all crew is ko
-#Ne pas afficher PlayerPanel pour allié ko
+#PROBLEME SI 3 ENNEMIES SEULEMENT 2 ATTAQUES
 
 @onready var EnemyCrewContainer = %EnemyCrewContainer
 @onready var PlayerName = %PlayerName
