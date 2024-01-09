@@ -171,6 +171,7 @@ func _on_attack_pressed():
 	i = i+1
 	
 func enemy_turn():
+	
 	var index: int = -1
 	
 	while Game.crew[index].healthCurrent <= 0:
@@ -189,12 +190,14 @@ func enemy_turn():
 	
 	if Game.crew[index].healthCurrent <= 0:
 		ko_crewmate()
+		i = i-1
+	
 	
 	if crew_dead():
 		print("RIP BOZO")
 		display_text("Game over !")
 		await textbox_closed
-		emit_signal("gameover") 
+		emit_signal("gameover")
 	
 	if i >= order.size()-1:
 		i = -1
