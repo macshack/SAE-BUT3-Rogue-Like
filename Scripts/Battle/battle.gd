@@ -1,6 +1,6 @@
 extends Control
 
-#PROBLEME SI 3 ENNEMIES SEULEMENT 2 ATTAQUES
+#PROBLEMES AVEC LES TEXTBOX,peux attaquer 2x pdt un tour
 
 @onready var EnemyCrewContainer = %EnemyCrewContainer
 @onready var PlayerName = %PlayerName
@@ -144,18 +144,17 @@ func ko_crewmate():
 					print("ORDER: ", order)
 
 func _on_attack_pressed():
-	display_text("You attack the enemy !")
-	await textbox_closed
 	
 	if enemyTarget >= Game.enemyCrew.size():
 		display_text("Cliquez sur un ennemi !")
 		await textbox_closed
 		return 0
+		
+	display_text("You attack the enemy !")
+	await textbox_closed
 	
 	Game.enemyCrew[enemyTarget].healthCurrent = max(0, Game.enemyCrew[enemyTarget].healthCurrent - character.attackCurrent)
 	
-	$AnimationPlayer.play("enemy_damaged")
-	await $AnimationPlayer.animation_finished
 	
 	display_text("You dealt %d damage !" % character.attackBase)
 	await textbox_closed
