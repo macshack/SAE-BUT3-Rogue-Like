@@ -1,6 +1,7 @@
 extends Control
 
-#SUPPRIMER LE CREWMATE DANS ORDER QUAND PV == 0
+#Faire defaite si all crew is ko
+#Ne pas afficher PlayerPanel pour allié ko
 
 @onready var EnemyCrewContainer = %EnemyCrewContainer
 @onready var PlayerName = %PlayerName
@@ -164,7 +165,6 @@ func _on_attack_pressed():
 		node_to_remove.queue_free()
 		erase_enemy()
 	
-	var order = orderFight(Game.crew, Game.enemyCrew)
 	if i >= order.size()-1:
 		i = -1
 	character = order[i+1][0]
@@ -190,7 +190,6 @@ func enemy_turn():
 	if Game.crew[index].healthCurrent <= 0:
 		ko_crewmate()
 	
-	var order = orderFight(Game.crew, Game.enemyCrew)
 	if i >= order.size()-1:
 		i = -1
 	character = order[i+1][0]
