@@ -1,19 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://ccro68gqsyoaa"]
+[gd_scene load_steps=5 format=3 uid="uid://ccro68gqsyoaa"]
 
 [ext_resource type="Script" path="res://Scripts/Destination/crewmateDestinationNameplate.gd" id="1_2pf27"]
-[ext_resource type="Texture2D" uid="uid://dn1ely4x28j4u" path="res://Assets/UI/MiniPanel01.jpg" id="1_oec18"]
-[ext_resource type="Texture2D" uid="uid://b1f8gka4f1pfv" path="res://Assets/Portraits/Human (1).jpg" id="1_tjcg3"]
-[ext_resource type="Texture2D" uid="uid://duw72oq56p7lo" path="res://Assets/UI/BarV1_Bar.png" id="4_5g7c2"]
-[ext_resource type="Texture2D" uid="uid://cmic4emrc6gri" path="res://Assets/UI/BarV1_ProgressBar.png" id="5_6t3cs"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pukoa"]
-texture = ExtResource("1_oec18")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k16j6"]
-texture = ExtResource("4_5g7c2")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pyh0m"]
-texture = ExtResource("5_6t3cs")
 
 [node name="PanelContainer" type="PanelContainer"]
 offset_right = 40.0
@@ -35,7 +28,6 @@ layout_mode = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
-texture = ExtResource("1_tjcg3")
 expand_mode = 3
 stretch_mode = 4
 
