@@ -139,6 +139,7 @@ func ko_crewmate():
 			for c in order:
 				if c[0] is Crewmate and c[0].identity == id:
 					order.erase(c)
+					print("ERASE crewmate: ", c)
 					print("ORDER: ", order)
 
 func _on_attack_pressed():
@@ -170,8 +171,10 @@ func _on_attack_pressed():
 	i = i+1
 	
 func enemy_turn():
+	var index: int = -1
 	
-	var index = randi() % Game.crew.size()
+	while Game.crew[index].healthCurrent <= 0:
+		index = randi() % Game.crew.size()
 	
 	display_text(character.identity + " takes a swing at " + Game.crew[index].identity)
 	await textbox_closed
