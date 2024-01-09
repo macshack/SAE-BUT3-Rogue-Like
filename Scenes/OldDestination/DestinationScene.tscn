@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Control/DestinationControl.gd" id="1_gpue2"]
 [ext_resource type="PackedScene" uid="uid://drh788ppk1ccw" path="res://Scenes/MainMenu/OptionsMenu.tscn" id="2_x0iyh"]
-[ext_resource type="PackedScene" uid="uid://45uymkrboxps" path="res://Scenes/Destination/inventoryScene.tscn" id="3_2wsfb"]
+[ext_resource type="PackedScene" uid="uid://cf0cd88kico3g" path="res://Scenes/TestScenes/testINVENTORY/inventorytest.tscn" id="3_1xhw4"]
 
 [node name="Root" type="Control"]
 layout_mode = 3
@@ -50,17 +50,16 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.73
 
+[node name="InventoryMenu" parent="MarginContainer/HBoxContainer/Right" instance=ExtResource("3_1xhw4")]
+unique_name_in_owner = true
+layout_mode = 2
+
 [node name="Screens" type="CenterContainer" parent="MarginContainer/HBoxContainer/Right"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
 [node name="OptionsMenu" parent="MarginContainer/HBoxContainer/Right/Screens" instance=ExtResource("2_x0iyh")]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-
-[node name="InventoryMenu" parent="MarginContainer/HBoxContainer/Right/Screens" instance=ExtResource("3_2wsfb")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2

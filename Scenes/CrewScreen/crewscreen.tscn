@@ -1,0 +1,187 @@
+[gd_scene load_steps=9 format=3 uid="uid://dx3p34k3lfrli"]
+
+[ext_resource type="Texture2D" uid="uid://dq8m8yadhxuss" path="res://Assets/UI/MiniPanel06.jpg" id="1_bbrsh"]
+[ext_resource type="Script" path="res://Scenes/CrewScreen/crewscreen.gd" id="1_otcr3"]
+[ext_resource type="FontFile" uid="uid://j5854hdtucyt" path="res://Assets/Font/Montserrat-VariableFont_wght.ttf" id="3_x1ncn"]
+[ext_resource type="Texture2D" uid="uid://b1f8gka4f1pfv" path="res://Assets/Portraits/Human (1).jpg" id="5_3b60y"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e7tyt"]
+texture = ExtResource("1_bbrsh")
+
+[sub_resource type="LabelSettings" id="LabelSettings_587ls"]
+font = ExtResource("3_x1ncn")
+font_size = 42
+
+[sub_resource type="LabelSettings" id="LabelSettings_a7tal"]
+font = ExtResource("3_x1ncn")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_sej0y"]
+font = ExtResource("3_x1ncn")
+font_size = 28
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_otcr3")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_e7tyt")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="crewmateBox" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Vue detaillee"
+label_settings = SubResource("LabelSettings_587ls")
+
+[node name="extendCrewmate" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.52
+
+[node name="CrewmateExtended" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="IconBox" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/CrewmateExtended"]
+layout_mode = 2
+
+[node name="crewmateIcon" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/CrewmateExtended/IconBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+texture = ExtResource("5_3b60y")
+expand_mode = 5
+
+[node name="TextBox" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/CrewmateExtended"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="crewmateName" type="Label" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/CrewmateExtended/TextBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Skill Two"
+label_settings = SubResource("LabelSettings_a7tal")
+
+[node name="scrollingbox" type="ScrollContainer" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/CrewmateExtended/TextBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="crewmateBackground" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/CrewmateExtended/TextBox/scrollingbox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("3_x1ncn")
+theme_override_font_sizes/normal_font_size = 24
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas egestas sapien justo, nec ultricies risus venenatis a. Vivamus eget nibh ac nulla ornare vulputate eget a sapien. Aenean felis velit, tincidunt ut risus ut, eleifend tempus est. Integer ut enim eu orci porttitor luctus. Donec et sem in nisl accumsan finibus. In tristique, turpis vitae blandit maximus, est lacus tempus mi, et tempus ipsum elit a libero. Pellentesque malesuada vitae justo in malesuada. Sed pulvinar felis faucibus, semper libero convallis, molestie tellus. Duis feugiat augue in ante condimentum, suscipit condimentum magna sodales. Duis pulvinar nec dui convallis posuere. Sed et dui lorem. Vivamus mollis vulputate purus ut lobortis. Cras sit amet diam neque. Mauris sit amet elementum mi. Nullam commodo dolor tortor, vel scelerisque ligula facilisis vitae. Etiam feugiat varius dolor."
+fit_content = true
+
+[node name="SkillsExtended" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/SkillsExtended"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/SkillsExtended/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 50
+
+[node name="SkillOne" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/SkillsExtended/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="skillOneName" type="Label" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/SkillsExtended/ScrollContainer/VBoxContainer/SkillOne"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Skill Two"
+label_settings = SubResource("LabelSettings_a7tal")
+
+[node name="skillOneDescription" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/SkillsExtended/ScrollContainer/VBoxContainer/SkillOne"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3_x1ncn")
+theme_override_font_sizes/normal_font_size = 24
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas egestas sapien justo, nec ultricies risus venenatis a. Vivamus eget nibh ac nulla ornare vulputate eget a sapien. Aenean felis velit, tincidunt ut risus ut, eleifend tempus est. Integer ut enim eu orci porttitor luctus. Donec et sem in nisl accumsan finibus. In tristique, turpis vitae blandit maximus, est lacus tempus mi, et tempus ipsum elit a libero. Pellentesque malesuada vitae justo in malesuada. Sed pulvinar felis faucibus, semper libero convallis, molestie tellus. Duis feugiat augue in ante condimentum, suscipit condimentum magna sodales. Duis pulvinar nec dui convallis posuere. Sed et dui lorem. Vivamus mollis vulputate purus ut lobortis. Cras sit amet diam neque. Mauris sit amet elementum mi. Nullam commodo dolor tortor, vel scelerisque ligula facilisis vitae. Etiam feugiat varius dolor."
+fit_content = true
+
+[node name="skillOneActif" type="Label" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/SkillsExtended/ScrollContainer/VBoxContainer/SkillOne"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Competence active : "
+label_settings = SubResource("LabelSettings_sej0y")
+
+[node name="skillOnePassif" type="Label" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/SkillsExtended/ScrollContainer/VBoxContainer/SkillOne"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Competence passive : "
+label_settings = SubResource("LabelSettings_sej0y")
+
+[node name="SkillTwo" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/SkillsExtended/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="skillTwoName" type="Label" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/SkillsExtended/ScrollContainer/VBoxContainer/SkillTwo"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Skill Two"
+label_settings = SubResource("LabelSettings_a7tal")
+
+[node name="skillTwoDescription" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/SkillsExtended/ScrollContainer/VBoxContainer/SkillTwo"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3_x1ncn")
+theme_override_font_sizes/normal_font_size = 24
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas egestas sapien justo, nec ultricies risus venenatis a. Vivamus eget nibh ac nulla ornare vulputate eget a sapien. Aenean felis velit, tincidunt ut risus ut, eleifend tempus est. Integer ut enim eu orci porttitor luctus. Donec et sem in nisl accumsan finibus. In tristique, turpis vitae blandit maximus, est lacus tempus mi, et tempus ipsum elit a libero. Pellentesque malesuada vitae justo in malesuada. Sed pulvinar felis faucibus, semper libero convallis, molestie tellus. Duis feugiat augue in ante condimentum, suscipit condimentum magna sodales. Duis pulvinar nec dui convallis posuere. Sed et dui lorem. Vivamus mollis vulputate purus ut lobortis. Cras sit amet diam neque. Mauris sit amet elementum mi. Nullam commodo dolor tortor, vel scelerisque ligula facilisis vitae. Etiam feugiat varius dolor."
+fit_content = true
+
+[node name="skillTwoActif" type="Label" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/SkillsExtended/ScrollContainer/VBoxContainer/SkillTwo"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Competence active : "
+label_settings = SubResource("LabelSettings_sej0y")
+
+[node name="skillTwoPassif" type="Label" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/SkillsExtended/ScrollContainer/VBoxContainer/SkillTwo"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Competence passive : "
+label_settings = SubResource("LabelSettings_sej0y")

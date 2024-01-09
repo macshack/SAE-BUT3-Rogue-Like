@@ -2,24 +2,31 @@ extends Node
 
 class_name Gear
 
-var itemList: Array[Item] = []
+#var itemList: Array[Item] = []
+var itemList:Dictionary = {0:null,1:null,2:null}
 
 func getList():
 	return itemList
 
-#Renvoie l'item a 'index dans l'inventaire
-func unequipItem(index):
-	#Ajouter la partie qui renvoie l'item dans l'inventaire
-	
-	#On cree un objet vide pour eviter que le tableau se reindex
-	itemList[index] = Item.new()
+func removeItem(index:int):
+	var clampedIndex = clamp(index,0,2)
+	itemList[clampedIndex] = null
 
 #Equipe un item
 func equipItem(item,index = 0):
 	#Si il y a moins de 3 items equipes, on ajoutes l'item sans prendre en compte sa position
+	var clampedIndex = clamp(index,0,2)
+	itemList[clampedIndex] = item
+	"""var clampedIndex = clamp(index,0,3)
+	if clampedIndex >= len(itemList):
+		print(item.itemName+" added.")
+		itemList.append(item)
+	else:
+		print(itemList[clampedIndex].itemName+" swapped with "+item.itemName)
+		itemList[clampedIndex] = item
 	if len(itemList) < 3:
 		itemList.append(item)
 	else:
-		#Si tous les slots sont occupes, on desequipe l'item a l'index, puis 
-		unequipItem(index)
+		var oldItem = itemList[index]
 		itemList[index] = item
+		return oldItem"""

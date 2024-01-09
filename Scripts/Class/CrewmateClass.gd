@@ -43,18 +43,19 @@ func applyModifiersToCrewmate():
 	var tempCRT = self.critBase
 	var tempDDG = self.dodgeBase
 	for item in gear.getList():
-		for stat in item.getModifiers():
-			match stat:
-				"ATK":
-					tempATK += item.getModifiers()[stat]
-				"HP":
-					tempHP += item.getModifiers()[stat]
-				"SPD":
-					tempSPD += item.getModifiers()[stat]
-				"CRT":
-					tempCRT += item.getModifiers()[stat]
-				"DDG":
-					tempDDG += item.getModifiers()[stat]
+		if gear.getList()[item] is Item:
+			for stat in gear.getList()[item].getModifiers():
+				match stat:
+					"ATK":
+						tempATK += gear.getList()[item].getModifiers()[stat]
+					"HP":
+						tempHP += gear.getList()[item].getModifiers()[stat]
+					"SPD":
+						tempSPD += gear.getList()[item].getModifiers()[stat]
+					"CRT":
+						tempCRT += gear.getList()[item].getModifiers()[stat]
+					"DDG":
+						tempDDG += gear.getList()[item].getModifiers()[stat]
 			
 	self.attackCurrent = tempATK
 	self.healthMax = tempHP

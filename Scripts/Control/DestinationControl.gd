@@ -12,6 +12,7 @@ var merchandScene = preload("res://Scenes/Merchant/Merchant.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var merchant = merchandScene.instantiate()
+	inventoryNode.hide()
 	merchant.set_name("situationMenu")
 	screensNode.add_child(merchant)
 	for c in Game.crew.size():

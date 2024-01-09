@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://cf6e3qxniwruc"]
+[gd_scene load_steps=7 format=3 uid="uid://cf6e3qxniwruc"]
 
 [ext_resource type="Texture2D" uid="uid://b1f8gka4f1pfv" path="res://Assets/Portraits/Human (1).jpg" id="1_kkd5a"]
 [ext_resource type="Texture2D" uid="uid://dn1ely4x28j4u" path="res://Assets/UI/MiniPanel01.jpg" id="1_phpiu"]
-[ext_resource type="Texture2D" uid="uid://dwmo0522m0a6g" path="res://Assets/UI/Cell01.png" id="2_86pwu"]
 [ext_resource type="Script" path="res://Scripts/Destination/crewmateInventoryNameplate.gd" id="2_eab4p"]
 [ext_resource type="FontFile" uid="uid://j5854hdtucyt" path="res://Assets/Font/Montserrat-VariableFont_wght.ttf" id="2_yrsk8"]
 
@@ -12,9 +11,6 @@ texture = ExtResource("1_phpiu")
 [sub_resource type="LabelSettings" id="LabelSettings_6n3er"]
 font = ExtResource("2_yrsk8")
 font_size = 24
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ewpg6"]
-texture = ExtResource("2_86pwu")
 
 [node name="Root" type="PanelContainer"]
 offset_right = 333.0
@@ -58,21 +54,3 @@ expand_mode = 3
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
-
-[node name="Item1" type="Panel" parent="MarginContainer/HBoxContainer/Items"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_ewpg6")
-
-[node name="Item2" type="Panel" parent="MarginContainer/HBoxContainer/Items"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_ewpg6")
-
-[node name="Item3" type="Panel" parent="MarginContainer/HBoxContainer/Items"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_ewpg6")

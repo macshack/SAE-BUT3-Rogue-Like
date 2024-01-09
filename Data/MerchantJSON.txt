@@ -1,8 +1,51 @@
-Merchant :
+HASARDEUX : Faire fonctionner le bouton Situation
 
-- Sell junk
+MOYEN : Faire les skills
+	- Competences passives
+	- Competences actives
 
-UI/UX :
+FACILE : Faire l'ecran de choix de destination
 
--Change themes
+FACILE : Faire la page Equipage
+	- Afficher les skills de chaque membre d'equipage
+	- Developper les skills
 
+HASARDEUX : Faire la page Objectif
+	- Affiche le nom de l'objectif
+	- Affiche la description de l'objectif
+	- Affiche l'avancement de l'objectif
+
+
+BESOIN DES COMBATS POUR FAIRE LE RESTE CI-DESSOUS
+MOYEN : Faire l'ecran de fin de jeu -> Retour au menu principal
+
+HASARDEUX : Faire la sauvegarde / chargement
+	- Sauvegarder la destination actuelle
+	- Sauvegarder la situation actuelle
+	- Sauvegarder les options : FAIT
+	- Sauvegarder l'equipage
+	- Sauvegarder l'objectif
+	- Sauvegarder la monnaie
+
+HASARDEUX : Faire la page de choix de sauvegarde sur le menu principal
+
+Payer pour des soins au marchand
+
+FACILE : Faire un menu entre les options et le jeu
+	- Pouvoir sauvegarder
+	- Pouvoir sauvegarder et quitter
+	- Acceder aux options
+	- IMPOSSIBLE DE SAUVEGARDER EN COURS DE COMBAT/EXPLORATION
+
+Faire les themes pour que le jeu soit plus beau
+
+Faire les JSONs des ennemis
+
+Faire les JSONs des boss
+
+Trouver des vraies icones pour les objets
+
+Etoffer les listes JSON
+	- Plus de crewmates
+	- Plus d'objets
+	- Plus de marchands

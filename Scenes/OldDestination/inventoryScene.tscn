@@ -1,0 +1,161 @@
+[gd_scene load_steps=10 format=3 uid="uid://45uymkrboxps"]
+
+[ext_resource type="Script" path="res://Scripts/Destination/inventorySceneControl.gd" id="1_ipqsq"]
+[ext_resource type="Texture2D" uid="uid://dn1ely4x28j4u" path="res://Assets/UI/MiniPanel01.jpg" id="2_iyppv"]
+[ext_resource type="Texture2D" uid="uid://dq8m8yadhxuss" path="res://Assets/UI/MiniPanel06.jpg" id="2_rrrcw"]
+[ext_resource type="FontFile" uid="uid://j5854hdtucyt" path="res://Assets/Font/Montserrat-VariableFont_wght.ttf" id="4_blg2o"]
+[ext_resource type="Texture2D" uid="uid://b1f8gka4f1pfv" path="res://Assets/Portraits/Human (1).jpg" id="6_fgr6t"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bl32g"]
+texture = ExtResource("2_rrrcw")
+
+[sub_resource type="LabelSettings" id="LabelSettings_n0dax"]
+font = ExtResource("4_blg2o")
+font_size = 48
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h61tk"]
+texture = ExtResource("2_iyppv")
+
+[sub_resource type="LabelSettings" id="LabelSettings_4mthb"]
+font = ExtResource("4_blg2o")
+font_size = 38
+
+[node name="Root" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_ipqsq")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_bl32g")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Crewmates" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+alignment = 1
+
+[node name="Item Section" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Item Section"]
+layout_mode = 2
+text = "Inventaire"
+label_settings = SubResource("LabelSettings_n0dax")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Item Section"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/Item Section/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.07
+
+[node name="ItemGrid" type="GridContainer" parent="MarginContainer/VBoxContainer/Item Section/HBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 15
+
+[node name="SelectedItemPreview" type="PanelContainer" parent="MarginContainer/VBoxContainer/Item Section/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_h61tk")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Item Section/HBoxContainer/SelectedItemPreview"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Item Section/HBoxContainer/SelectedItemPreview/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Item Section/HBoxContainer/SelectedItemPreview/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Item Section/HBoxContainer/SelectedItemPreview/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.54
+theme_override_constants/separation = 10
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/Item Section/HBoxContainer/SelectedItemPreview/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("6_fgr6t")
+expand_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Item Section/HBoxContainer/SelectedItemPreview/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.23
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Item Section/HBoxContainer/SelectedItemPreview/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Test"
+label_settings = SubResource("LabelSettings_4mthb")
+
+[node name="FlavorText" type="RichTextLabel" parent="MarginContainer/VBoxContainer/Item Section/HBoxContainer/SelectedItemPreview/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "LE CACA C'EST LE PIPI DU CUL
+"
+fit_content = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/Item Section/HBoxContainer/SelectedItemPreview/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ItemSpecs" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Item Section/HBoxContainer/SelectedItemPreview/VBoxContainer/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ItemPrice" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Item Section/HBoxContainer/SelectedItemPreview/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Item Section/HBoxContainer/SelectedItemPreview/VBoxContainer/MarginContainer/VBoxContainer/ItemPrice"]
+layout_mode = 2
+text = "Prix : "
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/Item Section/HBoxContainer/SelectedItemPreview/VBoxContainer/MarginContainer/VBoxContainer/ItemPrice"]
+layout_mode = 2
+text = "1000"
