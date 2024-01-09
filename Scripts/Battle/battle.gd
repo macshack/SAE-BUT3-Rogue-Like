@@ -1,13 +1,19 @@
 extends Control
 
+#SUPPRIMER LE CREWMATE DANS ORDER QUAND PV == 0
+
 @onready var EnemyCrewContainer = %EnemyCrewContainer
 @onready var PlayerName = %PlayerName
 @onready var HP = %HP
 @onready var enemyTarget: int
 
+signal victory
+
 var enemyBattleNameplate = preload("res://Scenes/Battle/enemyBattleNameplate.tscn")
 
 var character: Character
+
+var order: Array = []
 
 var isFunctionRunning = false
 
@@ -28,10 +34,12 @@ func _ready():
 		var tab: Array[int] = [JsonHandling.crewmate_data[str(i)].skills[0], JsonHandling.crewmate_data[str(i)].skills[1]]
 		var crewmate = Crewmate.new(JsonHandling.crewmate_data[str(i)].identity, JsonHandling.crewmate_data[str(i)].background, JsonHandling.crewmate_data[str(i)].icon, tab, JsonHandling.crewmate_data[str(i)].hirePrice)
 		var enemy = Enemy.new(JsonHandling.crewmate_data[str(i)].identity, JsonHandling.crewmate_data[str(i)].icon)
+		crewmate.attackCurrent = 1
+		enemy.attackBase = 5
 		Game.crew.append(crewmate)
 		Game.enemyCrew.append(enemy)
 	
-	var order = orderFight(Game.crew, Game.enemyCrew)
+	order = orderFight(Game.crew, Game.enemyCrew)
 	print(order)
 	
 	for c in Game.enemyCrew.size():
@@ -60,6 +68,10 @@ func display_text(text):
 	$Textbox/Label.text = text
 
 func _process(delta):
+	if EnemyCrewContainer != null and EnemyCrewContainer.get_child_count() <= 0:
+		display_text("Victory !")
+		await textbox_closed
+		emit_signal("victory") 
 	if character is Crewmate:
 		updatePlayerPanel(character)
 	elif character is Enemy:
@@ -103,16 +115,40 @@ func orderFight(crewTab: Array[Crewmate], enemyTab:Array[Enemy]):
 	var crewSpeed: Array = []
 	var Speed: Array = []
 	for c in crewTab:
-		crewSpeed.append([c, c.speedBase])
+		crewSpeed.append([c,c.speedBase])
 	for e in enemyTab:
 		enemySpeed.append([e, e.speedBase])
 	Speed = crewSpeed +  enemySpeed 
 	Speed = tri_insertion(Speed)
 	return Speed
 
+func erase_enemy():
+	for en in Game.enemyCrew:
+		if en.healthCurrent <= 0:
+			var id = en.identity
+			Game.enemyCrew.erase(en)
+			for c in order:
+				if c[0] is Enemy and c[0].identity == id:
+					order.erase(c)
+					print("ORDER: ", order)
+
+func ko_crewmate():
+	for crew in Game.crew:
+		if crew.healthCurrent <= 0:
+			var id = crew.identity
+			for c in order:
+				if c[0] is Crewmate and c[0].identity == id:
+					order.erase(c)
+					print("ORDER: ", order)
+
 func _on_attack_pressed():
 	display_text("You attack the enemy !")
 	await textbox_closed
+	
+	if enemyTarget >= Game.enemyCrew.size():
+		display_text("Cliquez sur un ennemi !")
+		await textbox_closed
+		return 0
 	
 	Game.enemyCrew[enemyTarget].healthCurrent = max(0, Game.enemyCrew[enemyTarget].healthCurrent - character.attackCurrent)
 	
@@ -121,6 +157,11 @@ func _on_attack_pressed():
 	
 	display_text("You dealt %d damage !" % character.attackBase)
 	await textbox_closed
+	
+	if Game.enemyCrew[enemyTarget].healthCurrent <= 0:
+		var node_to_remove = %EnemyCrewContainer.get_child(enemyTarget)
+		node_to_remove.queue_free()
+		erase_enemy()
 	
 	var order = orderFight(Game.crew, Game.enemyCrew)
 	if i >= order.size()-1:
@@ -142,6 +183,9 @@ func enemy_turn():
 	
 	display_text(character.identity + " dealts %d damage " % character.attackBase + "to " + Game.crew[index].identity)
 	await textbox_closed
+	
+	if Game.crew[index].healthCurrent <= 0:
+		ko_crewmate()
 	
 	var order = orderFight(Game.crew, Game.enemyCrew)
 	if i >= order.size()-1:

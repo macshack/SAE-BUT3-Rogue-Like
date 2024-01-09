@@ -17,6 +17,9 @@ func _ready():
 		$HealthBar/Label.text = "Hp: %d/%d" % [healthbar.value, healthbar.max_value]
 	
 func _process(delta):
+	if enemyIndex >= Game.enemyCrew.size():
+		return 0
+	
 	if Game.enemyCrew[enemyIndex] is Enemy:
 		icon.texture = load("res://Assets/Portraits/"+Game.enemyCrew[enemyIndex].icon)
 		healthbar.max_value = Game.enemyCrew[enemyIndex].healthMax
