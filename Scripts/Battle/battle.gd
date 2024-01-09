@@ -8,7 +8,8 @@ extends Control
 @onready var HP = %HP
 @onready var enemyTarget: int
 
-signal victory
+signal victor
+signal gameover
 
 var enemyBattleNameplate = preload("res://Scenes/Battle/enemyBattleNameplate.tscn")
 
@@ -190,6 +191,12 @@ func enemy_turn():
 	if Game.crew[index].healthCurrent <= 0:
 		ko_crewmate()
 	
+	if crew_dead():
+		print("RIP BOZO")
+		display_text("Game over !")
+		await textbox_closed
+		emit_signal("gameover") 
+	
 	if i >= order.size()-1:
 		i = -1
 	character = order[i+1][0]
@@ -197,3 +204,11 @@ func enemy_turn():
 	
 	isFunctionRunning = false
 
+func crew_dead():
+	var val_bool = true
+	for c in order:
+		if c[0] is Crewmate:
+			print("CREWMATE: ", c)
+			val_bool = false
+	return val_bool
+	
