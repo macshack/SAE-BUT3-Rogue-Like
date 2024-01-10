@@ -6,6 +6,8 @@ extends Control
 @onready var PlayerName = %PlayerName
 @onready var HP = %HP
 @onready var enemyTarget: int
+@onready var textboxNode = %Textbox
+@onready var textboxLabelNode = %TextboxLabel
 
 signal victor
 signal gameover
@@ -48,25 +50,23 @@ func _ready():
 		new.click_on_nameplate.connect(_on_enemy_click)
 		EnemyCrewContainer.add_child(new)
 	
-	$Textbox.hide()
-	$ActionPanel.hide()
+	textboxNode.hide()
+	#$ActionPanel.hide()
 	
 	display_text("An enemy crew appears !")
 	await textbox_closed
-	$ActionPanel.show()
+	#$ActionPanel.show()
 	
 	character = order[i][0]
-	print("HEALTHMAX: " + str(character.healthMax))
-	print("HEALTHCURRENT: " + str(character.healthCurrent))
 	
 func _input(event):
-	if (Input.is_action_just_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and $Textbox.visible:
-		$Textbox.hide()
+	if (Input.is_action_just_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and textboxNode.visible:
+		textboxNode.hide()
 		emit_signal("textbox_closed")
 
 func display_text(text):
-	$Textbox.show()
-	$Textbox/Label.text = text
+	textboxNode.show()
+	textboxLabelNode.text = text
 
 func _process(delta):
 	if EnemyCrewContainer != null and EnemyCrewContainer.get_child_count() <= 0:
