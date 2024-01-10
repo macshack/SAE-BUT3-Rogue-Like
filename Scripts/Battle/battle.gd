@@ -6,6 +6,9 @@ extends Control
 @onready var PlayerName = %PlayerName
 @onready var HP = %HP
 @onready var enemyTarget: int
+@onready var textboxNode = %Textbox
+@onready var textboxLabelNode = %TextboxLabel
+@onready var playerActionNode = %Actions
 
 signal victor
 signal gameover
@@ -41,32 +44,27 @@ func _ready():
 		Game.enemyCrew.append(enemy)
 	
 	order = orderFight(Game.crew, Game.enemyCrew)
-	print(order)
 	
 	for c in Game.enemyCrew.size():
 		var new = enemyBattleNameplate.instantiate().init(c)
 		new.click_on_nameplate.connect(_on_enemy_click)
 		EnemyCrewContainer.add_child(new)
 	
-	$Textbox.hide()
-	$ActionPanel.hide()
+	textboxNode.hide()
 	
 	display_text("An enemy crew appears !")
 	await textbox_closed
-	$ActionPanel.show()
 	
 	character = order[i][0]
-	print("HEALTHMAX: " + str(character.healthMax))
-	print("HEALTHCURRENT: " + str(character.healthCurrent))
 	
 func _input(event):
-	if (Input.is_action_just_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and $Textbox.visible:
-		$Textbox.hide()
+	if (Input.is_action_just_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and textboxNode.visible:
+		textboxNode.hide()
 		emit_signal("textbox_closed")
 
 func display_text(text):
-	$Textbox.show()
-	$Textbox/Label.text = text
+	textboxNode.show()
+	textboxLabelNode.text = text
 
 func _process(delta):
 	if EnemyCrewContainer != null and EnemyCrewContainer.get_child_count() <= 0:
@@ -75,7 +73,11 @@ func _process(delta):
 		emit_signal("victory") 
 	if character is Crewmate:
 		updatePlayerPanel(character)
+		for action in playerActionNode.get_children():
+			action.disabled = false
 	elif character is Enemy:
+		for action in playerActionNode.get_children():
+			action.disabled = true
 		if not isFunctionRunning:
 			# Si elle n'est pas en cours d'exécution, la démarrer
 			startFunction()

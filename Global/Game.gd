@@ -5,7 +5,7 @@ extends Node
 @onready var currentScene
 @onready var credits=200
 @onready var inventory: Array[Item]
-var skillList:Dictionary = loadSkillList()
+@onready var skillList:Dictionary = loadSkillList()
 @onready var roundConstraint:int
 
 func loadSkillList():
