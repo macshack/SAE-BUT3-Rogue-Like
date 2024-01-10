@@ -5,7 +5,14 @@ extends Control
 @onready var EnemyCrewContainer = %EnemyCrewContainer
 @onready var PlayerName = %PlayerName
 @onready var HP = %HP
+<<<<<<< Updated upstream
 @onready var enemyTarget: int
+=======
+@onready var enemyTarget: int = -1
+@onready var textboxNode = %Textbox
+@onready var textboxLabelNode = %TextboxLabel
+@onready var playerActionNode = %Actions
+>>>>>>> Stashed changes
 
 signal victor
 signal gameover
@@ -147,23 +154,29 @@ func _on_attack_pressed():
 	display_text("You attack the enemy !")
 	await textbox_closed
 	
-	if enemyTarget >= Game.enemyCrew.size():
+	if enemyTarget >= Game.enemyCrew.size() or enemyTarget < 0:
 		display_text("Cliquez sur un ennemi !")
 		await textbox_closed
 		return 0
 	
 	Game.enemyCrew[enemyTarget].healthCurrent = max(0, Game.enemyCrew[enemyTarget].healthCurrent - character.attackCurrent)
 	
+<<<<<<< Updated upstream
 	$AnimationPlayer.play("enemy_damaged")
 	await $AnimationPlayer.animation_finished
 	
 	display_text("You dealt %d damage !" % character.attackBase)
+=======
+	display_text("You dealt %d damage !" % character.attackCurrent)
+>>>>>>> Stashed changes
 	await textbox_closed
 	
 	if Game.enemyCrew[enemyTarget].healthCurrent <= 0:
 		var node_to_remove = %EnemyCrewContainer.get_child(enemyTarget)
 		node_to_remove.queue_free()
 		erase_enemy()
+	
+	enemyTarget = -1
 	
 	if i >= order.size()-1:
 		i = -1
@@ -182,11 +195,11 @@ func enemy_turn():
 	
 	Game.crew[index].healthCurrent = max(0, Game.crew[index].healthCurrent - character.attackBase)
 	
-	$AnimationPlayer.play("shake")
-	await $AnimationPlayer.animation_finished
-	
 	display_text(character.identity + " dealts %d damage " % character.attackBase + "to " + Game.crew[index].identity)
 	await textbox_closed
+	
+	if Game.crew[index].identity == PlayerName.text:
+		updatePlayerPanel(Game.crew[index])
 	
 	if Game.crew[index].healthCurrent <= 0:
 		ko_crewmate()

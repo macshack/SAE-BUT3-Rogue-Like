@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://djvo81yru6mtq"]
+[gd_scene load_steps=9 format=3 uid="uid://djvo81yru6mtq"]
 
 [ext_resource type="Script" path="res://Scripts/Battle/battle.gd" id="1_eon26"]
 
@@ -23,6 +23,7 @@ bg_color = Color(1, 1, 1, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prscs"]
 bg_color = Color(0.00392157, 0.00392157, 0.00392157, 1)
 
+<<<<<<< Updated upstream
 [sub_resource type="Animation" id="Animation_nhwmy"]
 length = 0.001
 tracks/0/type = "value"
@@ -63,6 +64,8 @@ _data = {
 "shake": SubResource("Animation_8dptj")
 }
 
+=======
+>>>>>>> Stashed changes
 [node name="Battle" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -207,6 +210,7 @@ offset_bottom = 127.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_prscs")
 
+<<<<<<< Updated upstream
 [node name="Label" type="Label" parent="Textbox"]
 layout_mode = 1
 anchors_preset = 15
@@ -240,3 +244,7 @@ anchor_mode = 0
 
 [connection signal="pressed" from="ActionPanel/Actions/Attack" to="." method="_on_attack_pressed"]
 [connection signal="pressed" from="ActionPanel/Actions/Defend" to="." method="_on_defend_pressed"]
+=======
+[connection signal="pressed" from="VBoxContainer/PlayerPanel/VBoxContainer/Actions/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="VBoxContainer/PlayerPanel/VBoxContainer/Actions/Defend" to="." method="_on_defend_pressed"]
+>>>>>>> Stashed changes
