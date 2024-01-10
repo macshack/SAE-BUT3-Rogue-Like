@@ -64,14 +64,14 @@
 		"damageSplit": false
 	},
 	"damage": {
-		"base": 3,
-		"attackModifier": 3,
+		"base": 0,
+		"attackModifier": 0,
 		"hpModifier": 0
 	},
 	"status": {
 		"stun": {
-			"valid": false,
-			"stunDuration": 0
+			"valid": true,
+			"stunDuration": 1
 		},
 		"weakPoint": {
 			"valid": false,
@@ -80,7 +80,7 @@
 		"burn": {
 			"valid": false,
 			"burnDuration": 0,
-			"burnDamage": 1
+			"burnDamage": 0
 		}
 	}
 	  },

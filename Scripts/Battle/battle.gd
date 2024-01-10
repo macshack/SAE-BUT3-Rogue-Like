@@ -39,7 +39,7 @@ func _ready():
 		var crewmate = Crewmate.new(JsonHandling.crewmate_data[str(i)].identity, JsonHandling.crewmate_data[str(i)].background, JsonHandling.crewmate_data[str(i)].icon, tab, JsonHandling.crewmate_data[str(i)].hirePrice)
 		var enemy = Enemy.new(JsonHandling.crewmate_data[str(i)].identity, JsonHandling.crewmate_data[str(i)].icon)
 		crewmate.attackCurrent = 1
-		enemy.attackBase = 5
+		enemy.attackBase = 1
 		Game.crew.append(crewmate)
 		Game.enemyCrew.append(enemy)
 	
@@ -155,7 +155,14 @@ func _on_attack_pressed():
 	display_text("You attack the enemy !")
 	await textbox_closed
 	
-	Game.enemyCrew[enemyTarget].healthCurrent = max(0, Game.enemyCrew[enemyTarget].healthCurrent - character.attackCurrent)
+	print(Game.enemyCrew[enemyTarget].weakpoint)
+	
+	if Game.enemyCrew[enemyTarget].weakpoint[0]:
+		print("WEAKPOINT")
+		Game.enemyCrew[enemyTarget].healthCurrent = max(0, 
+		Game.enemyCrew[enemyTarget].healthCurrent - character.attackCurrent + 2)
+	else:
+		Game.enemyCrew[enemyTarget].healthCurrent = max(0, Game.enemyCrew[enemyTarget].healthCurrent - character.attackCurrent)
 	
 	display_text("You dealt %d damage !" % character.attackCurrent)
 	await textbox_closed
@@ -174,32 +181,60 @@ func _on_attack_pressed():
 
 func enemy_turn():
 	
-	var index: int = -1
+	var enemy: Enemy
 	
-	while Game.crew[index].healthCurrent <= 0:
-		index = randi() % Game.crew.size()
+	for en in Game.enemyCrew:
+		if en == character:
+			enemy = en
 	
-	display_text(character.identity + " takes a swing at " + Game.crew[index].identity)
-	await textbox_closed
+	if enemy.weakpoint[0]:
+			enemy.weakpoint[1] = enemy.weakpoint[1] - 1
+			if enemy.burn[1] == 0:
+				enemy.burn[0] = false
+				display_text(enemy.identity + " weakpoints ")
+				await textbox_closed
 	
-	Game.crew[index].healthCurrent = max(0, Game.crew[index].healthCurrent - character.attackBase)
+	if enemy.burn[0]:
+			enemy.burn[1] = enemy.burn[1] - 1
+			enemy.healthCurrent = max(0, enemy.healthCurrent - enemy.burn[2])
+			if enemy.burn[1] == 0:
+				enemy.burn[0] = false
+			display_text(character.identity + " is burning: " + str(enemy.burn[2]))
+			await textbox_closed
 	
-	display_text(character.identity + " dealts %d damage " % character.attackBase + "to " + Game.crew[index].identity)
-	await textbox_closed
-	
-	if Game.crew[index].identity == PlayerName.text:
-		updatePlayerPanel(Game.crew[index])
-	
-	if Game.crew[index].healthCurrent <= 0:
-		ko_crewmate()
-		i = i-1
-	
-	
-	if crew_dead():
-		#print("RIP BOZO")
-		display_text("Game over !")
+	if enemy.stun[0]:
+		enemy.stun[1] = enemy.stun[1] - 1
+		if enemy.stun[1] == 0:
+			enemy.stun[0] = false
+		display_text(character.identity + " is stunned !")
 		await textbox_closed
-		emit_signal("gameover")
+	else:
+		var index: int = -1
+		
+		while Game.crew[index].healthCurrent <= 0:
+			index = randi() % Game.crew.size()
+		
+		display_text(character.identity + " takes a swing at " + Game.crew[index].identity)
+		await textbox_closed
+		
+		Game.crew[index].healthCurrent = max(0, Game.crew[index].healthCurrent - character.attackBase)
+		
+		display_text(character.identity + " dealts %d damage " % character.attackBase + "to " + Game.crew[index].identity)
+		await textbox_closed
+		
+		if Game.crew[index].identity == PlayerName.text:
+			updatePlayerPanel(Game.crew[index])
+		
+		if Game.crew[index].healthCurrent <= 0:
+			ko_crewmate()
+			i = i-1
+		
+		
+		if crew_dead():
+			#print("RIP BOZO")
+			display_text("Game over !")
+			await textbox_closed
+			emit_signal("gameover")
 	
 	if i >= order.size()-1:
 		i = -1
@@ -264,11 +299,17 @@ func useSkill(charater: Character, skill: Skill):
 	var burn = [status.burn.valid, status.burn.burnDuration, status.burn.burnDamage]
 	
 	if weakpoint[0]:
-		pass
+		display_text("You discover weakpoint of " + str(Game.enemyCrew[enemyTarget].identity))
+		await textbox_closed
+		Game.enemyCrew[enemyTarget].weakpoint = weakpoint
 	if stun[0]:
-		pass
+		display_text("You stun " + str(Game.enemyCrew[enemyTarget].identity))
+		await textbox_closed
+		Game.enemyCrew[enemyTarget].stun = stun
 	if burn[0]:
-		pass
+		display_text("You burn " + str(Game.enemyCrew[enemyTarget].identity))
+		await textbox_closed
+		Game.enemyCrew[enemyTarget].burn = burn
 	
 	Game.enemyCrew[enemyTarget].healthCurrent = max(
 		0, Game.enemyCrew[enemyTarget].healthCurrent - damage[0])
