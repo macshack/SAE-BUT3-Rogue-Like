@@ -11,15 +11,15 @@ config_version=5
 [application]
 
 config/name="Kobi"
-run/main_scene="res://Scenes/OldDestination/inventoryScene.tscn"
+run/main_scene="res://Scenes/main.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
 
 [autoload]
 
+Game="*res://Global/Game.gd"
 Utils="*res://Global/Utils.gd"
 DestinationLib="*res://Library/destinationLib.gd"
 JsonHandling="*res://Global/JSONHandling.gd"
-Game="*res://Global/Game.gd"
 
 [display]
 
