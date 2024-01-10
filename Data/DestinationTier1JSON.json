@@ -1,0 +1,51 @@
+{
+	"0":{
+		"name":"Station abandonnee",
+		"flavor":"",
+		"background":"BlueRadar/blueRadar (1).png",
+		"difficulty":1,
+		"type":"FIGHT",
+	},
+	"1":{
+		"name":"Secteur abandonne AXD-753",
+		"flavor":"",
+		"background":"BlueRadar/blueRadar (1).png",
+		"difficulty":1,
+		"type":"FIGHT",
+	},
+	"2":{
+		"name":"???",
+		"flavor":"Qu'est-ce qui se passe ?",
+		"background":"Yellow/yellowRadar (10).png",
+		"difficulty":1,
+		"type":"FIGHT",
+	},
+	"3":{
+		"name":"Depotoire intergalactique 'New Roubaix'",
+		"flavor":"",
+		"background":"BlueRadar/blueRadar (1).png",
+		"difficulty":1,
+		"type":"FIGHT",
+	},
+	"4":{
+		"name":"Patrouille federale",
+		"flavor":"",
+		"background":"BlueRadar/blueRadar (1).png",
+		"difficulty":1,
+		"type":"FIGHT",
+	},
+	"5":{
+		"name":"Station radio pirate 'Space Cauet Generations'",
+		"flavor":"",
+		"background":"BlueRadar/blueRadar (1).png",
+		"difficulty":1,
+		"type":"FIGHT",
+	},
+	"6":{
+		"name":"Vaisseau 'Ace of spades'",
+		"flavor":"",
+		"background":"",
+		"difficulty":1,
+		"type":"FIGHT",
+	},
+}

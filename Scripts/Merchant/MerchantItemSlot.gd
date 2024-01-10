@@ -47,7 +47,7 @@ func _process(delta):
 		timer = 0.05
 
 func init(itemParam):
-	item = Item.new(itemParam.itemName,itemParam.itemFlavorText,itemParam.itemIconLink,itemParam.itemModifiers,itemParam.itemPrice)
+	item = Item.new(itemParam.itemId,itemParam.itemName,itemParam.itemFlavorText,itemParam.itemIconLink,itemParam.itemModifiers,itemParam.itemPrice)
 	return self
 
 func _on_gui_input(event):

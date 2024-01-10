@@ -42,7 +42,6 @@ func updatePanel():
 		else:
 			self.hide()
 	else:
-		print("Update panel - Crewmate index "+str(crewIndex))
 		if (crewIndex is int) && (Game.crew[crewIndex] is Crewmate):
 			self.show()
 			nameNode.text = Game.crew[crewIndex].identity

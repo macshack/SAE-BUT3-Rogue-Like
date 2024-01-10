@@ -58,7 +58,6 @@ func _remove_crewmate(value):
 					updateCrewmateBox()
 	else:
 		if (Game.crew.size()-1>0):
-			print("supprimes le "+str(value))
 			if (value is int) && (Game.crew[value] is Crewmate):
 					Game.crew.pop_at(value)
 					updateCrewmateBox()

@@ -1,5 +1,6 @@
 {
 	"0":{
+		"itemId":1000,
 		"itemName":"Lame du roi 3rbi",
 		"itemFlavorText":"La lame de l'unique",
 		"itemIconLink":"Human (3).jpg",
@@ -13,6 +14,7 @@
 		"itemPrice":100
 	},
 	"1":{
+		"itemId":1001,
 		"itemName":"Marteau de clochard",
 		"itemFlavorText":"Ca pue la 8.6 et le caca",
 		"itemIconLink":"Human (4).jpg",
@@ -26,6 +28,7 @@
 		"itemPrice":10
 	},
 	"2":{
+		"itemId":1002,
 		"itemName":"Force de la tritine",
 		"itemFlavorText":"Un peu de tout",
 		"itemIconLink":"Human (5).jpg",

@@ -2,6 +2,7 @@ extends Node2D
 
 class_name Item
 
+var itemId:int
 var itemName:String
 var itemFlavorText:String
 var itemIconLink:String
@@ -14,7 +15,8 @@ var itemModifiers = {
 }
 var itemPrice:int
 
-func _init(itemName = "",flavor = "",icon = "",stats = {},price=0):
+func _init(id:int,itemName = "",flavor = "",icon = "",stats = {},price=0):
+	self.itemId = id
 	self.itemName = itemName
 	self.itemFlavorText = flavor
 	self.itemIconLink = icon

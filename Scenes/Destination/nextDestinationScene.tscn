@@ -1,0 +1,80 @@
+[gd_scene load_steps=9 format=3 uid="uid://c2nfamo7q7eqa"]
+
+[ext_resource type="Texture2D" uid="uid://dn1ely4x28j4u" path="res://Assets/UI/MiniPanel01.jpg" id="1_gag71"]
+[ext_resource type="Script" path="res://Scenes/Destination/nextDestinationScene.gd" id="2_albmi"]
+[ext_resource type="Texture2D" uid="uid://bdinla75ocj5m" path="res://Assets/Background/Radar/YellowRadar/yellowRadar (3).png" id="3_763qe"]
+[ext_resource type="Texture2D" uid="uid://c8ph2pjrce027" path="res://Assets/UI/BarV1_ProgressBarBorder.png" id="3_i12nn"]
+[ext_resource type="Texture2D" uid="uid://cmic4emrc6gri" path="res://Assets/UI/BarV1_ProgressBar.png" id="4_5f8lb"]
+[ext_resource type="FontFile" uid="uid://j5854hdtucyt" path="res://Assets/Font/Montserrat-VariableFont_wght.ttf" id="5_lbxwm"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b5b8c"]
+texture = ExtResource("1_gag71")
+
+[sub_resource type="LabelSettings" id="LabelSettings_nqtd1"]
+font = ExtResource("5_lbxwm")
+font_size = 38
+
+[node name="nextDestinationScene" type="PanelContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(300, 0)
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_b5b8c")
+script = ExtResource("2_albmi")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 20
+
+[node name="destinationBackground" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+texture = ExtResource("3_763qe")
+expand_mode = 5
+
+[node name="destinationDifficulty" type="TextureProgressBar" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+mouse_filter = 2
+max_value = 4.0
+value = 1.0
+nine_patch_stretch = true
+stretch_margin_left = 5
+stretch_margin_top = 5
+stretch_margin_right = 5
+stretch_margin_bottom = 5
+texture_over = ExtResource("3_i12nn")
+texture_progress = ExtResource("4_5f8lb")
+
+[node name="destinationName" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+text = "Secteur pirate"
+label_settings = SubResource("LabelSettings_nqtd1")
+horizontal_alignment = 1
+
+[node name="destinationFlavor" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("5_lbxwm")
+theme_override_font_sizes/normal_font_size = 22
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus et elit in tortor scelerisque semper sed gravida odio. Aliquam sodales tellus a dapibus ornare. Donec id vehicula urna. Praesent blandit rhoncus luctus. Nulla justo turpis, vehicula nec augue vulputate, congue maximus urna. Donec dolor quam, iaculis non lacinia in, sodales nec purus. Sed sagittis tempor nisi, et eleifend eros tincidunt in. Morbi fermentum aliquet nulla et lacinia."
+fit_content = true
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
