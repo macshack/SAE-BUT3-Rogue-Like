@@ -263,6 +263,13 @@ func useSkill(charater: Character, skill: Skill):
 	var weakpoint = [status.weakPoint.valid, status.weakPoint.weakpointDuration]
 	var burn = [status.burn.valid, status.burn.burnDuration, status.burn.burnDamage]
 	
+	if weakpoint[0]:
+		pass
+	if stun[0]:
+		pass
+	if burn[0]:
+		pass
+	
 	Game.enemyCrew[enemyTarget].healthCurrent = max(
 		0, Game.enemyCrew[enemyTarget].healthCurrent - damage[0])
 	
