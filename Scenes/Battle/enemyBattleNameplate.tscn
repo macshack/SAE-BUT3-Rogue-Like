@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://i52r1e5f0p4q"]
+
+[ext_resource type="Script" path="res://Scenes/Battle/enemyBattleNameplate.gd" id="1_pl081"]
+
+[node name="EnemyContainer" type="VBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_pl081")
+
+[node name="Icon" type="TextureRect" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+expand_mode = 3
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+show_percentage = false
+
+[node name="Label" type="Label" parent="HealthBar"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

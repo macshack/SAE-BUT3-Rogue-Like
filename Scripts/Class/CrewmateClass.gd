@@ -25,7 +25,7 @@ func set_health_max(value):
 	healthMax = value
 
 func _init(identity = "",icon="", background = "",skills:Array[int]=[100,101],price = 0, gear = [], healthBase = 10, healthCurrent = healthBase, attackBase = 3, speedBase = 5, critBase = 5.0, dodgeBase = 5.0):
-	super(identity,icon,healthMax,healthCurrent,attackBase,speedBase,critBase,dodgeBase)
+	super(identity,icon,healthBase, healthCurrent,attackBase,speedBase,critBase,dodgeBase)
 	self.background = background
 	self.hirePrice = price
 	self.healthMax = self.healthBase
