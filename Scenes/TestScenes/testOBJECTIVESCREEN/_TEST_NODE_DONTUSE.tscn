@@ -5,6 +5,7 @@ script/source = "extends Node
 
 var objective = preload(\"res://Scenes/ObjectiveScene.tscn\")
 var destination = preload(\"res://Scenes/Destination/destinationMain.tscn\")
+var objectiveNode
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var objectiveScene = objective.instantiate().init(true,{})
@@ -14,6 +15,7 @@ func _ready():
 	objectiveScene.newData.connect(destinationScene._on_objectiveUpdate_received)
 	for c in self.get_children():
 		c.queue_free()
+	objectiveNode = str(objectiveScene)
 	self.add_child(objectiveScene)
 	self.add_child(destinationScene)
 

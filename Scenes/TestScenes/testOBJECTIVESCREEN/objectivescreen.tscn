@@ -48,7 +48,6 @@ layout_mode = 2
 
 [node name="objectiveName" type="Label" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 text = "Test"
 label_settings = SubResource("LabelSettings_qtu41")
@@ -57,7 +56,6 @@ label_settings = SubResource("LabelSettings_qtu41")
 layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
@@ -88,7 +86,6 @@ label_settings = SubResource("LabelSettings_h74ow")
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-mouse_filter = 1
 theme_override_styles/background = SubResource("StyleBoxTexture_doeor")
 theme_override_styles/fill = SubResource("StyleBoxTexture_ofqqv")
 show_percentage = false

@@ -27,11 +27,10 @@ func _on_gamestart_to_main_menu():
 
 
 func _on_gamestart_to_start_game(objData, crewData):
-	var objectiveScene = objective.instantiate().init(false,objData)
+	var objectiveScene = objective.instantiate().init(objData)
 	var destinationScene = destination.instantiate().init(false,null,{"type":"MRCD"})
 	objectiveScene.defeat.connect(_on_objective_defeat)
 	objectiveScene.victory.connect(_on_objective_victory)
-	objectiveScene.newData.connect(destinationScene._on_objectiveUpdate_received)
 	Game.crew = crewData
 	for c in $Game.get_children():
 		c.queue_free()
