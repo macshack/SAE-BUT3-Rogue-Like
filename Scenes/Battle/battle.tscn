@@ -131,7 +131,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_o6kk1")
 text = "Attack
 "
 
-[node name="Skill" type="Button" parent="VBoxContainer/PlayerPanel/VBoxContainer/Actions"]
+[node name="Skill1" type="Button" parent="VBoxContainer/PlayerPanel/VBoxContainer/Actions"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -142,8 +142,12 @@ theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_vciuo")
 theme_override_styles/hover = SubResource("StyleBoxFlat_5e4hh")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_o6kk1")
-text = "Skill
+text = "Skill1
 "
+
+[node name="Skill2" type="Button" parent="VBoxContainer/PlayerPanel/VBoxContainer/Actions"]
+layout_mode = 2
+text = "Skill2"
 
 [node name="Defend" type="Button" parent="VBoxContainer/PlayerPanel/VBoxContainer/Actions"]
 custom_minimum_size = Vector2(0, 50)
@@ -221,4 +225,6 @@ libraries = {
 anchor_mode = 0
 
 [connection signal="pressed" from="VBoxContainer/PlayerPanel/VBoxContainer/Actions/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="VBoxContainer/PlayerPanel/VBoxContainer/Actions/Skill1" to="." method="_on_skill_pressed"]
+[connection signal="pressed" from="VBoxContainer/PlayerPanel/VBoxContainer/Actions/Skill2" to="." method="_on_skill_2_pressed"]
 [connection signal="pressed" from="VBoxContainer/PlayerPanel/VBoxContainer/Actions/Defend" to="." method="_on_defend_pressed"]

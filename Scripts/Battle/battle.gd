@@ -96,7 +96,7 @@ func _on_defend_pressed():
 
 func _on_enemy_click(index: int):
 	enemyTarget = index
-	print("ENNEMY INDEX: " + str(enemyTarget))
+	#print("ENNEMY INDEX: " + str(enemyTarget))
 
 func tri_insertion(tableau):
 	var longueur = tableau.size()
@@ -133,7 +133,7 @@ func erase_enemy():
 			for c in order:
 				if c[0] is Enemy and c[0].identity == id:
 					order.erase(c)
-					print("ORDER: ", order)
+					#print("ORDER: ", order)
 
 func ko_crewmate():
 	for crew in Game.crew:
@@ -142,8 +142,8 @@ func ko_crewmate():
 			for c in order:
 				if c[0] is Crewmate and c[0].identity == id:
 					order.erase(c)
-					print("ERASE crewmate: ", c)
-					print("ORDER: ", order)
+					#print("ERASE crewmate: ", c)
+					#print("ORDER: ", order)
 
 func _on_attack_pressed():
 	
@@ -171,7 +171,7 @@ func _on_attack_pressed():
 		i = -1
 	character = order[i+1][0]
 	i = i+1
-	
+
 func enemy_turn():
 	
 	var index: int = -1
@@ -196,7 +196,7 @@ func enemy_turn():
 	
 	
 	if crew_dead():
-		print("RIP BOZO")
+		#print("RIP BOZO")
 		display_text("Game over !")
 		await textbox_closed
 		emit_signal("gameover")
@@ -212,7 +212,59 @@ func crew_dead():
 	var val_bool = true
 	for c in order:
 		if c[0] is Crewmate:
-			print("CREWMATE: ", c)
+			#print("CREWMATE: ", c)
 			val_bool = false
 	return val_bool
 	
+func _on_skill_pressed():
+	
+	if enemyTarget >= Game.enemyCrew.size() or enemyTarget < 0:
+		display_text("Cliquez sur un ennemi !")
+		await textbox_closed
+		return 0
+	
+	display_text("You use the skill %s" % character.skillOne.skillName)
+	await textbox_closed
+	
+	useSkill(character, character.skillOne)
+	
+	if Game.enemyCrew[enemyTarget].healthCurrent <= 0:
+		var node_to_remove = %EnemyCrewContainer.get_child(enemyTarget)
+		node_to_remove.queue_free()
+		erase_enemy()
+	
+	enemyTarget = -1
+	
+	if i >= order.size()-1:
+		i = -1
+	character = order[i+1][0]
+	i = i+1
+
+func _on_skill_2_pressed():
+	
+	if enemyTarget >= Game.enemyCrew.size() or enemyTarget < 0:
+		display_text("Cliquez sur un ennemi !")
+		await textbox_closed
+		return 0
+	
+	display_text("You attack the enemy with %s" % character.skillTwo.skillName)
+	await textbox_closed
+
+func useSkill(charater: Character, skill: Skill):
+	var general = skill.activeAbility.general
+	general = [general.name, general.flavorText, general.weaponType,
+	 general.targetNumber, general.weakPointCheck, general.damageSplit]
+	
+	var damage = skill.activeAbility.damage
+	damage = [damage.base, damage.attackModifier, damage.hpModifier]
+	
+	var status = skill.activeAbility.status
+	var stun = [status.stun.valid, status.stun.stunDuration]
+	var weakpoint = [status.weakPoint.valid, status.weakPoint.weakpointDuration]
+	var burn = [status.burn.valid, status.burn.burnDuration, status.burn.burnDamage]
+	
+	Game.enemyCrew[enemyTarget].healthCurrent = max(
+		0, Game.enemyCrew[enemyTarget].healthCurrent - damage[0])
+	
+	display_text("You dealt %d damage !" % damage[0])
+	await textbox_closed
