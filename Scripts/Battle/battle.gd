@@ -8,6 +8,7 @@ extends Control
 @onready var enemyTarget: int
 @onready var textboxNode = %Textbox
 @onready var textboxLabelNode = %TextboxLabel
+@onready var playerActionNode = %Actions
 
 signal victor
 signal gameover
@@ -43,7 +44,6 @@ func _ready():
 		Game.enemyCrew.append(enemy)
 	
 	order = orderFight(Game.crew, Game.enemyCrew)
-	print(order)
 	
 	for c in Game.enemyCrew.size():
 		var new = enemyBattleNameplate.instantiate().init(c)
@@ -51,11 +51,9 @@ func _ready():
 		EnemyCrewContainer.add_child(new)
 	
 	textboxNode.hide()
-	#$ActionPanel.hide()
 	
 	display_text("An enemy crew appears !")
 	await textbox_closed
-	#$ActionPanel.show()
 	
 	character = order[i][0]
 	
@@ -75,7 +73,11 @@ func _process(delta):
 		emit_signal("victory") 
 	if character is Crewmate:
 		updatePlayerPanel(character)
+		for action in playerActionNode.get_children():
+			action.disabled = false
 	elif character is Enemy:
+		for action in playerActionNode.get_children():
+			action.disabled = true
 		if not isFunctionRunning:
 			# Si elle n'est pas en cours d'exécution, la démarrer
 			startFunction()
