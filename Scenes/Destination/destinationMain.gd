@@ -4,6 +4,7 @@ signal toMainMenu()
 signal emitFightResult()
 
 var merchantScene = preload("res://Scenes/Merchant/Merchant.tscn")
+var fightScene = preload("res://Scenes/Battle/battle.tscn")
 
 var destination
 var situation

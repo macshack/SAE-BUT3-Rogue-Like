@@ -36,7 +36,8 @@ func _ready():
 	
 	for i in JsonHandling.crewmate_data.size():
 		var tab: Array[int] = [JsonHandling.crewmate_data[str(i)].skills[0], JsonHandling.crewmate_data[str(i)].skills[1]]
-		var crewmate = Crewmate.new(JsonHandling.crewmate_data[str(i)].identity, JsonHandling.crewmate_data[str(i)].background, JsonHandling.crewmate_data[str(i)].icon, tab, JsonHandling.crewmate_data[str(i)].hirePrice)
+		print(tab)
+		var crewmate = Crewmate.new(JsonHandling.crewmate_data[str(i)].identity, JsonHandling.crewmate_data[str(i)].icon, JsonHandling.crewmate_data[str(i)].background, tab, JsonHandling.crewmate_data[str(i)].hirePrice)
 		var enemy = Enemy.new(JsonHandling.crewmate_data[str(i)].identity, JsonHandling.crewmate_data[str(i)].icon)
 		crewmate.attackCurrent = 1
 		enemy.attackBase = 5

@@ -2,11 +2,6 @@ MOYEN : Faire les skills
 	- Competences passives
 	- Competences actives
 
-HASARDEUX : Faire la page Objectif
-	- Affiche le nom de l'objectif
-	- Affiche la description de l'objectif
-	- Affiche l'avancement de l'objectif
-
 -----------------
 
 FACILE : Faire l'ecran de choix de destination

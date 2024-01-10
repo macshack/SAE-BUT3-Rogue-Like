@@ -147,9 +147,6 @@ size_flags_horizontal = 3
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="ScrollContainer" parent="MarginContainer/VBoxContainer/Main/Objective/ObjectiveScreen/MarginContainer/VBoxContainer" index="2"]
-custom_minimum_size = Vector2(0, 100)
-
 [node name="ButtonContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
@@ -208,5 +205,3 @@ text = "Nouvelle destination"
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonContainer/Settings" to="." method="_on_settings_pressed"]
 [connection signal="gui_input" from="MarginContainer/VBoxContainer/ButtonContainer/ObjectiveWidget" to="." method="_on_small_objective_container_gui_input"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/ButtonContainer/Destination" to="." method="_on_destination_toggled"]
-
-[editable path="MarginContainer/VBoxContainer/Main/Objective/ObjectiveScreen"]

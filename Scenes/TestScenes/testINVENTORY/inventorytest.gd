@@ -11,8 +11,8 @@ var inventorySize = 0
 @onready var preview = %ItemPreview
 @onready var crewNode = %CrewmateContainer
 @onready var itemNumber = %ItemNumber
-var crew:Array[Crewmate] = [Crewmate.new("Mickael Jackson","Human (20).jpg","",[102,103],100,[Item.new("Pelle","caca","Human (50).jpg")]),Crewmate.new("Groberto Mascutti","Human (45).jpg","",[102,103],100,[])]
-var inventory:Array[Item] = [Item.new("Truc","test","Human (10).jpg"),Item.new("Fusil a pompe","test","Human (20).jpg")]
+@onready var crew:Array[Crewmate] = [Crewmate.new("Mickael Jackson","Human (20).jpg","",[102,103],100,[Item.new("Pelle","caca","Human (50).jpg")]),Crewmate.new("Groberto Mascutti","Human (45).jpg","",[102,103],100,[])]
+@onready var inventory:Array[Item] = [Item.new("Truc","test","Human (10).jpg"),Item.new("Fusil a pompe","test","Human (20).jpg")]
 
 func _ready():
 	preview.hide()
