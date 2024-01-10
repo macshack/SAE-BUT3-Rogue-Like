@@ -42,13 +42,13 @@ func init(crewmateParam):
 func _on_gui_input(event):
 	if event is InputEventMouseButton  && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 		if available:
-			if Game.playerCrew.crewList.size() < 5:
+			if Game.crew.size() < 5:
 				if ((Game.credits - crewmate.hirePrice) >= 0):
 					available = false
 					$VBoxContainer/Label.text = "Indisponible."
 					$VBoxContainer.modulate = Color(1.0,1.0,1.0,0.25)
 					Game.credits -= crewmate.hirePrice
-					Game.playerCrew.addCrewmate(crewmate)
+					Game.crew.append(crewmate)
 					merchant_success.emit(crewmate.identity+" a ete recrute avec succes.")
 				else:
 					merchant_error.emit("Pas assez de credits.")

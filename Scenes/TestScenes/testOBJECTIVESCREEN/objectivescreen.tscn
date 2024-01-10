@@ -1,0 +1,94 @@
+[gd_scene load_steps=11 format=3 uid="uid://b0vh6b4yu1yde"]
+
+[ext_resource type="Texture2D" uid="uid://dq8m8yadhxuss" path="res://Assets/UI/MiniPanel06.jpg" id="1_afbaj"]
+[ext_resource type="FontFile" uid="uid://j5854hdtucyt" path="res://Assets/Font/Montserrat-VariableFont_wght.ttf" id="2_b7enm"]
+[ext_resource type="Script" path="res://Scenes/TestScenes/testOBJECTIVESCREEN/objectivescreen.gd" id="2_bwcgm"]
+[ext_resource type="Texture2D" uid="uid://jtte441h6lpd" path="res://Assets/UI/BarV8_Bar.png" id="2_oot2i"]
+[ext_resource type="Texture2D" uid="uid://lhg3aqxtpdp" path="res://Assets/UI/BarV8_ProgressBar.png" id="3_54aa2"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_057bw"]
+texture = ExtResource("1_afbaj")
+modulate_color = Color(1, 1, 1, 0.862745)
+
+[sub_resource type="LabelSettings" id="LabelSettings_qtu41"]
+font = ExtResource("2_b7enm")
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_h74ow"]
+font = ExtResource("2_b7enm")
+font_size = 22
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_doeor"]
+texture = ExtResource("2_oot2i")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ofqqv"]
+texture = ExtResource("3_54aa2")
+
+[node name="PanelContainer" type="PanelContainer"]
+offset_right = 586.0
+offset_bottom = 288.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_057bw")
+script = ExtResource("2_bwcgm")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="objectiveName" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+text = "Test"
+label_settings = SubResource("LabelSettings_qtu41")
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="objectiveDescription" type="RichTextLabel" parent="MarginContainer/VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("2_b7enm")
+theme_override_font_sizes/normal_font_size = 20
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a sapien dignissim, efficitur dolor vel, ornare augue. Cras tempus iaculis tortor at sollicitudin. Vestibulum eu nibh quam. In ornare a magna at varius. Phasellus dapibus diam a egestas bibendum. Vivamus nec ipsum lorem. Sed sed risus sit amet orci efficitur convallis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Cras sagittis diam et turpis placerat, eu feugiat eros porttitor. Vivamus tristique felis velit, ac blandit libero cursus vitae. Maecenas imperdiet nunc ac mauris ornare consectetur. Donec quis libero sit amet turpis consectetur rutrum. Pellentesque auctor semper leo, in lobortis purus molestie non. Fusce in sapien eget est interdum tempus non at odio. Integer pellentesque risus arcu."
+fit_content = true
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="objectiveText" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Accumulez 10 000 credits: 0/10 000C"
+label_settings = SubResource("LabelSettings_h74ow")
+
+[node name="objectiveCurrent" type="ProgressBar" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/background = SubResource("StyleBoxTexture_doeor")
+theme_override_styles/fill = SubResource("StyleBoxTexture_ofqqv")
+show_percentage = false

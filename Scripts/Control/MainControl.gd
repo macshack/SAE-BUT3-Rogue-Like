@@ -2,7 +2,7 @@ extends Node
 @onready var mainMenu = preload("res://Scenes/MainMenu/MainMenuScene.tscn")
 @onready var gameStart = preload("res://Scenes/GameStart/GameStartWrapper.tscn")
 @onready var objective = preload("res://Scenes/ObjectiveScene.tscn")
-@onready var destination = preload("res://Scenes/DestinationScene.tscn")
+@onready var destination = preload("res://Scenes/Destination/destinationMain.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var mainMenuScene = mainMenu.instantiate()
@@ -27,10 +27,11 @@ func _on_gamestart_to_main_menu():
 
 
 func _on_gamestart_to_start_game(objData, crewData):
-	var objectiveScene = objective.instantiate().init(objData)
-	var destinationScene = destination.instantiate()
+	var objectiveScene = objective.instantiate().init(false,objData)
+	var destinationScene = destination.instantiate().init(false,null,{"type":"MRCD"})
 	objectiveScene.defeat.connect(_on_objective_defeat)
 	objectiveScene.victory.connect(_on_objective_victory)
+	objectiveScene.newData.connect(destinationScene._on_objectiveUpdate_received)
 	Game.crew = crewData
 	for c in $Game.get_children():
 		c.queue_free()

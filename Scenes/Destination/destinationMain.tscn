@@ -1,0 +1,212 @@
+[gd_scene load_steps=15 format=3 uid="uid://cxwb6fubnyk2b"]
+
+[ext_resource type="Texture2D" uid="uid://csqwf2vr38b0b" path="res://Assets/Background/Radar/BlueRadar/blueRadar (13).png" id="1_cl3kl"]
+[ext_resource type="Texture2D" uid="uid://dfp8glsnvg08h" path="res://Assets/UI/Button01.png" id="2_1l2tu"]
+[ext_resource type="FontFile" uid="uid://j5854hdtucyt" path="res://Assets/Font/Montserrat-VariableFont_wght.ttf" id="2_bxder"]
+[ext_resource type="Script" path="res://Scenes/Destination/destinationMain.gd" id="2_m7cho"]
+[ext_resource type="PackedScene" uid="uid://cf0cd88kico3g" path="res://Scenes/TestScenes/testINVENTORY/inventorytest.tscn" id="2_tccvg"]
+[ext_resource type="PackedScene" uid="uid://drh788ppk1ccw" path="res://Scenes/MainMenu/OptionsMenu.tscn" id="4_4y47e"]
+[ext_resource type="Texture2D" uid="uid://dn1ely4x28j4u" path="res://Assets/UI/MiniPanel01.jpg" id="4_344c2"]
+[ext_resource type="PackedScene" uid="uid://dx3p34k3lfrli" path="res://Scenes/CrewScreen/crewscreen.tscn" id="5_d7fi2"]
+[ext_resource type="PackedScene" uid="uid://b0vh6b4yu1yde" path="res://Scenes/TestScenes/testOBJECTIVESCREEN/objectivescreen.tscn" id="9_3bnog"]
+[ext_resource type="PackedScene" uid="uid://u7l1k7jcq0wx" path="res://Scenes/TestScenes/testOBJECTIVESCREEN/smallobjectivewidget.tscn" id="9_bjlfw"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ylfbw"]
+texture = ExtResource("1_cl3kl")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vrdph"]
+texture = ExtResource("4_344c2")
+modulate_color = Color(1, 1, 1, 0.901961)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a5mst"]
+texture = ExtResource("2_1l2tu")
+texture_margin_left = 5.0
+texture_margin_top = 10.0
+texture_margin_right = 5.0
+texture_margin_bottom = 10.0
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lhq7j"]
+texture = ExtResource("2_1l2tu")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+modulate_color = Color(1, 1, 1, 0.862745)
+
+[node name="Panel" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ylfbw")
+script = ExtResource("2_m7cho")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Main" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Crewmates" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Main"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="Inventory" parent="MarginContainer/VBoxContainer/Main" instance=ExtResource("2_tccvg")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Settings" type="CenterContainer" parent="MarginContainer/VBoxContainer/Main"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Menu" type="PanelContainer" parent="MarginContainer/VBoxContainer/Main/Settings"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_vrdph")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Main/Settings/Menu"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Menu" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Main/Settings/Menu/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Sauvegarder" type="Button" parent="MarginContainer/VBoxContainer/Main/Settings/Menu/MarginContainer/Menu"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+theme_override_fonts/font = ExtResource("2_bxder")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_a5mst")
+text = "Sauvegarder"
+
+[node name="Options" type="Button" parent="MarginContainer/VBoxContainer/Main/Settings/Menu/MarginContainer/Menu"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+theme_override_fonts/font = ExtResource("2_bxder")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_a5mst")
+text = "Options"
+
+[node name="Quitter" type="Button" parent="MarginContainer/VBoxContainer/Main/Settings/Menu/MarginContainer/Menu"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+theme_override_fonts/font = ExtResource("2_bxder")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_a5mst")
+text = "Menu principal"
+
+[node name="OptionsMenu" parent="MarginContainer/VBoxContainer/Main/Settings" instance=ExtResource("4_4y47e")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="Equipage" parent="MarginContainer/VBoxContainer/Main" instance=ExtResource("5_d7fi2")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Objective" type="CenterContainer" parent="MarginContainer/VBoxContainer/Main"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ObjectiveScreen" parent="MarginContainer/VBoxContainer/Main/Objective" instance=ExtResource("9_3bnog")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ScrollContainer" parent="MarginContainer/VBoxContainer/Main/Objective/ObjectiveScreen/MarginContainer/VBoxContainer" index="2"]
+custom_minimum_size = Vector2(0, 100)
+
+[node name="ButtonContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Situation" type="Button" parent="MarginContainer/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_fonts/font = ExtResource("2_bxder")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_lhq7j")
+text = "Situation"
+
+[node name="Equipage" type="Button" parent="MarginContainer/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_fonts/font = ExtResource("2_bxder")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_lhq7j")
+text = "Equipage"
+
+[node name="Inventory" type="Button" parent="MarginContainer/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_fonts/font = ExtResource("2_bxder")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_lhq7j")
+text = "Inventaire"
+
+[node name="Settings" type="Button" parent="MarginContainer/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_fonts/font = ExtResource("2_bxder")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_lhq7j")
+text = "Menu "
+
+[node name="ObjectiveWidget" parent="MarginContainer/VBoxContainer/ButtonContainer" instance=ExtResource("9_bjlfw")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Destination" type="Button" parent="MarginContainer/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_fonts/font = ExtResource("2_bxder")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_lhq7j")
+text = "Nouvelle destination"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Main/Settings/Menu/MarginContainer/Menu/Sauvegarder" to="." method="_on_menuSauvegarder_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Main/Settings/Menu/MarginContainer/Menu/Options" to="." method="_on_menuSettings_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Main/Settings/Menu/MarginContainer/Menu/Quitter" to="." method="_on_menuQuitter_pressed"]
+[connection signal="exit" from="MarginContainer/VBoxContainer/Main/Settings/OptionsMenu" to="." method="_on_options_menu_exit"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonContainer/Situation" to="." method="_on_situation_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonContainer/Equipage" to="." method="_on_equipage_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonContainer/Inventory" to="." method="_on_inventory_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="gui_input" from="MarginContainer/VBoxContainer/ButtonContainer/ObjectiveWidget" to="." method="_on_small_objective_container_gui_input"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/ButtonContainer/Destination" to="." method="_on_destination_toggled"]
+
+[editable path="MarginContainer/VBoxContainer/Main/Objective/ObjectiveScreen"]

@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://bc68yf6rjisyq"]
+
+[ext_resource type="Texture2D" uid="uid://dwmo0522m0a6g" path="res://Assets/UI/Cell01.png" id="1_bpywf"]
+[ext_resource type="Script" path="res://Scenes/TestScenes/testINVENTORY/slottest.gd" id="2_0s8pw"]
+[ext_resource type="Script" path="res://Scenes/TestScenes/testINVENTORY/itemslotdata.gd" id="3_tyqwf"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jgebl"]
+texture = ExtResource("1_bpywf")
+
+[node name="PanelContainer" type="PanelContainer"]
+custom_minimum_size = Vector2(100, 100)
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_jgebl")
+script = ExtResource("2_0s8pw")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("3_tyqwf")
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

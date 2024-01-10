@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://df5eovfrvbn6h"]
+
+[sub_resource type="GDScript" id="GDScript_ksh20"]
+script/source = "extends Node
+
+var objective = preload(\"res://Scenes/ObjectiveScene.tscn\")
+var destination = preload(\"res://Scenes/Destination/destinationMain.tscn\")
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	var objectiveScene = objective.instantiate().init(true,{})
+	var destinationScene = destination.instantiate()
+	objectiveScene.defeat.connect(_on_objective_defeat)
+	objectiveScene.victory.connect(_on_objective_victory)
+	objectiveScene.newData.connect(destinationScene._on_objectiveUpdate_received)
+	for c in self.get_children():
+		c.queue_free()
+	self.add_child(objectiveScene)
+	self.add_child(destinationScene)
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+	
+func _on_objective_defeat():
+	print(\"Lose\")
+	
+func _on_objective_victory():
+	print(\"Win\")
+"
+
+[node name="Node" type="Node"]
+script = SubResource("GDScript_ksh20")
