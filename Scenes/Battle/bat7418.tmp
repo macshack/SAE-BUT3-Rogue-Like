@@ -1,0 +1,182 @@
+[gd_scene load_steps=9 format=3 uid="uid://djvo81yru6mtq"]
+
+[ext_resource type="Script" path="res://Scripts/Battle/battle.gd" id="1_eon26"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vciuo"]
+bg_color = Color(0.0196078, 0.0196078, 0.0196078, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5e4hh"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o6kk1"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r8630"]
+bg_color = Color(0.803922, 0.172549, 0.0352941, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b61lo"]
+bg_color = Color(0.34902, 1, 0.141176, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hel3o"]
+bg_color = Color(0, 0, 0, 0.403922)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prscs"]
+bg_color = Color(0.00392157, 0.00392157, 0.00392157, 1)
+
+[node name="Battle" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_eon26")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EnemyCrewContainer" type="HBoxContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Textbox" type="PanelContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="TextboxLabel" type="Label" parent="VBoxContainer/Textbox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+text = "A Fishstick appears !"
+
+[node name="Ticker" type="Label" parent="VBoxContainer/Textbox"]
+layout_mode = 2
+text = ">"
+
+[node name="PlayerPanel" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/PlayerPanel"]
+layout_mode = 2
+
+[node name="Actions" type="HBoxContainer" parent="VBoxContainer/PlayerPanel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+
+[node name="Attack" type="Button" parent="VBoxContainer/PlayerPanel/VBoxContainer/Actions"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_vciuo")
+theme_override_styles/hover = SubResource("StyleBoxFlat_5e4hh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_o6kk1")
+text = "Attack
+"
+
+[node name="Skill1" type="Button" parent="VBoxContainer/PlayerPanel/VBoxContainer/Actions"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_vciuo")
+theme_override_styles/hover = SubResource("StyleBoxFlat_5e4hh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_o6kk1")
+text = "Skill1
+"
+
+[node name="Skill2" type="Button" parent="VBoxContainer/PlayerPanel/VBoxContainer/Actions"]
+layout_mode = 2
+text = "Skill2"
+
+[node name="Defend" type="Button" parent="VBoxContainer/PlayerPanel/VBoxContainer/Actions"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_vciuo")
+theme_override_styles/hover = SubResource("StyleBoxFlat_5e4hh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_o6kk1")
+text = "Defend
+"
+
+[node name="PlayerData" type="HBoxContainer" parent="VBoxContainer/PlayerPanel/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="PlayerName" type="Label" parent="VBoxContainer/PlayerPanel/VBoxContainer/PlayerData"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "
+
+"
+horizontal_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/PlayerPanel/VBoxContainer/PlayerData"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_r8630")
+theme_override_styles/fill = SubResource("StyleBoxFlat_b61lo")
+show_percentage = false
+
+[node name="HP" type="Label" parent="VBoxContainer/PlayerPanel/VBoxContainer/PlayerData/ProgressBar"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 20
+text = "HP:25/50
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ActionPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 96.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hel3o")
+
+[node name="Textbox1" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 127.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_prscs")
+
+[connection signal="pressed" from="VBoxContainer/PlayerPanel/VBoxContainer/Actions/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="VBoxContainer/PlayerPanel/VBoxContainer/Actions/Skill1" to="." method="_on_skill_pressed"]
+[connection signal="pressed" from="VBoxContainer/PlayerPanel/VBoxContainer/Actions/Skill2" to="." method="_on_skill_2_pressed"]
+[connection signal="pressed" from="VBoxContainer/PlayerPanel/VBoxContainer/Actions/Defend" to="." method="_on_defend_pressed"]

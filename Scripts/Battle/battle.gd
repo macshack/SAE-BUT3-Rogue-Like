@@ -155,17 +155,18 @@ func _on_attack_pressed():
 	display_text("You attack the enemy !")
 	await textbox_closed
 	
-	print(Game.enemyCrew[enemyTarget].weakpoint)
+	print("BEFORE IF: ", Game.enemyCrew[enemyTarget].weakpoint)
 	
 	if Game.enemyCrew[enemyTarget].weakpoint[0]:
-		print("WEAKPOINT")
-		Game.enemyCrew[enemyTarget].healthCurrent = max(0, 
-		Game.enemyCrew[enemyTarget].healthCurrent - character.attackCurrent + 2)
+		print("ON ATTACK: ", Game.enemyCrew[enemyTarget].weakpoint)
+		Game.enemyCrew[enemyTarget].healthCurrent = max(0, Game.enemyCrew[enemyTarget].healthCurrent - (character.attackCurrent + 2))
+		var val = character.attackCurrent + 2
+		display_text("You dealt %d damage !" % val)
+		await textbox_closed
 	else:
 		Game.enemyCrew[enemyTarget].healthCurrent = max(0, Game.enemyCrew[enemyTarget].healthCurrent - character.attackCurrent)
-	
-	display_text("You dealt %d damage !" % character.attackCurrent)
-	await textbox_closed
+		display_text("You dealt %d damage !" % character.attackCurrent)
+		await textbox_closed
 	
 	if Game.enemyCrew[enemyTarget].healthCurrent <= 0:
 		var node_to_remove = %EnemyCrewContainer.get_child(enemyTarget)
@@ -182,33 +183,37 @@ func _on_attack_pressed():
 func enemy_turn():
 	
 	var enemy: Enemy
+	var enIndex: int
 	
-	for en in Game.enemyCrew:
-		if en == character:
-			enemy = en
+	for i in Game.enemyCrew.size():
+		if Game.enemyCrew[i].identity == character.identity:
+			enIndex = i	
 	
-	if enemy.weakpoint[0]:
-			enemy.weakpoint[1] = enemy.weakpoint[1] - 1
-			if enemy.burn[1] == 0:
-				enemy.burn[0] = false
-				display_text(enemy.identity + " weakpoints ")
-				await textbox_closed
+	if Game.enemyCrew[enIndex].weakpoint[0]:
+		print("INIT: ", Game.enemyCrew[enIndex].weakpoint)
+		Game.enemyCrew[enIndex].weakpoint[1] = Game.enemyCrew[enIndex].weakpoint[1] - 1
+		if Game.enemyCrew[enIndex].weakpoint[1] == 0:
+			Game.enemyCrew[enIndex].weakpoint[0] = false
+		print("FINAL: ", Game.enemyCrew[enemyTarget].weakpoint)
+		display_text(Game.enemyCrew[enIndex].identity + " weakpoints STOP")
+		await textbox_closed
 	
-	if enemy.burn[0]:
-			enemy.burn[1] = enemy.burn[1] - 1
-			enemy.healthCurrent = max(0, enemy.healthCurrent - enemy.burn[2])
-			if enemy.burn[1] == 0:
-				enemy.burn[0] = false
-			display_text(character.identity + " is burning: " + str(enemy.burn[2]))
-			await textbox_closed
+	if Game.enemyCrew[enIndex].burn[0]:
+		Game.enemyCrew[enIndex].burn[1] = Game.enemyCrew[enIndex].burn[1] - 1
+		Game.enemyCrew[enIndex].healthCurrent = max(0, Game.enemyCrew[enIndex].healthCurrent - Game.enemyCrew[enIndex].burn[2])
+		if Game.enemyCrew[enIndex].burn[1] == 0:
+			Game.enemyCrew[enIndex].burn[0] = false
+		display_text(character.identity + " is burning: " + str(Game.enemyCrew[enIndex].burn[2]))
+		await textbox_closed
 	
-	if enemy.stun[0]:
-		enemy.stun[1] = enemy.stun[1] - 1
-		if enemy.stun[1] == 0:
-			enemy.stun[0] = false
+	if Game.enemyCrew[enIndex].stun[0]:
+		Game.enemyCrew[enIndex].stun[1] = Game.enemyCrew[enIndex].stun[1] - 1
+		if Game.enemyCrew[enIndex].stun[1] == 0:
+			Game.enemyCrew[enIndex].stun[0] = false
 		display_text(character.identity + " is stunned !")
 		await textbox_closed
 	else:
+
 		var index: int = -1
 		
 		while Game.crew[index].healthCurrent <= 0:
@@ -228,7 +233,6 @@ func enemy_turn():
 		if Game.crew[index].healthCurrent <= 0:
 			ko_crewmate()
 			i = i-1
-		
 		
 		if crew_dead():
 			#print("RIP BOZO")
@@ -261,7 +265,7 @@ func _on_skill_pressed():
 	display_text("You use the skill %s" % character.skillOne.skillName)
 	await textbox_closed
 	
-	useSkill(character, character.skillOne)
+	useSkill(character, character.skillOne, enemyTarget)
 	
 	if Game.enemyCrew[enemyTarget].healthCurrent <= 0:
 		var node_to_remove = %EnemyCrewContainer.get_child(enemyTarget)
@@ -285,7 +289,7 @@ func _on_skill_2_pressed():
 	display_text("You attack the enemy with %s" % character.skillTwo.skillName)
 	await textbox_closed
 
-func useSkill(charater: Character, skill: Skill):
+func useSkill(charater: Character, skill: Skill, target: int):
 	var general = skill.activeAbility.general
 	general = [general.name, general.flavorText, general.weaponType,
 	 general.targetNumber, general.weakPointCheck, general.damageSplit]
@@ -299,20 +303,20 @@ func useSkill(charater: Character, skill: Skill):
 	var burn = [status.burn.valid, status.burn.burnDuration, status.burn.burnDamage]
 	
 	if weakpoint[0]:
-		display_text("You discover weakpoint of " + str(Game.enemyCrew[enemyTarget].identity))
+		display_text("You discover weakpoint of " + str(Game.enemyCrew[target].identity))
 		await textbox_closed
-		Game.enemyCrew[enemyTarget].weakpoint = weakpoint
+		Game.enemyCrew[target].weakpoint = weakpoint
 	if stun[0]:
-		display_text("You stun " + str(Game.enemyCrew[enemyTarget].identity))
+		display_text("You stun " + str(Game.enemyCrew[target].identity))
 		await textbox_closed
-		Game.enemyCrew[enemyTarget].stun = stun
+		Game.enemyCrew[target].stun = stun
 	if burn[0]:
-		display_text("You burn " + str(Game.enemyCrew[enemyTarget].identity))
+		display_text("You burn " + str(Game.enemyCrew[target].identity))
 		await textbox_closed
-		Game.enemyCrew[enemyTarget].burn = burn
+		Game.enemyCrew[target].burn = burn
 	
-	Game.enemyCrew[enemyTarget].healthCurrent = max(
-		0, Game.enemyCrew[enemyTarget].healthCurrent - damage[0])
+	Game.enemyCrew[target].healthCurrent = max(
+		0, Game.enemyCrew[target].healthCurrent - damage[0])
 	
 	display_text("You dealt %d damage !" % damage[0])
 	await textbox_closed

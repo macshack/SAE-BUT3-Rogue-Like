@@ -70,12 +70,12 @@
 	},
 	"status": {
 		"stun": {
-			"valid": true,
-			"stunDuration": 1
+			"valid": false,
+			"stunDuration": 0
 		},
 		"weakPoint": {
-			"valid": false,
-			"weakpointDuration": 0
+			"valid": true,
+			"weakpointDuration": 1
 		},
 		"burn": {
 			"valid": false,
