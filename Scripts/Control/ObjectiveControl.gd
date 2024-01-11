@@ -1,35 +1,8 @@
 extends Node
 
-enum objFamilies {ACCUMULATION=0,NEVER=1,LESSER=2,MORE=3}
-enum objTypes {CREDITS=0,DEAD_CREWMATE=1,DAMAGE_DEALT=2,GEAR=3,ENEMIES_KILLED=5,FIGHTS_WON=6,EXPLORATION_DONE=7,BOSS_KILLED=8}
-
 signal newData(objectiveData:ObjectiveSettings)
 signal victory(objectiveResult:Dictionary)
 signal defeat(objectiveResult:Dictionary)
-
-#Contains the raw data of the objective, must be processed by the init function
-var objData
-#Big cool title
-var objTitle:String
-#Detailed and flavorful description of the objective
-var objDescription:String
-#Objective text for the UI
-var objText:String
-#Family of the objective either : accumulation, never-happens, lesser-than, more-than, etc
-var objFamily:objFamilies
-#The type of the objective : credits, damage dealt, amount of gear obtained, etc
-var objType:objTypes
-#Amount to reach to win the game
-var objGoal
-#Current amount
-var objValue
-#If the objective has a constraint or not
-var objConstraint:bool = false
-#Time constraint measured in seconds
-var objTimeConstraint:int = -1
-#Round constraint measured in a number of rounds
-var objRoundConstraint:int = -1
-
 
 var objective_settings:ObjectiveSettings
 
@@ -64,7 +37,7 @@ func forceSave():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	saveAndEmit()
-	if Game.roundConstraint < 0:
+	if Game.currentRound > objective_settings.constraintValue:
 		_endGame()
 		
 func saveAndEmit():
@@ -86,8 +59,12 @@ func init(load:bool,data:Dictionary):
 		if objective_settings.constraint:
 			objective_settings.constraintType = data["constraintType"]
 			objective_settings.constraintValue = data["constraintValue"]
+			objective_settings.constraintRemaining = data["constraintValue"]
 		else:
 			objective_settings.constraint = false
+			objective_settings.constraintType = "NONE"
+			objective_settings.constraintValue = 1
+			objective_settings.constraintRemaining = -1
 		saveAndEmit()
 	return self
 	
@@ -163,5 +140,5 @@ func _analysis_required(data:Dictionary):
 	analyze(false,data)
 
 func _endGame():
-	print("Fin du timer/round")
+	#print("Fin du timer/round")
 	analyze(true)

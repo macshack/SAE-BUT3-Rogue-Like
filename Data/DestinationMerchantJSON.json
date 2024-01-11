@@ -1,0 +1,24 @@
+{
+	"0":{
+		"name":"Station marchande",
+		"flavor":"Une station marchande banale de l'UIH, vous en avez vu des centaines, si ce n'est des miliers au cours de votre vie. Avec un peu de chance vous denicherez une arme standard ou peut-etre que vous rencontrerez une personne peu interressante mais prete a se joindre a votre equipage.",
+		"background":"BlueRadar/blueRadar (1).png",
+		"difficulty":1,
+		"type":"MERCHANT",
+		
+	},
+	"1":{
+		"name":"Station marchande 'Pashiloss'",
+		"flavor":"",
+		"background":"BlueRadar/blueRadar (1).png",
+		"difficulty":1,
+		"type":"MERCHANT",
+	},
+	"2":{
+		"name":"Vaisseau marchand 'Taril & Co.'",
+		"flavor":"",
+		"background":"BlueRadar/blueRadar (1).png",
+		"difficulty":1,
+		"type":"MERCHANT",
+	},
+}

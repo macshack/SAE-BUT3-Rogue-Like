@@ -16,7 +16,7 @@ var crewmatePanel = preload("res://Scenes/CrewScreen/crewmatescreenpanel.tscn")
 @onready var crewmateName = %crewmateName
 @onready var crewmateDescription = %crewmateBackground
 
-var testCrew :Array[Crewmate] = [Crewmate.new("Brulux","Human (53).jpg","Pas grand chose",[105,106]),Crewmate.new("Boukayo Caca","Human (50).jpg","Pas grand chose",[100,104]),Crewmate.new("Boufux","Human (59).jpg","Pas grand chose",[105,100]),Crewmate.new("Connard","Human (20).jpg","Pas grand chose",[103,104])]
+@onready var testCrew :Array[Crewmate] = [Crewmate.new("Brulux","Human (53).jpg","Pas grand chose",[105,106]),Crewmate.new("Boukayo Caca","Human (50).jpg","Pas grand chose",[100,104]),Crewmate.new("Boufux","Human (59).jpg","Pas grand chose",[105,100]),Crewmate.new("Connard","Human (20).jpg","Pas grand chose",[103,104])]
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	updateCrewmateBox()
@@ -58,7 +58,6 @@ func _remove_crewmate(value):
 					updateCrewmateBox()
 	else:
 		if (Game.crew.size()-1>0):
-			print("supprimes le "+str(value))
 			if (value is int) && (Game.crew[value] is Crewmate):
 					Game.crew.pop_at(value)
 					updateCrewmateBox()

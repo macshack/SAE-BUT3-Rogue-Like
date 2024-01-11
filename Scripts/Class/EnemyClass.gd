@@ -9,3 +9,13 @@ func _init(identity = "", icon = "", healthMax = 10, healthCurrent = 10, attackP
 	super(identity, icon, healthCurrent)
 	self.attackPower = attackPower
 	self.healthMax = healthMax
+
+func toDictionary()->Dictionary:
+	var dict = {
+		"identity":self.identity,
+		"icon":self.icon,
+		"healthCurrent":self.healthCurrent,
+		"attackPower":self.attackPower,
+		"healthMax":self.healthMax,
+	}
+	return dict

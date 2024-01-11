@@ -25,7 +25,7 @@ func makeMerchantItems():
 	for i in children:
 		for c in i.get_children():
 			c.queue_free()
-		var item = JsonHandling.item_data[str(randi()%3)]
+		var item = JsonHandling.item_data[JsonHandling.item_data.keys()[ randi() % JsonHandling.item_data.size()]]
 		var slot = itemSlot.instantiate().init(item)
 		slot.merchant_success.connect(_merchant_success)
 		slot.merchant_error.connect(_merchant_error)

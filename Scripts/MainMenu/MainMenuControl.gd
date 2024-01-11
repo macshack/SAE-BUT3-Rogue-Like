@@ -1,15 +1,14 @@
 extends Control
 
 signal toCrewcreator()
+signal loadGame()
 
 @onready var mainMenu = %MainMenu
-@onready var loadMenu = %LoadSaveMenu
 @onready var optionsMenu = %OptionsMenu
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	optionsMenu.hide()
-	loadMenu.hide()
 	mainMenu.show()
 
 
@@ -33,8 +32,7 @@ func _on_quit_pressed():
 
 
 func _on_load_pressed():
-	loadMenu.show()
-	mainMenu.hide()
+	loadGame.emit()
 
 
 func _on_start_pressed():

@@ -1,0 +1,23 @@
+{
+	"0":{
+		"name":"Station UIH compromise",
+		"flavor":"",
+		"background":"BlueRadar/blueRadar (1).png",
+		"difficulty":3,
+		"type":"FIGHT",
+	},
+	"1":{
+		"name":"???",
+		"flavor":"Qu'est-ce qui se passe ?",
+		"background":"Yellow/yellowRadar (22).png",
+		"difficulty":3,
+		"type":"FIGHT",
+	},
+	"2":{
+		"name":"Fourgonette de l'espace 'Fouder Services'",
+		"flavor":"",
+		"background":"BlueRadar/blueRadar (1).png",
+		"difficulty":3,
+		"type":"FIGHT",
+	},
+}
