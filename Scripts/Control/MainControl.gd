@@ -39,6 +39,7 @@ func _load_game():
 	destinationScene.save.connect(_save)
 	destinationScene.toMainMenu.connect(_back_to_main_menu)
 	destinationScene.nextDestination.connect(_on_next_destination)
+	destinationScene.sendBattlereport.connect(objectiveScene.analyze)
 	
 	objectiveScene.defeat.connect(_on_objective_defeat)
 	objectiveScene.victory.connect(_on_objective_victory)
@@ -77,6 +78,7 @@ func _on_gamestart_to_start_game(objData, crewData):
 	destinationScene.save.connect(_save)
 	destinationScene.toMainMenu.connect(_back_to_main_menu)
 	destinationScene.nextDestination.connect(_on_next_destination)
+	destinationScene.sendBattlereport.connect(objectiveScene.analyze)
 	
 	objectiveScene.defeat.connect(_on_objective_defeat)
 	objectiveScene.victory.connect(_on_objective_victory)
@@ -94,7 +96,8 @@ func _on_gamestart_to_start_game(objData, crewData):
 
 func _on_next_destination(value):
 	var destinationSettings = DestinationSettings.load_or_create() 
-	
+	print(value)
+	print(value['type'])
 	destinationSettings.name = value["name"]
 	destinationSettings.flavor = value["flavor"]
 	destinationSettings.backgroundFile = value["background"]
@@ -102,12 +105,14 @@ func _on_next_destination(value):
 	destinationSettings.type = value["type"]
 	destinationSettings.situationDone = false
 	destinationSettings.save()
+	print(destinationSettings.type)
 	
 	var destinationScene = destination.instantiate().init(true)
 	
 	destinationScene.save.connect(_save)
 	destinationScene.toMainMenu.connect(_back_to_main_menu)
 	destinationScene.nextDestination.connect(_on_next_destination)
+	destinationScene.sendBattlereport.connect($Game.get_children()[0].analyze)
 	
 	$Game.get_children()[0].newData.connect(destinationScene._on_objectiveUpdate_received)
 	

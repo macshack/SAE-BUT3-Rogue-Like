@@ -57,13 +57,12 @@ func _on_start():
 	Start.hide()
 	batlle.show()
 	
-	for i in JsonHandling.crewmate_data.size():
-		var tab: Array[int] = [JsonHandling.crewmate_data[str(i)].skills[0], JsonHandling.crewmate_data[str(i)].skills[1]]
-		var crewmate = Crewmate.new(JsonHandling.crewmate_data[str(i)].identity, JsonHandling.crewmate_data[str(i)].background, JsonHandling.crewmate_data[str(i)].icon, tab, JsonHandling.crewmate_data[str(i)].hirePrice)
-		var enemy = Enemy.new(JsonHandling.enemy_data[str(i)].identity,
-		 JsonHandling.enemy_data[str(i)].icon, JsonHandling.enemy_data[str(i)].health,
-		 JsonHandling.enemy_data[str(i)].health, JsonHandling.enemy_data[str(i)].attackPower)
-		Game.crew.append(crewmate)
+	var randEnemy = randi()%5
+	for i in randEnemy:
+		var en = JsonHandling.enemy_data[JsonHandling.enemy_data.keys()[ randi() % JsonHandling.enemy_data.size()]]
+		var enemy = Enemy.new(en.identity,
+		 en.icon, en.health,
+		 en.health, en.attackPower)
 		Game.enemyCrew.append(enemy)
 	
 	order = orderFight(Game.crew, Game.enemyCrew)

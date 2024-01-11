@@ -1,13 +1,3 @@
-MOYEN : Faire les skills
-	- Competences passives
-	- Competences actives
-
-FACILE : Finir le combat
-	- Variable telemetrie pour les objectifs
-	- Bouton pour commencer le combat (le combat est bloquant, tu ne peux pas changer de stuff en combat)
-	- Ecran de fin avec choix de recompenses (credits ou objets)
-
-FACILE : Refaire le marchand
 FACILE : Payer pour des soins au marchand
 
 FACILE : Faire le systeme de boss
@@ -19,20 +9,25 @@ MOYEN : Faire l'ecran de fin de jeu -> Retour au menu principal
 
 ----------------------
 
-Verifier que les objectifs defis fonctionnent
+Connecter les sognaux de victoire et game over pour ecran de fin
+
+Refaire menu principal, objectifs selector, crew creator et options
+
+Leaderboard
+ 
+Trouver des vraies icones pour les objets
 
 --------------
 
-Faire les themes pour que le jeu soit plus beau
 
 Faire les JSONs des ennemis
 
 Faire les JSONs des boss
-
-Trouver des vraies icones pour les objets
 
 Etoffer les listes JSON
 	- Plus de crewmates
 	- Plus d'objets
 	- Plus de marchands
 	
+
+Verifier que les objectifs defis fonctionnent

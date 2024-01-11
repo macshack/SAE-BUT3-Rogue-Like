@@ -185,6 +185,8 @@ offset_bottom = 40.0
 
 [node name="start" type="Button" parent="Start"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 200
+text = "LE CACA"
 
 [node name="GameOver" type="VBoxContainer" parent="."]
 unique_name_in_owner = true

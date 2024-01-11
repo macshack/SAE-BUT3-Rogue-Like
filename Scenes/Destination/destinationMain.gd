@@ -4,6 +4,7 @@ signal toMainMenu()
 signal emitFightResult()
 signal nextDestination()
 signal save()
+signal sendBattlereport(boolean, value)
 
 var situationDone = false
 
@@ -51,6 +52,9 @@ func _ready():
 	if situation:
 		match(situation["type"]):
 			"FIGHT":
+				var scene = fightScene.instantiate()
+				scene.reward.connect(_on_battleReward)
+				main.add_child(scene)
 				situationDone = false
 				if destinationSettings:
 					destinationSettings.situationDone = true
@@ -86,6 +90,9 @@ func init(load:bool):
 	if load:
 		destinationSettings = DestinationSettings.load_or_create()
 		$TextureRect.texture = load("res://Assets/Background/Radar/"+destinationSettings.backgroundFile)
+		situation["type"] = destinationSettings.type
+		situation["difficulty"] = destinationSettings.difficulty
+		situationDone = destinationSettings.situationDone
 	else:
 		destinationSettings = DestinationSettings.load_or_create()
 		destinationSettings.reset()
@@ -151,6 +158,11 @@ func updateCrewmatesNameplates():
 	for cr in Game.crew.size():
 		var nameplate = crewmateNameplateScene.instantiate().init(int(cr))
 		crewmates.add_child(nameplate)
+
+func _on_battleReward(value:Dictionary):
+	print(value)
+	sendBattlereport.emit(false,value)
+
 
 func _on_next_destination_data(value:Dictionary):
 	nextDestination.emit(value)
