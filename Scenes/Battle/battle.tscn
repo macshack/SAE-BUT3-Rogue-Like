@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://djvo81yru6mtq"]
+[gd_scene load_steps=7 format=3 uid="uid://djvo81yru6mtq"]
 
 [ext_resource type="Script" path="res://Scripts/Battle/battle.gd" id="1_eon26"]
 
@@ -16,12 +16,6 @@ bg_color = Color(0.803922, 0.172549, 0.0352941, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b61lo"]
 bg_color = Color(0.34902, 1, 0.141176, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hel3o"]
-bg_color = Color(0, 0, 0, 0.403922)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prscs"]
-bg_color = Color(0.00392157, 0.00392157, 0.00392157, 1)
 
 [node name="Battle" type="Control"]
 layout_mode = 3
@@ -158,24 +152,6 @@ text = "HP:25/50
 "
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="ActionPanel" type="Panel" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 96.0
-grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hel3o")
-
-[node name="Textbox1" type="Panel" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 127.0
-grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_prscs")
 
 [node name="Start" type="VBoxContainer" parent="."]
 unique_name_in_owner = true

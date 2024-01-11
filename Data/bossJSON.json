@@ -1,0 +1,20 @@
+{
+	"0": {
+		"identity": "King of aliens",
+		"icon": "",
+		"health": 50,
+		"attackPower": 5
+	},
+	"1": {
+		"identity": "Sir Alphonse II",
+		"icon": "",
+		"health": 22,
+		"attackPower": 12
+	},
+	"2": {
+		"identity": "",
+		"icon": "Human (102).jpg",
+		"health": 4,
+		"attackPower": 2
+	},
+}
