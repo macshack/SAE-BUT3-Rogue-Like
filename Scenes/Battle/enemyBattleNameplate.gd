@@ -8,9 +8,7 @@ signal click_on_nameplate(index: int)
 var enemyIndex:int
 
 func _ready():
-	#print(enemyIndex)
-	#print(Game.enemyCrew.size())
-	if Game.enemyCrew.size() <=0:
+	if Game.enemyCrew.size() <= 0:
 		return 0
 	if Game.enemyCrew[enemyIndex] is Enemy:
 		icon.texture = load("res://Assets/Portraits/"+Game.enemyCrew[enemyIndex].icon)

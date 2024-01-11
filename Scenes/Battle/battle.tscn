@@ -218,12 +218,14 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="Victory/Gear"]
 layout_mode = 2
+text = "GEAR"
 
 [node name="Credits" type="VBoxContainer" parent="Victory"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Victory/Credits"]
 layout_mode = 2
+text = "CREDITS"
 
 [connection signal="gameover" from="." to="." method="_on_gameover"]
 [connection signal="victor" from="." to="." method="_on_victor"]

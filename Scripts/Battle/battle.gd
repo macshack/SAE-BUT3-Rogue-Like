@@ -22,6 +22,7 @@ extends Control
 signal victor
 signal gameover
 signal start
+signal click_on_rewards(index: int) 
 
 var startEnd = false
 
@@ -59,8 +60,8 @@ func _on_start():
 		var tab: Array[int] = [JsonHandling.crewmate_data[str(i)].skills[0], JsonHandling.crewmate_data[str(i)].skills[1]]
 		var crewmate = Crewmate.new(JsonHandling.crewmate_data[str(i)].identity, JsonHandling.crewmate_data[str(i)].background, JsonHandling.crewmate_data[str(i)].icon, tab, JsonHandling.crewmate_data[str(i)].hirePrice)
 		var enemy = Enemy.new(JsonHandling.crewmate_data[str(i)].identity, JsonHandling.crewmate_data[str(i)].icon)
-		crewmate.attackCurrent = 1
-		enemy.attackBase = 10
+		crewmate.attackCurrent = 10
+		enemy.attackBase = 1
 		Game.crew.append(crewmate)
 		Game.enemyCrew.append(enemy)
 	
@@ -93,7 +94,11 @@ func _process(delta):
 	if startEnd:
 		return 0
 	if startFight:
-		if EnemyCrewContainer != null and EnemyCrewContainer.get_child_count() <= 0:
+		var victory_bool = true
+		for en in Game.enemyCrew:
+			if en.healthCurrent > 0:
+				victory_bool = false
+		if victory_bool:
 			display_text("Victory !")
 			await textbox_closed
 			emit_signal("victor")
@@ -151,16 +156,6 @@ func orderFight(crewTab: Array[Crewmate], enemyTab:Array[Enemy]):
 	Speed = tri_insertion(Speed)
 	return Speed
 
-func erase_enemy():
-	for en in Game.enemyCrew:
-		if en.healthCurrent <= 0:
-			var id = en.identity
-			Game.enemyCrew.erase(en)
-			for c in order:
-				if c[0] is Enemy and c[0].identity == id:
-					order.erase(c)
-					#print("ORDER: ", order)
-
 func ko_crewmate():
 	for crew in Game.crew:
 		if crew.healthCurrent <= 0:
@@ -173,10 +168,14 @@ func ko_crewmate():
 
 func _on_attack_pressed():
 	
+	print("ENEMY LIST: ", Game.enemyCrew)
+	
 	if enemyTarget >= Game.enemyCrew.size() or enemyTarget < 0:
 		display_text("Cliquez sur un ennemi !")
 		await textbox_closed
 		return 0
+	
+	print("ENEMY TARGET: ", enemyTarget)
 		
 	display_text("You attack the enemy !")
 	await textbox_closed
@@ -197,10 +196,9 @@ func _on_attack_pressed():
 		await textbox_closed
 	
 	if Game.enemyCrew[enemyTarget].healthCurrent <= 0:
-		var node_to_remove = %EnemyCrewContainer.get_child(enemyTarget)
-		node_to_remove.queue_free()
-		erase_enemy()
+		EnemyCrewContainer.get_child(enemyTarget).hide()
 		nbEnnemiesKilled = nbEnnemiesKilled + 1
+		erase_enemy()
 	
 	enemyTarget = -1
 	
@@ -300,8 +298,8 @@ func _on_skill_pressed():
 	useSkill(character, character.skillOne, enemyTarget)
 	
 	if Game.enemyCrew[enemyTarget].healthCurrent <= 0:
-		var node_to_remove = %EnemyCrewContainer.get_child(enemyTarget)
-		node_to_remove.queue_free()
+		EnemyCrewContainer.get_child(enemyTarget).hide()
+		nbEnnemiesKilled = nbEnnemiesKilled + 1
 		erase_enemy()
 	
 	enemyTarget = -1
@@ -325,8 +323,8 @@ func _on_skill_2_pressed():
 	useSkill(character, character.skillTwo, enemyTarget)
 	
 	if Game.enemyCrew[enemyTarget].healthCurrent <= 0:
-		var node_to_remove = %EnemyCrewContainer.get_child(enemyTarget)
-		node_to_remove.queue_free()
+		EnemyCrewContainer.get_child(enemyTarget).hide()
+		nbEnnemiesKilled = nbEnnemiesKilled + 1
 		erase_enemy()
 	
 	enemyTarget = -1
@@ -393,12 +391,18 @@ func _on_gameover():
 	+ str(damageSuffered) + "\n"+ "nbEnnemiesKilled: " \
 	+ str(nbEnnemiesKilled) + "\n"+ "nbRound: " + str(nbRound) + "\n"
 
-
 func _on_gear_gui_input(event):
 	if event is InputEventMouseButton  && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 		pass 
 
-
 func _on_credits_gui_input(event):
 	if event is InputEventMouseButton  && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 		pass
+
+func erase_enemy():
+	for en in Game.enemyCrew:
+		if en.healthCurrent <= 0:
+			var id = en.identity
+			for c in order:
+				if c[0] is Enemy and c[0].identity == id:
+					order.erase(c)
