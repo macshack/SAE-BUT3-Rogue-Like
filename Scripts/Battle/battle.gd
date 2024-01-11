@@ -9,9 +9,23 @@ extends Control
 @onready var textboxNode = %Textbox
 @onready var textboxLabelNode = %TextboxLabel
 @onready var playerActionNode = %Actions
+@onready var gameOver = %GameOver
+@onready var victory = %Victory
+@onready var batlle = %Battle
+@onready var Start = %Start
+
+@onready var damageInflicted: int = 0
+@onready var damageSuffered: int = 0
+@onready var nbEnnemiesKilled: int = 0
+@onready var nbRound: int = 0
 
 signal victor
 signal gameover
+signal start
+
+var startEnd = false
+
+var startFight = false
 
 var enemyBattleNameplate = preload("res://Scenes/Battle/enemyBattleNameplate.tscn")
 
@@ -30,16 +44,23 @@ signal textbox_closed
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
-	#Update le PlayerPanel a chaque changement de tour
-	#Faire les fonctions attack, ennemyTurn, (defend, skill)
-	#Mettre au propre l'interface
+	gameOver.hide()
+	victory.hide()
+	batlle.hide()
+	Start.show()
+	$".".connect("start", _on_start)
+
+func _on_start():
+	
+	Start.hide()
+	batlle.show()
 	
 	for i in JsonHandling.crewmate_data.size():
 		var tab: Array[int] = [JsonHandling.crewmate_data[str(i)].skills[0], JsonHandling.crewmate_data[str(i)].skills[1]]
 		var crewmate = Crewmate.new(JsonHandling.crewmate_data[str(i)].identity, JsonHandling.crewmate_data[str(i)].background, JsonHandling.crewmate_data[str(i)].icon, tab, JsonHandling.crewmate_data[str(i)].hirePrice)
 		var enemy = Enemy.new(JsonHandling.crewmate_data[str(i)].identity, JsonHandling.crewmate_data[str(i)].icon)
 		crewmate.attackCurrent = 1
-		enemy.attackBase = 1
+		enemy.attackBase = 10
 		Game.crew.append(crewmate)
 		Game.enemyCrew.append(enemy)
 	
@@ -57,6 +78,8 @@ func _ready():
 	
 	character = order[i][0]
 	
+	startFight = true
+	
 func _input(event):
 	if (Input.is_action_just_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and textboxNode.visible:
 		textboxNode.hide()
@@ -67,20 +90,23 @@ func display_text(text):
 	textboxLabelNode.text = text
 
 func _process(delta):
-	if EnemyCrewContainer != null and EnemyCrewContainer.get_child_count() <= 0:
-		display_text("Victory !")
-		await textbox_closed
-		emit_signal("victory") 
-	if character is Crewmate:
-		updatePlayerPanel(character)
-		for action in playerActionNode.get_children():
-			action.disabled = false
-	elif character is Enemy:
-		for action in playerActionNode.get_children():
-			action.disabled = true
-		if not isFunctionRunning:
-			# Si elle n'est pas en cours d'exécution, la démarrer
-			startFunction()
+	if startEnd:
+		return 0
+	if startFight:
+		if EnemyCrewContainer != null and EnemyCrewContainer.get_child_count() <= 0:
+			display_text("Victory !")
+			await textbox_closed
+			emit_signal("victor")
+		if character is Crewmate:
+			updatePlayerPanel(character)
+			for action in playerActionNode.get_children():
+				action.disabled = false
+		elif character is Enemy:
+			for action in playerActionNode.get_children():
+				action.disabled = true
+			if not isFunctionRunning:
+				# Si elle n'est pas en cours d'exécution, la démarrer
+				startFunction()
 
 func startFunction():
 	# Marquer la fonction comme étant en cours d'exécution
@@ -160,11 +186,13 @@ func _on_attack_pressed():
 	if Game.enemyCrew[enemyTarget].weakpoint[0]:
 		print("ON ATTACK: ", Game.enemyCrew[enemyTarget].weakpoint)
 		Game.enemyCrew[enemyTarget].healthCurrent = max(0, Game.enemyCrew[enemyTarget].healthCurrent - (character.attackCurrent + 2))
+		damageInflicted = damageInflicted + character.attackCurrent + 2
 		var val = character.attackCurrent + 2
 		display_text("You dealt %d damage !" % val)
 		await textbox_closed
 	else:
 		Game.enemyCrew[enemyTarget].healthCurrent = max(0, Game.enemyCrew[enemyTarget].healthCurrent - character.attackCurrent)
+		damageInflicted = damageInflicted + character.attackCurrent
 		display_text("You dealt %d damage !" % character.attackCurrent)
 		await textbox_closed
 	
@@ -172,11 +200,13 @@ func _on_attack_pressed():
 		var node_to_remove = %EnemyCrewContainer.get_child(enemyTarget)
 		node_to_remove.queue_free()
 		erase_enemy()
+		nbEnnemiesKilled = nbEnnemiesKilled + 1
 	
 	enemyTarget = -1
 	
 	if i >= order.size()-1:
 		i = -1
+		nbRound = nbRound + 1
 	character = order[i+1][0]
 	i = i+1
 
@@ -201,6 +231,7 @@ func enemy_turn():
 	if Game.enemyCrew[enIndex].burn[0]:
 		Game.enemyCrew[enIndex].burn[1] = Game.enemyCrew[enIndex].burn[1] - 1
 		Game.enemyCrew[enIndex].healthCurrent = max(0, Game.enemyCrew[enIndex].healthCurrent - Game.enemyCrew[enIndex].burn[2])
+		damageInflicted = damageInflicted + Game.enemyCrew[enIndex].burn[2]
 		if Game.enemyCrew[enIndex].burn[1] == 0:
 			Game.enemyCrew[enIndex].burn[0] = false
 		display_text(character.identity + " is burning: " + str(Game.enemyCrew[enIndex].burn[2]))
@@ -223,6 +254,7 @@ func enemy_turn():
 		await textbox_closed
 		
 		Game.crew[index].healthCurrent = max(0, Game.crew[index].healthCurrent - character.attackBase)
+		damageSuffered = damageSuffered + character.attackBase
 		
 		display_text(character.identity + " dealts %d damage " % character.attackBase + "to " + Game.crew[index].identity)
 		await textbox_closed
@@ -233,15 +265,16 @@ func enemy_turn():
 		if Game.crew[index].healthCurrent <= 0:
 			ko_crewmate()
 			i = i-1
-		
-		if crew_dead():
-			#print("RIP BOZO")
+	
+	if crew_dead():
+			startEnd = true
 			display_text("Game over !")
 			await textbox_closed
-			emit_signal("gameover")
+			gameover.emit()
 	
 	if i >= order.size()-1:
 		i = -1
+		nbRound = nbRound + 1
 	character = order[i+1][0]
 	i = i+1
 	
@@ -251,7 +284,6 @@ func crew_dead():
 	var val_bool = true
 	for c in order:
 		if c[0] is Crewmate:
-			#print("CREWMATE: ", c)
 			val_bool = false
 	return val_bool
 	
@@ -276,6 +308,7 @@ func _on_skill_pressed():
 	
 	if i >= order.size()-1:
 		i = -1
+		nbRound = nbRound + 1
 	character = order[i+1][0]
 	i = i+1
 
@@ -286,8 +319,23 @@ func _on_skill_2_pressed():
 		await textbox_closed
 		return 0
 	
-	display_text("You attack the enemy with %s" % character.skillTwo.skillName)
+	display_text("You use the skill %s" % character.skillTwo.skillName)
 	await textbox_closed
+	
+	useSkill(character, character.skillTwo, enemyTarget)
+	
+	if Game.enemyCrew[enemyTarget].healthCurrent <= 0:
+		var node_to_remove = %EnemyCrewContainer.get_child(enemyTarget)
+		node_to_remove.queue_free()
+		erase_enemy()
+	
+	enemyTarget = -1
+	
+	if i >= order.size()-1:
+		i = -1
+		nbRound = nbRound + 1
+	character = order[i+1][0]
+	i = i+1
 
 func useSkill(charater: Character, skill: Skill, target: int):
 	var general = skill.activeAbility.general
@@ -316,7 +364,32 @@ func useSkill(charater: Character, skill: Skill, target: int):
 		Game.enemyCrew[target].burn = burn
 	
 	Game.enemyCrew[target].healthCurrent = max(
-		0, Game.enemyCrew[target].healthCurrent - damage[0])
+		0, Game.enemyCrew[target].healthCurrent - (damage[0] + damage[1]))
+	damageInflicted = damageInflicted + damage[0] + damage[1]
 	
 	display_text("You dealt %d damage !" % damage[0])
 	await textbox_closed
+
+func _on_start_pressed():
+	emit_signal("start")
+
+
+func _on_victor():
+	batlle.hide()
+	$ActionPanel.hide()
+	$Textbox1.hide()
+	victory.show()
+	$Victory/StatsFight.text = "damageInflicted: " \
+	+ str(damageInflicted) + "\n" + "damageSuffered: " \
+	+ str(damageSuffered) + "\n"+ "nbEnnemiesKilled: " \
+	+ str(nbEnnemiesKilled) + "\n"+ "nbRound: " + str(nbRound) + "\n"
+
+func _on_gameover():
+	batlle.hide()
+	$ActionPanel.hide()
+	$Textbox1.hide()
+	gameOver.show()
+	$GameOver/StatsFight.text = "damageInflicted: " \
+	+ str(damageInflicted) + "\n" + "damageSuffered: " \
+	+ str(damageSuffered) + "\n"+ "nbEnnemiesKilled: " \
+	+ str(nbEnnemiesKilled) + "\n"+ "nbRound: " + str(nbRound) + "\n"

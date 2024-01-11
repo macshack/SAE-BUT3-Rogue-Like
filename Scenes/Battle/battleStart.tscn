@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3ibfxs1r0q2l"]
+
+[sub_resource type="GDScript" id="GDScript_6mtcy"]
+script/source = "extends Node2D
+
+signal startFight
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+
+func _on_start_fight_pressed():
+	emit_signal(\"startFight\") 
+"
+
+[node name="BattleStart" type="Node2D"]
+script = SubResource("GDScript_6mtcy")
+
+[node name="startFight" type="Button" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 382.0
+offset_top = 65.0
+offset_right = 820.0
+offset_bottom = 349.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Start fight"
+
+[connection signal="pressed" from="startFight" to="." method="_on_start_fight_pressed"]
