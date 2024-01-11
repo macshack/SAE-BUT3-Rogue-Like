@@ -23,6 +23,7 @@ signal victor
 signal gameover
 signal start
 signal click_on_rewards(index: int) 
+signal reward(dict: Dictionary)
 
 var startEnd = false
 
@@ -393,11 +394,15 @@ func _on_gameover():
 
 func _on_gear_gui_input(event):
 	if event is InputEventMouseButton  && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
-		pass 
+		var gearDict: Dictionary = {"gear":1,}
+		reward.emit(gearDict)
+		print("GEAR")
 
 func _on_credits_gui_input(event):
 	if event is InputEventMouseButton  && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
-		pass
+		var creditDict: Dictionary = {"credits":100,}
+		reward.emit(creditDict)
+		print("CREDITS")
 
 func erase_enemy():
 	for en in Game.enemyCrew:
@@ -406,3 +411,9 @@ func erase_enemy():
 			for c in order:
 				if c[0] is Enemy and c[0].identity == id:
 					order.erase(c)
+
+func emis():
+	print("Signal émis")
+
+func _on_reward(dict):
+	print("SIGNAL EMIS: ", dict)
