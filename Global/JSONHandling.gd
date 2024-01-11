@@ -3,6 +3,7 @@ extends Node
 var merchant_data:Dictionary = loadData("res://Data/MerchantJSON.json")
 var item_data:Dictionary = loadData("res://Data/ItemJSON.json")
 var crewmate_data:Dictionary = loadData("res://Data/CrewmateJSON.json")
+var enemy_data:Dictionary = loadData("res://Data/EnemyJSON.json")
 var skill_data:Dictionary = loadData("res://Data/skillJSON.json")
 var objective_data:Dictionary = loadData("res://Data/ObjectiveJSON.json")
 

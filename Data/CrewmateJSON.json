@@ -3,21 +3,21 @@
 		"identity":"Leeroy Jenkins",
 		"background":"Une tete brulee.",
 		"icon":"Human (40).jpg",
-		"skills":[101,105],
+		"skills":[103,105],
 		"hirePrice":100
 	},
 	"1":{
 		"identity":"Abdelakim Farphadelos Loukoumio",
 		"background":"yes",
 		"icon":"Human (41).jpg",
-		"skills":[102,108],
+		"skills":[103,108],
 		"hirePrice":500
 	},
 	"2":{
 		"identity":"Smkoin' Joe",
 		"background":"Rude boy.",
 		"icon":"Human (42).jpg",
-		"skills":[106,107],
+		"skills":[103,107],
 		"hirePrice":20
 	}
 }

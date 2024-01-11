@@ -4,13 +4,12 @@ signal click_on_nameplate(index: int)
 
 @onready var healthbar = %HealthBar
 @onready var icon = %Icon
+@onready var label = %Label
 
 var enemyIndex:int
 
 func _ready():
-	print(enemyIndex)
-	print(Game.enemyCrew.size())
-	if Game.enemyCrew.size() <=0:
+	if Game.enemyCrew.size() <= 0:
 		return 0
 	if Game.enemyCrew[enemyIndex] is Enemy:
 		icon.texture = load("res://Assets/Portraits/"+Game.enemyCrew[enemyIndex].icon)
@@ -23,6 +22,7 @@ func _process(delta):
 		return 0
 	
 	if Game.enemyCrew[enemyIndex] is Enemy:
+		label.text = Game.enemyCrew[enemyIndex].identity
 		icon.texture = load("res://Assets/Portraits/"+Game.enemyCrew[enemyIndex].icon)
 		healthbar.max_value = Game.enemyCrew[enemyIndex].healthMax
 		healthbar.value = Game.enemyCrew[enemyIndex].healthCurrent

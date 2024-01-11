@@ -34,8 +34,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_eon26")
 
-[node name="Battle" type="VBoxContainer" parent="."]
-unique_name_in_owner = true
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -43,42 +42,42 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="EnemyCrewContainer" type="HBoxContainer" parent="Battle"]
+[node name="EnemyCrewContainer" type="HBoxContainer" parent="VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 alignment = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="Battle"]
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Textbox" type="PanelContainer" parent="Battle"]
+[node name="Textbox" type="PanelContainer" parent="VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="TextboxLabel" type="Label" parent="Battle/Textbox"]
+[node name="TextboxLabel" type="Label" parent="VBoxContainer/Textbox"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 1
 text = "A Fishstick appears !"
 
-[node name="Ticker" type="Label" parent="Battle/Textbox"]
+[node name="Ticker" type="Label" parent="VBoxContainer/Textbox"]
 layout_mode = 2
 text = ">"
 
-[node name="PlayerPanel" type="PanelContainer" parent="Battle"]
+[node name="PlayerPanel" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Battle/PlayerPanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/PlayerPanel"]
 layout_mode = 2
 
-[node name="Actions" type="HBoxContainer" parent="Battle/PlayerPanel/VBoxContainer"]
+[node name="Actions" type="HBoxContainer" parent="VBoxContainer/PlayerPanel/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 alignment = 1
 
-[node name="Attack" type="Button" parent="Battle/PlayerPanel/VBoxContainer/Actions"]
+[node name="Attack" type="Button" parent="VBoxContainer/PlayerPanel/VBoxContainer/Actions"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -92,7 +91,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_o6kk1")
 text = "Attack
 "
 
-[node name="Skill1" type="Button" parent="Battle/PlayerPanel/VBoxContainer/Actions"]
+[node name="Skill1" type="Button" parent="VBoxContainer/PlayerPanel/VBoxContainer/Actions"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -106,11 +105,11 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_o6kk1")
 text = "Skill1
 "
 
-[node name="Skill2" type="Button" parent="Battle/PlayerPanel/VBoxContainer/Actions"]
+[node name="Skill2" type="Button" parent="VBoxContainer/PlayerPanel/VBoxContainer/Actions"]
 layout_mode = 2
 text = "Skill2"
 
-[node name="Defend" type="Button" parent="Battle/PlayerPanel/VBoxContainer/Actions"]
+[node name="Defend" type="Button" parent="VBoxContainer/PlayerPanel/VBoxContainer/Actions"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -124,11 +123,11 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_o6kk1")
 text = "Defend
 "
 
-[node name="PlayerData" type="HBoxContainer" parent="Battle/PlayerPanel/VBoxContainer"]
+[node name="PlayerData" type="HBoxContainer" parent="VBoxContainer/PlayerPanel/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="PlayerName" type="Label" parent="Battle/PlayerPanel/VBoxContainer/PlayerData"]
+[node name="PlayerName" type="Label" parent="VBoxContainer/PlayerPanel/VBoxContainer/PlayerData"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -137,7 +136,7 @@ text = "
 "
 horizontal_alignment = 1
 
-[node name="ProgressBar" type="ProgressBar" parent="Battle/PlayerPanel/VBoxContainer/PlayerData"]
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/PlayerPanel/VBoxContainer/PlayerData"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -145,7 +144,7 @@ theme_override_styles/background = SubResource("StyleBoxFlat_r8630")
 theme_override_styles/fill = SubResource("StyleBoxFlat_b61lo")
 show_percentage = false
 
-[node name="HP" type="Label" parent="Battle/PlayerPanel/VBoxContainer/PlayerData/ProgressBar"]
+[node name="HP" type="Label" parent="VBoxContainer/PlayerPanel/VBoxContainer/PlayerData/ProgressBar"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -177,64 +176,7 @@ offset_bottom = 127.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_prscs")
 
-[node name="Start" type="VBoxContainer" parent="."]
-unique_name_in_owner = true
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="start" type="Button" parent="Start"]
-layout_mode = 2
-
-[node name="GameOver" type="VBoxContainer" parent="."]
-unique_name_in_owner = true
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Label" type="Label" parent="GameOver"]
-layout_mode = 2
-text = "GAME OVER"
-
-[node name="StatsFight" type="Label" parent="GameOver"]
-layout_mode = 2
-
-[node name="Victory" type="VBoxContainer" parent="."]
-unique_name_in_owner = true
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Label" type="Label" parent="Victory"]
-layout_mode = 2
-text = "VICTORY
-"
-
-[node name="StatsFight" type="Label" parent="Victory"]
-layout_mode = 2
-
-[node name="Gear" type="VBoxContainer" parent="Victory"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Victory/Gear"]
-layout_mode = 2
-text = "GEAR"
-
-[node name="Credits" type="VBoxContainer" parent="Victory"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Victory/Credits"]
-layout_mode = 2
-text = "CREDITS"
-
-[connection signal="click_on_rewards" from="." to="." method="_on_click_on_rewards"]
-[connection signal="gameover" from="." to="." method="_on_gameover"]
-[connection signal="reward" from="." to="." method="_on_reward"]
-[connection signal="victor" from="." to="." method="_on_victor"]
-[connection signal="pressed" from="Battle/PlayerPanel/VBoxContainer/Actions/Attack" to="." method="_on_attack_pressed"]
-[connection signal="pressed" from="Battle/PlayerPanel/VBoxContainer/Actions/Skill1" to="." method="_on_skill_pressed"]
-[connection signal="pressed" from="Battle/PlayerPanel/VBoxContainer/Actions/Skill2" to="." method="_on_skill_2_pressed"]
-[connection signal="pressed" from="Battle/PlayerPanel/VBoxContainer/Actions/Defend" to="." method="_on_defend_pressed"]
-[connection signal="pressed" from="Start/start" to="." method="_on_start_pressed"]
-[connection signal="gui_input" from="Victory/Gear" to="." method="_on_gear_gui_input"]
-[connection signal="gui_input" from="Victory/Credits" to="." method="_on_credits_gui_input"]
+[connection signal="pressed" from="VBoxContainer/PlayerPanel/VBoxContainer/Actions/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="VBoxContainer/PlayerPanel/VBoxContainer/Actions/Skill1" to="." method="_on_skill_pressed"]
+[connection signal="pressed" from="VBoxContainer/PlayerPanel/VBoxContainer/Actions/Skill2" to="." method="_on_skill_2_pressed"]
+[connection signal="pressed" from="VBoxContainer/PlayerPanel/VBoxContainer/Actions/Defend" to="." method="_on_defend_pressed"]

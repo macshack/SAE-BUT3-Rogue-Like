@@ -5,6 +5,7 @@
 	  "icon":"Human (1).png",
 	  "description":"Parles bien",
 	  "passive":{
+		
 		 
 	  },
 	  "active":{
@@ -54,7 +55,34 @@
 		 
 	  },
 	  "active":{
-		 
+		"general": {
+		"name": "attack",
+		"flavorText": "attack an enemy ",
+		"weaponType": "melee",
+		"targetNumber": 1,
+		"weakPointCheck": false,
+		"damageSplit": false
+	},
+	"damage": {
+		"base": 0,
+		"attackModifier": 0,
+		"hpModifier": 0
+	},
+	"status": {
+		"stun": {
+			"valid": false,
+			"stunDuration": 0
+		},
+		"weakPoint": {
+			"valid": true,
+			"weakpointDuration": 1
+		},
+		"burn": {
+			"valid": false,
+			"burnDuration": 0,
+			"burnDamage": 0
+		}
+	}
 	  },
 	  "flags":[
 		 "melee"
