@@ -63,7 +63,6 @@ func _on_gamestart_to_start_game(objData, crewData):
 	
 	Game.gameSettings.reset()
 	Game.gameSettings.save()
-	print("Credits apres reset :"+str(Game.gameSettings.credits))
 	
 	var destinationSettings = DestinationSettings.load_or_create()
 	destinationSettings.name = "Quelques part, dans le vide"
@@ -92,19 +91,26 @@ func _on_gamestart_to_start_game(objData, crewData):
 		
 	$Game.add_child(objectiveScene)
 	$Game.add_child(destinationScene)
-	print("Settings - Credits apres lancement :"+str(Game.gameSettings.credits))
-	print("Global - Credits apres lancement :"+str(Game.credits))
 
 func _on_next_destination(value):
-	var destinationSettings = DestinationSettings.load_or_create()
+	var destinationSettings = DestinationSettings.load_or_create() 
+	
 	destinationSettings.name = value["name"]
 	destinationSettings.flavor = value["flavor"]
 	destinationSettings.backgroundFile = value["background"]
 	destinationSettings.difficulty = value["difficulty"]
 	destinationSettings.type = value["type"]
+	destinationSettings.situationDone = false
 	destinationSettings.save()
-	var destinationScene = destination.instantiate().init(false)
+	
+	var destinationScene = destination.instantiate().init(true)
+	
+	destinationScene.save.connect(_save)
+	destinationScene.toMainMenu.connect(_back_to_main_menu)
+	destinationScene.nextDestination.connect(_on_next_destination)
+	
 	$Game.get_children()[0].newData.connect(destinationScene._on_objectiveUpdate_received)
+	
 	for c in $Game.get_children().size():
 		if c != 0:
 			$Game.get_children()[c].queue_free()

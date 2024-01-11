@@ -1,10 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://csownx4hpkpuk"]
+[gd_scene load_steps=16 format=3 uid="uid://csownx4hpkpuk"]
 
 [ext_resource type="Script" path="res://Scripts/Merchant/Merchant.gd" id="1_vfpkb"]
 [ext_resource type="Texture2D" uid="uid://dq8m8yadhxuss" path="res://Assets/UI/MiniPanel06.jpg" id="2_fymur"]
 [ext_resource type="Script" path="res://Scripts/Merchant/MerchantItemGrid.gd" id="3_1o7sx"]
 [ext_resource type="FontFile" uid="uid://j5854hdtucyt" path="res://Assets/Font/Montserrat-VariableFont_wght.ttf" id="3_tvu0w"]
-[ext_resource type="Texture2D" uid="uid://dn1ely4x28j4u" path="res://Assets/UI/MiniPanel01.jpg" id="4_30ogv"]
 [ext_resource type="Script" path="res://Scripts/Merchant/MerchantCrewSellableItemGrid.gd" id="4_dq72v"]
 [ext_resource type="Texture2D" uid="uid://dfp8glsnvg08h" path="res://Assets/UI/Button01.png" id="4_jovp3"]
 [ext_resource type="Script" path="res://Scripts/Merchant/MerchantCrewmateGrid.gd" id="4_s8h3b"]
@@ -16,25 +15,6 @@ default_font = ExtResource("3_tvu0w")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1r0dq"]
 texture = ExtResource("2_fymur")
 modulate_color = Color(1, 1, 1, 0.901961)
-
-[sub_resource type="LabelSettings" id="LabelSettings_s50i2"]
-font_size = 40
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8i1qe"]
-texture = ExtResource("4_30ogv")
-texture_margin_left = 10.0
-texture_margin_top = 10.0
-texture_margin_right = 10.0
-texture_margin_bottom = 10.0
-
-[sub_resource type="GDScript" id="GDScript_2xpoo"]
-script/source = "extends Label
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	self.label_settings = LabelSettings.new()
-"
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3qe65"]
 texture = ExtResource("4_jovp3")
@@ -61,6 +41,15 @@ expand_margin_bottom = 5.0
 [sub_resource type="LabelSettings" id="LabelSettings_hm5cp"]
 font = ExtResource("3_tvu0w")
 font_size = 38
+
+[sub_resource type="GDScript" id="GDScript_2xpoo"]
+script/source = "extends Label
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	self.label_settings = LabelSettings.new()
+"
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -123,34 +112,11 @@ size_flags_horizontal = 3
 unique_name_in_owner = true
 clip_contents = true
 layout_mode = 2
-label_settings = SubResource("LabelSettings_s50i2")
 
 [node name="MerchantDescription" type="RichTextLabel" parent="MarginContainer/VBoxContainer/Marchand/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/normal_font_size = 30
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Marchand/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Credits" type="Label" parent="MarginContainer/VBoxContainer/Marchand/HBoxContainer/VBoxContainer2"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 8
-theme_override_font_sizes/font_size = 28
-theme_override_styles/normal = SubResource("StyleBoxTexture_8i1qe")
-horizontal_alignment = 2
-
-[node name="merchantSignal" type="Label" parent="MarginContainer/VBoxContainer/Marchand/HBoxContainer/VBoxContainer2"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
-script = SubResource("GDScript_2xpoo")
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -179,10 +145,9 @@ text = "Vendre"
 
 [node name="BuyContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 20
+theme_override_constants/separation = 10
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/BuyContainer"]
 layout_mode = 2
@@ -226,7 +191,7 @@ theme_override_constants/separation = 10
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 0
+alignment = 1
 script = ExtResource("3_1o7sx")
 
 [node name="VSeparator" type="VSeparator" parent="MarginContainer/VBoxContainer/BuyContainer/HBoxContainer2"]
@@ -242,6 +207,7 @@ script = ExtResource("4_s8h3b")
 
 [node name="SellContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -255,7 +221,6 @@ size_flags_stretch_ratio = 2.2
 
 [node name="SellableLabel" type="Label" parent="MarginContainer/VBoxContainer/SellContainer/HBoxContainer2/HBoxContainer2"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 38
 text = "Vendre"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/SellContainer/HBoxContainer2"]
@@ -264,7 +229,6 @@ size_flags_horizontal = 3
 
 [node name="SoldLabel" type="Label" parent="MarginContainer/VBoxContainer/SellContainer/HBoxContainer2/HBoxContainer3"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 38
 text = "Racheter"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/SellContainer"]
@@ -279,7 +243,6 @@ horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 
 [node name="CrewSellableItemGrid" type="GridContainer" parent="MarginContainer/VBoxContainer/SellContainer/HBoxContainer/ScrollContainer"]
-unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -293,11 +256,17 @@ horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 
 [node name="CrewSoldItemGrid" type="GridContainer" parent="MarginContainer/VBoxContainer/SellContainer/HBoxContainer/SoldItemScroll"]
-unique_name_in_owner = true
 layout_mode = 2
 columns = 2
 script = ExtResource("5_bkd4h")
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/SwitchContainer/BuyButton" to="." method="_on_buy_button_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/SwitchContainer/SellButton" to="." method="_on_sell_button_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/BuyContainer/HBoxContainer3/HBoxContainer/Refresh" to="MarginContainer/VBoxContainer/BuyContainer/HBoxContainer2/ItemContainer" method="_on_refresh_pressed"]
+[node name="merchantSignal" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+script = SubResource("GDScript_2xpoo")
+
+[node name="Credits" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2

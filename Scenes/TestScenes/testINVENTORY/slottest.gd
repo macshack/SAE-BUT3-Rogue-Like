@@ -54,3 +54,5 @@ func _on_gui_input(event):
 		if event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 			if textureNode.property is Item && textureNode.property:
 				preview.emit(textureNode.property)
+func cleanProperty():
+	textureNode.property = null

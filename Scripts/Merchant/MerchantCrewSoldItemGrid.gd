@@ -4,14 +4,11 @@ var itemSlot = preload("res://Scenes/Merchant/MerchantItemSlot.tscn")
 
 var soldInventory:Array[Item] = []
 
-var rootNode
-var merchantSignal
-var sellingNode
+@onready var rootNode = $"../../../../../.."
+@onready var merchantSignal = %merchantSignal
+@onready var sellingNode = %CrewSellableItemGrid
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	merchantSignal = $"../../../../merchantSignal"
-	rootNode = $"../../../../.."
-	sellingNode = $"../../ScrollContainer/CrewSellableItemGrid"
 	makeSoldItemsGrid()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -38,6 +35,7 @@ func makeSoldItemsGrid():
 func _merchant_success(message:String):
 	rootNode.merchantMessageFadeawayTimer = 3.0
 	merchantSignal.label_settings.font_color = Color(0,1,0)
+	merchantSignal.label_settings.font_size = 40
 	merchantSignal.text = message
 	
 func _merchant_reverse(item:Item):
@@ -49,4 +47,5 @@ func _merchant_reverse(item:Item):
 func _merchant_error(message:String):
 	rootNode.merchantMessageFadeawayTimer = 3.0
 	merchantSignal.label_settings.font_color = Color(1,0,0)
+	merchantSignal.label_settings.font_size = 40
 	merchantSignal.text = message

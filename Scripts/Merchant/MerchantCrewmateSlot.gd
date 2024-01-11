@@ -1,4 +1,4 @@
-extends MarginContainer
+extends PanelContainer
 class_name MerchantCrewmateSlot
 
 var crewmate:Crewmate
@@ -12,25 +12,36 @@ var secondTimer = 0.25
 signal merchant_error(message:String)
 signal merchant_success(message:String)
 
+@onready var scrollNode = %ScrollContainer
+@onready var nameNode = %crewmateName
+@onready var iconNode = %crewmateIcon
+@onready var priceNode = %crewmatePrice
+@onready var vboxNode = %VBoxContainer
+
+@onready var skillOneNode =%skillOne
+@onready var skillTwoNode =%skillTwo
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$VBoxContainer/ScrollContainer.scroll_horizontal = 0
-	$VBoxContainer/Label.text = str(crewmate.hirePrice)+"C"
-	$VBoxContainer/TextureRect.texture = load("res://Assets/Portraits/"+crewmate.icon)
-	$VBoxContainer/ScrollContainer/Label2.text = crewmate.identity
+	scrollNode.scroll_horizontal = 0
+	priceNode.text = "Recruter - "+str(crewmate.hirePrice)+"C"
+	iconNode.texture = load("res://Assets/Portraits/"+crewmate.icon)
+	nameNode.text = crewmate.identity
+	skillOneNode.text = crewmate.skillOne.skillName
+	skillTwoNode.text = crewmate.skillTwo.skillName
 
 func _process(delta):
 	if timer > 0:
 		timer -= delta
 	else:
-		$VBoxContainer/ScrollContainer.scroll_horizontal += 1
-		if (previousScroll == $VBoxContainer/ScrollContainer.scroll_horizontal):
+		scrollNode.scroll_horizontal += 1
+		if (previousScroll == scrollNode.scroll_horizontal):
 			secondTimer -= delta
 			if secondTimer <= 0:
 				secondTimer = 0.25
-				$VBoxContainer/ScrollContainer.scroll_horizontal = 0
+				scrollNode.scroll_horizontal = 0
 		else:
-			previousScroll = $VBoxContainer/ScrollContainer.scroll_horizontal
+			previousScroll = scrollNode.scroll_horizontal
 		timer = 0.05
 	
 
@@ -45,8 +56,8 @@ func _on_gui_input(event):
 			if Game.crew.size() < 5:
 				if ((Game.credits - crewmate.hirePrice) >= 0):
 					available = false
-					$VBoxContainer/Label.text = "Indisponible."
-					$VBoxContainer.modulate = Color(1.0,1.0,1.0,0.25)
+					priceNode.text = "Indisponible."
+					vboxNode.modulate = Color(1.0,1.0,1.0,0.25)
 					Game.credits -= crewmate.hirePrice
 					Game.crew.append(crewmate)
 					merchant_success.emit(crewmate.identity+" a ete recrute avec succes.")
