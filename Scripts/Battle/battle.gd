@@ -373,7 +373,6 @@ func useSkill(charater: Character, skill: Skill, target: int):
 func _on_start_pressed():
 	emit_signal("start")
 
-
 func _on_victor():
 	batlle.hide()
 	$ActionPanel.hide()
@@ -393,3 +392,13 @@ func _on_gameover():
 	+ str(damageInflicted) + "\n" + "damageSuffered: " \
 	+ str(damageSuffered) + "\n"+ "nbEnnemiesKilled: " \
 	+ str(nbEnnemiesKilled) + "\n"+ "nbRound: " + str(nbRound) + "\n"
+
+
+func _on_gear_gui_input(event):
+	if event is InputEventMouseButton  && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
+		pass 
+
+
+func _on_credits_gui_input(event):
+	if event is InputEventMouseButton  && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
+		pass

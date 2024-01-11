@@ -213,6 +213,18 @@ text = "VICTORY
 [node name="StatsFight" type="Label" parent="Victory"]
 layout_mode = 2
 
+[node name="Gear" type="VBoxContainer" parent="Victory"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Victory/Gear"]
+layout_mode = 2
+
+[node name="Credits" type="VBoxContainer" parent="Victory"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Victory/Credits"]
+layout_mode = 2
+
 [connection signal="gameover" from="." to="." method="_on_gameover"]
 [connection signal="victor" from="." to="." method="_on_victor"]
 [connection signal="pressed" from="Battle/PlayerPanel/VBoxContainer/Actions/Attack" to="." method="_on_attack_pressed"]
@@ -220,3 +232,5 @@ layout_mode = 2
 [connection signal="pressed" from="Battle/PlayerPanel/VBoxContainer/Actions/Skill2" to="." method="_on_skill_2_pressed"]
 [connection signal="pressed" from="Battle/PlayerPanel/VBoxContainer/Actions/Defend" to="." method="_on_defend_pressed"]
 [connection signal="pressed" from="Start/start" to="." method="_on_start_pressed"]
+[connection signal="gui_input" from="Victory/Gear" to="." method="_on_gear_gui_input"]
+[connection signal="gui_input" from="Victory/Credits" to="." method="_on_credits_gui_input"]
