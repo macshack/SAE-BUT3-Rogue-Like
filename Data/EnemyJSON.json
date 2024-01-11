@@ -1,0 +1,110 @@
+{
+	"0": {
+		"identity": "Infested",
+		"icon": "Monster (1).jpg",
+		"health": 5,
+		"attackPower": 2
+	},
+	"1": {
+		"identity": "Masked",
+		"icon": "Monster (2).jpg",
+		"health": 2,
+		"attackPower": 1
+	},
+	"2": {
+		"identity": "Dog",
+		"icon": "Human (102).jpg",
+		"health": 4,
+		"attackPower": 2
+	},
+	"3": {
+		"identity": "Werewolf",
+		"icon": "Monster (1).jpg",
+		"health": 4,
+		"attackPower": 8
+	},
+	"4": {
+		"identity": "Ghoul",
+		"icon": "Monster (1).jpg",
+		"health": 18,
+		"attackPower": 1
+	},
+	"5": {
+		"identity": "Specter",
+		"icon": "Monster (1).jpg",
+		"health": 7,
+		"attackPower": 6
+	},
+	"6": {
+		"identity": "Wraith",
+		"icon": "Monster (1).jpg",
+		"health": 15,
+		"attackPower": 2
+	},
+	"7": {
+		"identity": "Banshee",
+		"icon": "Monster (1).jpg",
+		"health": 8,
+		"attackPower": 5
+	},
+	"8": {
+		"identity": "Revenant",
+		"icon": "Monster (1).jpg",
+		"health": 12,
+		"attackPower": 3
+	},
+	"9": {
+		"identity": "Poltergeist",
+		"icon": "Monster (1).jpg",
+		"health": 10,
+		"attackPower": 4
+	},
+	"10": {
+		"identity": "Zombie",
+		"icon": "Monster (1).jpg",
+		"health": 20,
+		"attackPower": 1
+	},
+	"11": {
+		"identity": "Serpent",
+		"icon": "Monster (1).jpg",
+		"health": 6,
+		"attackPower": 7
+	},
+	"12": {
+		"identity": "Lich",
+		"icon": "Monster (1).jpg",
+		"health": 14,
+		"attackPower": 2
+	},
+	"13": {
+		"identity": "Harpy",
+		"icon": "Monster (1).jpg",
+		"health": 5,
+		"attackPower": 8
+	},
+	"14": {
+		"identity": "Goblin",
+		"icon": "Monster (1).jpg",
+		"health": 16,
+		"attackPower": 1
+	},
+	"15": {
+		"identity": "Doppelganger",
+		"icon": "Monster (1).jpg",
+		"health": 9,
+		"attackPower": 5
+	},
+	"16": {
+		"identity": "Shadow",
+		"icon": "Monster (1).jpg",
+		"health": 11,
+		"attackPower": 3
+	},
+	"17": {
+		"identity": "Mummy",
+		"icon": "Monster (1).jpg",
+		"health": 13,
+		"attackPower": 2
+	}
+}

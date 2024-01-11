@@ -60,7 +60,9 @@ func _on_start():
 	for i in JsonHandling.crewmate_data.size():
 		var tab: Array[int] = [JsonHandling.crewmate_data[str(i)].skills[0], JsonHandling.crewmate_data[str(i)].skills[1]]
 		var crewmate = Crewmate.new(JsonHandling.crewmate_data[str(i)].identity, JsonHandling.crewmate_data[str(i)].background, JsonHandling.crewmate_data[str(i)].icon, tab, JsonHandling.crewmate_data[str(i)].hirePrice)
-		var enemy = Enemy.new(JsonHandling.crewmate_data[str(i)].identity, JsonHandling.crewmate_data[str(i)].icon)
+		var enemy = Enemy.new(JsonHandling.enemy_data[str(i)].identity,
+		 JsonHandling.enemy_data[str(i)].icon, JsonHandling.enemy_data[str(i)].health,
+		 JsonHandling.enemy_data[str(i)].health, JsonHandling.enemy_data[str(i)].attackPower)
 		crewmate.attackCurrent = 10
 		enemy.attackBase = 1
 		Game.crew.append(crewmate)

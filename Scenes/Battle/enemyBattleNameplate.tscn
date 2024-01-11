@@ -7,6 +7,11 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_pl081")
 
+[node name="Label" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Enenene"
+
 [node name="Icon" type="TextureRect" parent="."]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 200)
