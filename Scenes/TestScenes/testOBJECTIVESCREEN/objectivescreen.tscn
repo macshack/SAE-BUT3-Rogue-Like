@@ -8,7 +8,7 @@
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_057bw"]
 texture = ExtResource("1_afbaj")
-modulate_color = Color(1, 1, 1, 0.862745)
+modulate_color = Color(1, 1, 1, 0.901961)
 
 [sub_resource type="LabelSettings" id="LabelSettings_qtu41"]
 font = ExtResource("2_b7enm")

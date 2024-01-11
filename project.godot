@@ -16,10 +16,8 @@ config/features=PackedStringArray("4.2", "GL Compatibility")
 
 [autoload]
 
-Game="*res://Global/Game.gd"
-Utils="*res://Global/Utils.gd"
-DestinationLib="*res://Library/destinationLib.gd"
 JsonHandling="*res://Global/JSONHandling.gd"
+Game="*res://Global/Game.gd"
 
 [display]
 

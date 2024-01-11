@@ -15,3 +15,10 @@ static func load_or_create() -> DestinationSettings:
 	if !res:
 		res = DestinationSettings.new()
 	return res
+
+func reset():
+	name = "Quelques part, dans le vide"
+	flavor = "..."
+	backgroundFile = "BlueRadar/blueRadar (5).png"
+	difficulty = 1
+	type = "MERCHANT"

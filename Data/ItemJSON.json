@@ -1,5 +1,5 @@
 {
-	"0":{
+	"1000":{
 		"itemId":1000,
 		"itemName":"Lame du roi 3rbi",
 		"itemFlavorText":"La lame de l'unique",
@@ -13,7 +13,7 @@
 		},
 		"itemPrice":100
 	},
-	"1":{
+	"1001":{
 		"itemId":1001,
 		"itemName":"Marteau de clochard",
 		"itemFlavorText":"Ca pue la 8.6 et le caca",
@@ -27,7 +27,7 @@
 		},
 		"itemPrice":10
 	},
-	"2":{
+	"1002":{
 		"itemId":1002,
 		"itemName":"Force de la tritine",
 		"itemFlavorText":"Un peu de tout",

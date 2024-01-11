@@ -73,9 +73,9 @@ func toDictionnary():
 		"identity":self.identity,
 		"icon":self.icon,
 		"background":self.background,
-		"skills":[skillOne.skillId,skillTwo.skillId],
-		"price":self.price,
-		"gear":[],
+		"skills":[self.skillOne.skillId,self.skillTwo.skillId],
+		"price":self.hirePrice,
+		"gear":self.gear.getItemIds(),
 		"healthBase":self.healthBase,
 		"healthCurrent":self.healthCurrent,
 		"attackBase":self.attackBase,
@@ -83,3 +83,4 @@ func toDictionnary():
 		"critBase":self.critBase,
 		"dodgeBase":self.dodgeBase,
 	}
+	return dict

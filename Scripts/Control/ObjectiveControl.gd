@@ -37,7 +37,7 @@ func forceSave():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	saveAndEmit()
-	if Game.roundConstraint < 0:
+	if Game.currentRound > objective_settings.constraintValue:
 		_endGame()
 		
 func saveAndEmit():
@@ -59,8 +59,12 @@ func init(load:bool,data:Dictionary):
 		if objective_settings.constraint:
 			objective_settings.constraintType = data["constraintType"]
 			objective_settings.constraintValue = data["constraintValue"]
+			objective_settings.constraintRemaining = data["constraintValue"]
 		else:
 			objective_settings.constraint = false
+			objective_settings.constraintType = "NONE"
+			objective_settings.constraintValue = 1
+			objective_settings.constraintRemaining = -1
 		saveAndEmit()
 	return self
 	
@@ -136,5 +140,5 @@ func _analysis_required(data:Dictionary):
 	analyze(false,data)
 
 func _endGame():
-	print("Fin du timer/round")
+	#print("Fin du timer/round")
 	analyze(true)

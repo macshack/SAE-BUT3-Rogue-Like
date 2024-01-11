@@ -3,6 +3,7 @@ extends Panel
 signal toMainMenu()
 signal emitFightResult()
 signal nextDestination()
+signal save()
 
 var situationDone = false
 
@@ -87,12 +88,18 @@ func _on_settings_pressed():
 		i.hide()
 	settings.show()
 
-func init(test:bool):
-	destinationSettings = DestinationSettings.load_or_create()
-	$TextureRect.texture = load("res://Assets/Background/Radar/"+destinationSettings.backgroundFile)
-	situation["type"] = destinationSettings.type
-	situation["difficulty"] = destinationSettings.difficulty
-	situationDone = destinationSettings.situationDone
+func init(load:bool):
+	if load:
+		destinationSettings = DestinationSettings.load_or_create()
+		$TextureRect.texture = load("res://Assets/Background/Radar/"+destinationSettings.backgroundFile)
+	else:
+		destinationSettings = DestinationSettings.load_or_create()
+		destinationSettings.reset()
+		$TextureRect.texture = load("res://Assets/Background/Radar/"+destinationSettings.backgroundFile)
+		situation["type"] = destinationSettings.type
+		situation["difficulty"] = destinationSettings.difficulty
+		situationDone = destinationSettings.situationDone
+		destinationSettings.save()
 	return self
 
 func _on_inventory_pressed():
@@ -125,7 +132,7 @@ func _on_menuSettings_pressed():
 
 
 func _on_menuSauvegarder_pressed():
-	pass # Replace with function body.
+	save.emit()
 
 
 func _on_menuQuitter_pressed():

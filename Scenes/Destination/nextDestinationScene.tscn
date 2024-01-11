@@ -16,7 +16,7 @@ font_size = 38
 
 [node name="nextDestinationScene" type="PanelContainer"]
 clip_contents = true
-custom_minimum_size = Vector2(300, 0)
+custom_minimum_size = Vector2(450, 0)
 offset_right = 40.0
 offset_bottom = 40.0
 size_flags_vertical = 3
@@ -59,7 +59,14 @@ stretch_margin_bottom = 5
 texture_over = ExtResource("3_i12nn")
 texture_progress = ExtResource("4_5f8lb")
 
-[node name="destinationName" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 0
+
+[node name="destinationName" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 1

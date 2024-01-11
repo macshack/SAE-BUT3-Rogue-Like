@@ -9,6 +9,7 @@ var objectiveNode
 func _ready():
 	var mainMenuScene = mainMenu.instantiate()
 	mainMenuScene.toCrewcreator.connect(_on_root_to_crewcreator)
+	mainMenuScene.loadGame.connect(_load_game)
 	$Game.add_child(mainMenuScene)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -23,21 +24,26 @@ func _on_root_to_crewcreator():
 
 
 func _back_to_main_menu():
+	_save()
 	for c in $Game.get_children():
-		c.forceSave()
 		c.queue_free()
 	var mainMenuScene = mainMenu.instantiate()
 	mainMenuScene.toCrewcreator.connect(_on_root_to_crewcreator)
+	mainMenuScene.loadGame.connect(_load_game)
 	$Game.add_child(mainMenuScene)
 
 func _load_game():
-	var objectiveScene = objective.instantiate().init(true)
-	var destinationScene = destination.instantiate().init(false)
-	destinationScene.toMainMenu.connect()
+	var objectiveScene = objective.instantiate().init(true,{})
+	var destinationScene = destination.instantiate().init(true)
+	
+	destinationScene.save.connect(_save)
+	destinationScene.toMainMenu.connect(_back_to_main_menu)
 	destinationScene.nextDestination.connect(_on_next_destination)
+	
 	objectiveScene.defeat.connect(_on_objective_defeat)
 	objectiveScene.victory.connect(_on_objective_victory)
 	objectiveScene.newData.connect(destinationScene._on_objectiveUpdate_received)
+	
 	objectiveNode = str(objectiveScene)
 	
 	for c in $Game.get_children():
@@ -55,6 +61,10 @@ func _on_gamestart_to_main_menu():
 func _on_gamestart_to_start_game(objData, crewData):
 	var objectiveScene = objective.instantiate().init(false,objData)
 	
+	Game.gameSettings.reset()
+	Game.gameSettings.save()
+	print("Credits apres reset :"+str(Game.gameSettings.credits))
+	
 	var destinationSettings = DestinationSettings.load_or_create()
 	destinationSettings.name = "Quelques part, dans le vide"
 	destinationSettings.flavor = "..."
@@ -65,8 +75,10 @@ func _on_gamestart_to_start_game(objData, crewData):
 	
 	var destinationScene = destination.instantiate().init(false)
 	
-	destinationScene.toMainMenu.connect()
+	destinationScene.save.connect(_save)
+	destinationScene.toMainMenu.connect(_back_to_main_menu)
 	destinationScene.nextDestination.connect(_on_next_destination)
+	
 	objectiveScene.defeat.connect(_on_objective_defeat)
 	objectiveScene.victory.connect(_on_objective_victory)
 	objectiveScene.newData.connect(destinationScene._on_objectiveUpdate_received)
@@ -80,6 +92,8 @@ func _on_gamestart_to_start_game(objData, crewData):
 		
 	$Game.add_child(objectiveScene)
 	$Game.add_child(destinationScene)
+	print("Settings - Credits apres lancement :"+str(Game.gameSettings.credits))
+	print("Global - Credits apres lancement :"+str(Game.credits))
 
 func _on_next_destination(value):
 	var destinationSettings = DestinationSettings.load_or_create()
@@ -95,6 +109,11 @@ func _on_next_destination(value):
 		if c != 0:
 			$Game.get_children()[c].queue_free()
 	$Game.add_child(destinationScene)
+
+func _save():
+	Game.saveGameSetting()
+	for c in $Game.get_children():
+		c.forceSave()
 
 func _on_objective_defeat(objectiveResult):
 	pass # Replace with function body.
