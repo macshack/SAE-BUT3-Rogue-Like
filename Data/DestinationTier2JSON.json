@@ -1,0 +1,30 @@
+{
+	"0":{
+		"name":"Vaisseau 'Baleriss-2'",
+		"flavor":"Vos radars indiquent la presence d'un vaisseau massif a quelques secteurs d'ici. Il semblerait que le vaisseau soit a la derive, de faibles signaux peuvent etre interceptes mais le vaisseau ne possede pas de signature thermique, du moins pas a cette distance.",
+		"background":"GreenRadar/greenRadar (1).png",
+		"difficulty":2,
+		"type":"FIGHT",
+	},
+	"1":{
+		"name":"???",
+		"flavor":"Qu'est-ce qui se passe ?",
+		"background":"Yellow/yellowRadar (14).png",
+		"difficulty":2,
+		"type":"FIGHT",
+	},
+	"2":{
+		"name":"Station clandestine 'New New New York'",
+		"flavor":"",
+		"background":"BlueRadar/blueRadar (1).png",
+		"difficulty":2,
+		"type":"FIGHT",
+	},
+	"3":{
+		"name":"Escouade ferale en chasse",
+		"flavor":"",
+		"background":"",
+		"difficulty":2,
+		"type":"FIGHT",
+	},
+}

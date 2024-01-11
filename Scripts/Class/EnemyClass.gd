@@ -15,5 +15,13 @@ func _init(identity = "", icon = "", healthCurrent = 10, healthMax = 10, attackP
 	self.burn = [false, 0, 0]
 	self.stun = [false, 0]
 	self.weakpoint = [false, 0]
-
-
+  
+func toDictionary()->Dictionary:
+	var dict = {
+		"identity":self.identity,
+		"icon":self.icon,
+		"healthCurrent":self.healthCurrent,
+		"attackPower":self.attackPower,
+		"healthMax":self.healthMax,
+	}
+	return dict

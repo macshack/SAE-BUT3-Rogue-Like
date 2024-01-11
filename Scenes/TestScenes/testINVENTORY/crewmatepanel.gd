@@ -2,12 +2,17 @@ extends PanelContainer
 
 signal send_old_item(oldItem,newItem,parent)
 
+var previousScroll
+var timer = 0.05
+var secondTimer = 0.25
+
 var crewmate:Crewmate = null
 var crewIndex:int = -1
 
 @onready var nameNode = %CrewmateName
 @onready var iconNode = %CrewmateIcon
 @onready var itemNode = %ItemContainer
+@onready var scrollNode = %ScrollContainer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -25,7 +30,18 @@ func getSelfNodeName():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	if timer > 0:
+		timer -= delta
+	else:
+		scrollNode.scroll_horizontal += 1
+		if (previousScroll == scrollNode.scroll_horizontal):
+			secondTimer -= delta
+			if secondTimer <= 0:
+				secondTimer = 0.25
+				scrollNode.scroll_horizontal = 0
+		else:
+			previousScroll = scrollNode.scroll_horizontal
+		timer = 0.05
 	
 func updateCrewmateGear(test:bool):
 	if test:
@@ -71,6 +87,7 @@ func _receive_old_item(oldItem,newItem,ownerName):
 			if oldItem is Item:
 				Game.crew[crewIndex].gear.equipItem(oldItem,Game.crew[crewIndex].gear.getList().find_key(newItem))
 			else:
+				print("Avant remove - "+str(Game.crew[crewIndex].gear.getList()))
 				Game.crew[crewIndex].gear.removeItem(Game.crew[crewIndex].gear.getList().find_key(newItem))
 	
 
@@ -95,7 +112,7 @@ func _on_item_slot_2_new_item(newItem,oldItem,owner):
 		send_old_item.emit(oldItem,newItem,getSelfNodeName())
 	elif (crewIndex is int) && (crewIndex > -1):
 		if newItem is Item:
-			Game.crew[crewIndex].gear.equipItem(newItem,0)
+			Game.crew[crewIndex].gear.equipItem(newItem,1)
 		send_old_item.emit(oldItem,newItem,getSelfNodeName())
 
 func _on_item_slot_3_new_item(newItem,oldItem,owner):
@@ -107,5 +124,5 @@ func _on_item_slot_3_new_item(newItem,oldItem,owner):
 		send_old_item.emit(oldItem,newItem,getSelfNodeName())
 	elif (crewIndex is int) && (crewIndex > -1):
 		if newItem is Item:
-			Game.crew[crewIndex].gear.equipItem(newItem,0)
+			Game.crew[crewIndex].gear.equipItem(newItem,2)
 		send_old_item.emit(oldItem,newItem,getSelfNodeName())

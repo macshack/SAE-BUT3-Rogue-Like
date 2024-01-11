@@ -67,3 +67,20 @@ func applyModifiersToCrewmate():
 func _process(delta):
 	pass
 	
+
+func toDictionnary():
+	var dict = {
+		"identity":self.identity,
+		"icon":self.icon,
+		"background":self.background,
+		"skills":[self.skillOne.skillId,self.skillTwo.skillId],
+		"price":self.hirePrice,
+		"gear":self.gear.getItemIds(),
+		"healthBase":self.healthBase,
+		"healthCurrent":self.healthCurrent,
+		"attackBase":self.attackBase,
+		"speedBase":self.speedBase,
+		"critBase":self.critBase,
+		"dodgeBase":self.dodgeBase,
+	}
+	return dict

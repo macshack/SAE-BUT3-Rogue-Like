@@ -63,8 +63,6 @@ func _on_start():
 		var enemy = Enemy.new(JsonHandling.enemy_data[str(i)].identity,
 		 JsonHandling.enemy_data[str(i)].icon, JsonHandling.enemy_data[str(i)].health,
 		 JsonHandling.enemy_data[str(i)].health, JsonHandling.enemy_data[str(i)].attackPower)
-		crewmate.attackCurrent = 10
-		enemy.attackBase = 1
 		Game.crew.append(crewmate)
 		Game.enemyCrew.append(enemy)
 	

@@ -6,16 +6,13 @@ var crewmate_data:Dictionary = loadData("res://Data/CrewmateJSON.json")
 var enemy_data:Dictionary = loadData("res://Data/EnemyJSON.json")
 var skill_data:Dictionary = loadData("res://Data/skillJSON.json")
 var objective_data:Dictionary = loadData("res://Data/ObjectiveJSON.json")
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	merchant_data = loadData("res://Data/MerchantJSON.json")
-	item_data = loadData("res://Data/ItemJSON.json")
-	crewmate_data = loadData("res://Data/CrewmateJSON.json")
-	enemy_data = loadData("res://Data/EnemyJSON.json")
-	skill_data = loadData("res://Data/skillJSON.json")
-	objective_data = loadData("res://Data/ObjectiveJSON.json")
-	Game.skillList = Game.loadSkillList()
 
+var destMerchant_data:Dictionary = loadData("res://Data/DestinationMerchantJSON.json")
+var destTier1_data:Dictionary = loadData("res://Data/DestinationTier1JSON.json")
+var destTier2_data:Dictionary = loadData("res://Data/DestinationTier2JSON.json")
+var destTier3_data:Dictionary = loadData("res://Data/DestinationTier3JSON.json")
+var destTier4_data:Dictionary = loadData("res://Data/DestinationTier4JSON.json")
+# Called when the node enters the scene tree for the first time.
 func loadData(file_path):
 	var json_data = JSON.new()
 	var result

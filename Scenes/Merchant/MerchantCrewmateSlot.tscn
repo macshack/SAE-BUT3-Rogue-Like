@@ -1,35 +1,107 @@
-[gd_scene load_steps=3 format=3 uid="uid://01a5s727ups0"]
+[gd_scene load_steps=12 format=3 uid="uid://01a5s727ups0"]
 
+[ext_resource type="Texture2D" uid="uid://dn1ely4x28j4u" path="res://Assets/UI/MiniPanel01.jpg" id="1_2enws"]
 [ext_resource type="Script" path="res://Scripts/Merchant/MerchantCrewmateSlot.gd" id="1_sbcpf"]
 [ext_resource type="Texture2D" uid="uid://b1f8gka4f1pfv" path="res://Assets/Portraits/Human (1).jpg" id="2_fbpkx"]
+[ext_resource type="FontFile" uid="uid://j5854hdtucyt" path="res://Assets/Font/Montserrat-VariableFont_wght.ttf" id="3_n0qkg"]
+[ext_resource type="Texture2D" uid="uid://dfp8glsnvg08h" path="res://Assets/UI/Button01.png" id="5_cs2w8"]
 
-[node name="MarginContainer" type="MarginContainer"]
-offset_right = 40.0
-offset_bottom = 40.0
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s6thv"]
+texture = ExtResource("1_2enws")
+
+[sub_resource type="LabelSettings" id="LabelSettings_u7uyj"]
+font = ExtResource("3_n0qkg")
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_d6xw2"]
+font = ExtResource("3_n0qkg")
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_pswvg"]
+font = ExtResource("3_n0qkg")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n3ccr"]
+texture = ExtResource("5_cs2w8")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_i4ybg"]
+font = ExtResource("3_n0qkg")
+font_size = 24
+
+[node name="PanelContainer" type="PanelContainer"]
+custom_minimum_size = Vector2(100, 0)
+offset_right = 100.0
+offset_bottom = 188.0
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_s6thv")
 script = ExtResource("1_sbcpf")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 0
 
-[node name="Label2" type="Label" parent="VBoxContainer/ScrollContainer"]
+[node name="crewmateName" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "AGGAGAGAGAGAGA"
+label_settings = SubResource("LabelSettings_u7uyj")
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Icon" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="crewmateIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/Icon"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 texture = ExtResource("2_fbpkx")
 expand_mode = 5
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="Skills" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Skills"]
+layout_mode = 2
+text = "Competences"
+label_settings = SubResource("LabelSettings_d6xw2")
+
+[node name="skillOne" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Skills"]
+unique_name_in_owner = true
+layout_mode = 2
+label_settings = SubResource("LabelSettings_pswvg")
+
+[node name="skillTwo" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Skills"]
+unique_name_in_owner = true
+layout_mode = 2
+label_settings = SubResource("LabelSettings_pswvg")
+
+[node name="crewmatePrice" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_n3ccr")
 text = "
 "
+label_settings = SubResource("LabelSettings_i4ybg")
 horizontal_alignment = 1
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="gui_input" from="MarginContainer" to="MarginContainer" method="_on_gui_input"]

@@ -11,8 +11,11 @@ var inventorySize = 0
 @onready var preview = %ItemPreview
 @onready var crewNode = %CrewmateContainer
 @onready var itemNumber = %ItemNumber
-var crew:Array[Crewmate] = [Crewmate.new("Mickael Jackson","Human (20).jpg","",[102,103],100,[Item.new("Pelle","caca","Human (50).jpg")]),Crewmate.new("Groberto Mascutti","Human (45).jpg","",[102,103],100,[])]
-var inventory:Array[Item] = [Item.new("Truc","test","Human (10).jpg"),Item.new("Fusil a pompe","test","Human (20).jpg")]
+@onready var creditsNode = %Credits
+
+
+@onready var crew:Array[Crewmate] = [Crewmate.new("Mickael Jackson","Human (20).jpg","",[102,103],100,[Item.new(1,"Pelle","caca","Human (50).jpg")]),Crewmate.new("Groberto Mascutti","Human (45).jpg","",[102,103],100,[])]
+@onready var inventory:Array[Item] = [Item.new(1,"Truc","test","Human (10).jpg"),Item.new(1,"Fusil a pompe","test","Human (20).jpg")]
 
 func _ready():
 	preview.hide()
@@ -28,15 +31,16 @@ func _ready():
 			panel.send_old_item.connect(_receive_old_item)
 			self.send_old_item.connect(panel._receive_old_item)
 			crewNode.add_child(panel)
-	for i in 72:
-		var slot = itemSlot.instantiate()
-		slot.new_item.connect(_on_item_slot_new_item)
-		slot.preview.connect(preview._set_item)
-		grid.add_child(slot)
+		for i in 72:
+			var slot = itemSlot.instantiate()
+			slot.new_item.connect(_on_item_slot_new_item)
+			slot.preview.connect(preview._set_item)
+			grid.add_child(slot)
 	refreshInventory()
 
 
 func refreshInventory():
+	itemNumber.text = "("+str(Game.inventory.size())+")"
 	if test:
 		if grid.get_children().size() > 0:
 			inventorySize = Game.inventory.size()
@@ -88,8 +92,15 @@ func _on_item_slot_new_item(newItem,oldItem,parent):
 			else:
 				Game.inventory.append(newItem)
 		send_old_item.emit(oldItem,newItem,parent)
+		cleanInventory()
+		refreshInventory()
+
+func cleanInventory():
+	for ch in grid.get_children():
+		ch.cleanProperty()
 
 func _process(delta):
+	creditsNode.text = "Credits : "+str(Game.credits)+"C"
 	if test:
 		if inventorySize != inventory.size():
 			inventorySize = inventory.size()
@@ -103,6 +114,5 @@ func _process(delta):
 				panel.send_old_item.connect(_receive_old_item)
 				self.send_old_item.connect(panel._receive_old_item)
 				crewNode.add_child(panel)
-		if inventorySize != Game.inventory.size():
-			inventorySize = Game.inventory.size()
-			itemNumber.text = "("+str(inventorySize)+")"
+		if int(itemNumber.text) != Game.inventory.size():
+			itemNumber.text = "("+str(Game.inventory.size())+")"
