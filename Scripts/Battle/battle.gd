@@ -22,7 +22,7 @@ extends Control
 signal victor
 signal gameover
 signal start
-signal click_on_rewards(index: int) 
+signal click_on_rewards(index_rewards: int) 
 signal reward(dict: Dictionary)
 
 var startEnd = false
@@ -121,12 +121,25 @@ func startFunction():
 	enemy_turn()
 
 func _on_defend_pressed():
-	is_defending = true
 	display_text("You are on guard !")
-	await textbox_closed	
-
-func _on_enemy_click(index: int):
-	enemyTarget = index
+	await textbox_closed
+	
+	var k = 0
+	for c in Game.crew:
+		if c.identity == character.identity:
+			Game.crew[k].isdefending = true
+		k = k +1
+	
+	enemyTarget = -1
+	
+	if i >= order.size()-1:
+		i = -1
+		nbRound = nbRound + 1
+	character = order[i+1][0]
+	i = i+1
+	
+func _on_enemy_click(index_en: int):
+	enemyTarget = index_en
 	#print("ENNEMY INDEX: " + str(enemyTarget))
 
 func tri_insertion(tableau):
@@ -243,19 +256,28 @@ func enemy_turn():
 		await textbox_closed
 	else:
 
-		var index: int = -1
-		
-		while Game.crew[index].healthCurrent <= 0:
-			index = randi() % Game.crew.size()
+		var index: int = -42
+		print("size: ", Game.crew.size())
+		print("index: ", index)
+		index = randi() % Game.crew.size()
+		if Game.crew[index].healthCurrent <= 0:
+			while Game.crew[index].healthCurrent <= 0:
+				index = randi() % Game.crew.size()
 		
 		display_text(character.identity + " takes a swing at " + Game.crew[index].identity)
 		await textbox_closed
 		
-		Game.crew[index].healthCurrent = max(0, Game.crew[index].healthCurrent - character.attackBase)
-		damageSuffered = damageSuffered + character.attackBase
-		
-		display_text(character.identity + " dealts %d damage " % character.attackBase + "to " + Game.crew[index].identity)
-		await textbox_closed
+		if not Game.crew[index].isdefending:
+			Game.crew[index].healthCurrent = max(0, Game.crew[index].healthCurrent - character.attackBase)
+			damageSuffered = damageSuffered + character.attackBase
+			display_text(character.identity + " dealts %d damage " % character.attackBase + "to " + Game.crew[index].identity)
+			await textbox_closed
+		else:
+			Game.crew[index].healthCurrent = max(0, Game.crew[index].healthCurrent - (character.attackBase/2))
+			damageSuffered = damageSuffered + (character.attackBase/2)
+			Game.crew[index].isdefending = false
+			display_text(character.identity + " dealts %d damage " % (character.attackBase/2) + "to " + Game.crew[index].identity)
+			await textbox_closed
 		
 		if Game.crew[index].identity == PlayerName.text:
 			updatePlayerPanel(Game.crew[index])
@@ -373,8 +395,6 @@ func _on_start_pressed():
 
 func _on_victor():
 	batlle.hide()
-	$ActionPanel.hide()
-	$Textbox1.hide()
 	victory.show()
 	$Victory/StatsFight.text = "damageInflicted: " \
 	+ str(damageInflicted) + "\n" + "damageSuffered: " \
@@ -383,8 +403,6 @@ func _on_victor():
 
 func _on_gameover():
 	batlle.hide()
-	$ActionPanel.hide()
-	$Textbox1.hide()
 	gameOver.show()
 	$GameOver/StatsFight.text = "damageInflicted: " \
 	+ str(damageInflicted) + "\n" + "damageSuffered: " \

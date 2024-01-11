@@ -13,8 +13,9 @@ var attackBase:int
 var speedBase:int
 var critBase:int
 var dodgeBase:float
+var isdefending: bool
 
-func _init(identity = "",icon = "", healthBase = 10, healthCurrent = healthBase, attackBase = 3, speedBase = 5, critBase = 5.0, dodgeBase = 5.0):
+func _init(identity = "",icon = "", healthBase = 10, healthCurrent = healthBase, attackBase = 3, speedBase = 5, critBase = 5.0, dodgeBase = 5.0, isdefending = false):
 	self.identity = identity
 	self.icon = icon
 	self.healthBase = healthBase
@@ -23,6 +24,7 @@ func _init(identity = "",icon = "", healthBase = 10, healthCurrent = healthBase,
 	self.speedBase = speedBase
 	self.critBase = critBase
 	self.dodgeBase = dodgeBase
+	self.isdefending = isdefending
 
 func get_identity():
 	return self.identity
