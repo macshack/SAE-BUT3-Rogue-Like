@@ -51,7 +51,10 @@ func _ready():
 	if situation:
 		match(situation["type"]):
 			"FIGHT":
-				pass
+				situationDone = false
+				if destinationSettings:
+					destinationSettings.situationDone = true
+					destinationSettings.save()
 			"MERCHANT":
 				var merchant = merchantScene.instantiate()
 				situationNode = str(merchant)
@@ -60,15 +63,6 @@ func _ready():
 					destinationSettings.situationDone = true
 					destinationSettings.save()
 				main.add_child(merchant)
-	else:
-		var merchant = merchantScene.instantiate()
-		situationNode = str(merchant)
-		situationDone = true
-		if destinationSettings:
-			destinationSettings.situationDone = true
-			destinationSettings.save()
-		
-		main.add_child(merchant)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -136,6 +130,7 @@ func _on_menuSauvegarder_pressed():
 
 
 func _on_menuQuitter_pressed():
+	save.emit()
 	toMainMenu.emit()
 	self.queue_free()
 
@@ -169,9 +164,7 @@ func generateNextDestination(currentRound:int):
 		nextDestinationContainerNode.add_child(scene)
 	for i in 2:
 		if currentRound < 5:
-			print(Game.tier1dest[randi()%Game.tier1dest.size()])
 			var scene = nextDestinationScene.instantiate().init(Game.tier1dest[randi()%Game.tier1dest.size()])
-
 			scene.click.connect(_on_next_destination_data)
 			nextDestinationContainerNode.add_child(scene)
 		elif currentRound == 5:
@@ -205,3 +198,24 @@ func _on_destination_pressed():
 		for i in main.get_children():
 			i.hide()
 		nextDestinationNode.show()
+
+func _input(event):
+	if Input.is_key_pressed(KEY_ESCAPE):
+		if optionsNode.visible:
+			_on_options_menu_exit()
+		elif !settings.visible:
+			_on_settings_pressed()
+		elif settings.visible:
+			_on_situation_pressed()
+	if Input.is_key_pressed(KEY_E):
+		if !crew.visible:
+			_on_equipage_pressed()
+		elif crew.visible:
+			_on_situation_pressed()
+	if Input.is_key_pressed(KEY_TAB)||(Input.is_key_pressed(KEY_S)):
+			_on_situation_pressed()
+	if Input.is_key_pressed(KEY_B)||Input.is_key_pressed(KEY_I):
+		if !inventory.visible:
+			_on_inventory_pressed()
+		elif inventory.visible:
+			_on_situation_pressed()

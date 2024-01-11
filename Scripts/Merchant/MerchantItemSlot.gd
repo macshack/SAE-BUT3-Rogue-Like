@@ -1,4 +1,4 @@
-extends MarginContainer
+extends PanelContainer
 class_name MerchantItemSlot
 
 signal merchant_error(message:String)
@@ -21,29 +21,44 @@ var previousScroll
 var timer = 0.05
 var secondTimer = 0.25
 
+@onready var scrollNode = %ScrollContainer
+@onready var nameNode = %itemName
+@onready var vboxNode = %VBoxContainer
+@onready var iconNode = %itemIcon
+@onready var priceNode = %itemPrice
+@onready var statNode = %statsContainer
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$VBoxContainer/ScrollContainer.scroll_horizontal = 0
+	scrollNode.scroll_horizontal = 0
 	if !canBuy:
 		currentPrice = snapped(item.itemPrice*0.7,0)
 	else:
 		currentPrice = item.itemPrice
-	$VBoxContainer/Label.text = str(currentPrice)+"C"
-	$VBoxContainer/TextureRect.texture = load("res://Assets/Portraits/"+item.itemIconLink)
-	$VBoxContainer/ScrollContainer/Label2.text = item.itemName
+	priceNode.text = "Acheter - "+str(currentPrice)+"C"
+	iconNode.texture = load("res://Assets/Portraits/"+item.itemIconLink)
+	nameNode.text = item.itemName
+	for stat in item.itemModifiers:
+		if item.itemModifiers[stat] != 0:
+			var st = Label.new()
+			if item.itemModifiers[stat] > 0:
+				st.text = "+"+str(item.itemModifiers[stat])+" "+str(stat)
+			elif item.itemModifiers[stat] > 0:
+				st.text = "-"+str(item.itemModifiers[stat])+" "+str(stat)
+			statNode.add_child(st)
 
 func _process(delta):
 	if timer > 0:
 		timer -= delta
 	else:
-		$VBoxContainer/ScrollContainer.scroll_horizontal += 1
-		if (previousScroll == $VBoxContainer/ScrollContainer.scroll_horizontal):
+		scrollNode.scroll_horizontal += 1
+		if (previousScroll == scrollNode.scroll_horizontal):
 			secondTimer -= delta
 			if secondTimer <= 0:
 				secondTimer = 0.25
-				$VBoxContainer/ScrollContainer.scroll_horizontal = 0
+				scrollNode.scroll_horizontal = 0
 		else:
-			previousScroll = $VBoxContainer/ScrollContainer.scroll_horizontal
+			previousScroll = scrollNode.scroll_horizontal
 		timer = 0.05
 
 func init(itemParam):
@@ -56,8 +71,8 @@ func _on_gui_input(event):
 			if available:
 				if ((Game.credits - currentPrice) >= 0):
 					available = false
-					$VBoxContainer/Label.text = "Indisponible."
-					$VBoxContainer.modulate = Color(1.0,1.0,1.0,0.25)
+					priceNode.text = "Indisponible."
+					vboxNode.modulate = Color(1.0,1.0,1.0,0.25)
 					Game.credits -= currentPrice
 					Game.inventory.append(item)
 					merchant_success.emit(item.itemName+" a ete ajoute a l'inventaire.")
@@ -80,6 +95,7 @@ func _on_gui_input(event):
 					if i.itemName == item.itemName:
 						Game.inventory.erase(i)
 						merchant_sold.emit(i)
+						break
 				merchant_success.emit(item.itemName+" a ete vendu avec succes.")
 				self.queue_free()
 			else:

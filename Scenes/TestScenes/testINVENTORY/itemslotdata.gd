@@ -11,7 +11,8 @@ extends TextureRect
 @onready var property:Item:
 	set(value):
 		property = value
-		if property is Item && property:
-			texture = load("res://Assets/Portraits/"+property.itemIconLink)
+		if property is Item:
+			self.texture = load("res://Assets/Portraits/"+property.itemIconLink)
 		else:
-			texture = null
+			self.texture = null
+

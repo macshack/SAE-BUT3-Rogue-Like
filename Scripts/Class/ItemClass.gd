@@ -16,7 +16,6 @@ var itemModifiers = {
 var itemPrice:int
 
 func _init(id:int,itemName = "",flavor = "",icon = "",stats = {},price=0,load=false):
-	print(id)
 	if load:
 		self.itemId = id
 		self.itemName = JsonHandling.item_data[str(id)].itemName
@@ -33,7 +32,6 @@ func _init(id:int,itemName = "",flavor = "",icon = "",stats = {},price=0,load=fa
 		self.itemPrice = price
 		for key in stats:
 			self.itemModifiers[key] = stats[key]
-	print(self.itemId)
 
 func getName():
 	return itemName

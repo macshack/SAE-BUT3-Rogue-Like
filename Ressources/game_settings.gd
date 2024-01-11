@@ -9,13 +9,11 @@ class_name GameSettings extends Resource
 
 func save():
 	ResourceSaver.save(self,"user://game_settings.tres")
-	print("save")
 
 static func load_or_create() -> GameSettings:
 	var res: GameSettings = load("user://game_settings.tres") as GameSettings
 	if !res:
 		res = GameSettings.new()
-	print("loaded")
 	return res
 
 func reset():
@@ -25,7 +23,6 @@ func reset():
 	playerCrew = []
 	ennemyCrew = []
 	inventory = []
-	print("reset")
 
 func loadPlayercrew()->Array[Crewmate]:
 	var list:Array[Crewmate]= []
