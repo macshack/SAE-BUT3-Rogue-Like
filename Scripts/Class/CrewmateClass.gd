@@ -68,7 +68,7 @@ func _process(delta):
 	pass
 	
 
-func toDictionnary():
+func toDictionary():
 	var dict = {
 		"identity":self.identity,
 		"icon":self.icon,

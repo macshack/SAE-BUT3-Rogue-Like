@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cxwb6fubnyk2b"]
+[gd_scene load_steps=17 format=3 uid="uid://cxwb6fubnyk2b"]
 
 [ext_resource type="Texture2D" uid="uid://dfp8glsnvg08h" path="res://Assets/UI/Button01.png" id="2_1l2tu"]
 [ext_resource type="FontFile" uid="uid://j5854hdtucyt" path="res://Assets/Font/Montserrat-VariableFont_wght.ttf" id="2_bxder"]
@@ -24,6 +24,28 @@ expand_margin_left = 5.0
 expand_margin_top = 5.0
 expand_margin_right = 5.0
 expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0engk"]
+texture = ExtResource("4_344c2")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_sv1c7"]
+font = ExtResource("2_bxder")
+font_size = 100
+
+[sub_resource type="LabelSettings" id="LabelSettings_5gome"]
+font = ExtResource("2_bxder")
+font_size = 50
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bjxmk"]
+texture = ExtResource("2_1l2tu")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lhq7j"]
 texture = ExtResource("2_1l2tu")
@@ -71,18 +93,15 @@ size_flags_vertical = 3
 
 [node name="Crewmates" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Main"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 
 [node name="Inventory" parent="MarginContainer/VBoxContainer/Main" instance=ExtResource("2_tccvg")]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Settings" type="CenterContainer" parent="MarginContainer/VBoxContainer/Main"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -136,13 +155,11 @@ layout_mode = 2
 
 [node name="Equipage" parent="MarginContainer/VBoxContainer/Main" instance=ExtResource("5_d7fi2")]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Objective" type="CenterContainer" parent="MarginContainer/VBoxContainer/Main"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -151,18 +168,58 @@ unique_name_in_owner = true
 layout_mode = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer/Main"]
-visible = false
 layout_mode = 2
 
 [node name="NewDestination" type="CenterContainer" parent="MarginContainer/VBoxContainer/Main"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Main/NewDestination"]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="EndScreen" type="CenterContainer" parent="MarginContainer/VBoxContainer/Main"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/Main/EndScreen"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_0engk")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Main/EndScreen/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Main/EndScreen/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="endTitle" type="Label" parent="MarginContainer/VBoxContainer/Main/EndScreen/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "VICTOIRE"
+label_settings = SubResource("LabelSettings_sv1c7")
+horizontal_alignment = 1
+
+[node name="endScore" type="Label" parent="MarginContainer/VBoxContainer/Main/EndScreen/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Votre score : 2000"
+label_settings = SubResource("LabelSettings_5gome")
+horizontal_alignment = 1
+
+[node name="toMainMenu" type="Button" parent="MarginContainer/VBoxContainer/Main/EndScreen/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_bxder")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxTexture_bjxmk")
+text = "Retour au menu principal"
 
 [node name="ButtonContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -216,6 +273,7 @@ text = "Nouvelle destination"
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Main/Settings/Menu/MarginContainer/Menu/Options" to="." method="_on_menuSettings_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Main/Settings/Menu/MarginContainer/Menu/Quitter" to="." method="_on_menuQuitter_pressed"]
 [connection signal="exit" from="MarginContainer/VBoxContainer/Main/Settings/OptionsMenu" to="." method="_on_options_menu_exit"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Main/EndScreen/PanelContainer/MarginContainer/VBoxContainer/toMainMenu" to="." method="_on_to_main_menu_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonContainer/Situation" to="." method="_on_situation_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonContainer/Equipage" to="." method="_on_equipage_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonContainer/Inventory" to="." method="_on_inventory_pressed"]

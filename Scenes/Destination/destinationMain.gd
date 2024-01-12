@@ -8,6 +8,8 @@ signal sendBattlereport(boolean, value)
 
 var situationDone = false
 
+var currentFight = false
+
 var merchantScene = preload("res://Scenes/Merchant/Merchant.tscn")
 var fightScene = preload("res://Scenes/Battle/battle.tscn")
 
@@ -19,6 +21,8 @@ var destination = {}
 var situation = {}
 
 var nameplateUpdateTimer = 1
+
+var gameFinished = false
 
 @onready var crewmates = %Crewmates
 @onready var inventory = %Inventory
@@ -53,11 +57,13 @@ func _ready():
 		match(situation["type"]):
 			"FIGHT":
 				var scene = fightScene.instantiate()
+				scene.start.connect(_disable_during_fight)
 				scene.reward.connect(_on_battleReward)
+				situationNode = str(scene)
 				main.add_child(scene)
 				situationDone = false
 				if destinationSettings:
-					destinationSettings.situationDone = true
+					destinationSettings.situationDone = false
 					destinationSettings.save()
 			"MERCHANT":
 				var merchant = merchantScene.instantiate()
@@ -70,12 +76,13 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if (nameplateUpdateTimer <= 0):
-		if crewmates.get_children().size() != Game.crew.size():
-			updateCrewmatesNameplates()
-		nameplateUpdateTimer = 0.5
-	else:
-		nameplateUpdateTimer -= delta
+	if gameFinished == false:
+		if (nameplateUpdateTimer <= 0):
+			if crewmates.get_children().size() != Game.crew.size():
+				updateCrewmatesNameplates()
+			nameplateUpdateTimer = 0.5
+		else:
+			nameplateUpdateTimer -= delta
 
 func _on_objectiveUpdate_received(data:ObjectiveSettings):
 	widgetNode.updateObjective(data)
@@ -104,13 +111,15 @@ func init(load:bool):
 	return self
 
 func _on_inventory_pressed():
-	for i in main.get_children():
-		i.hide()
-	inventory.refreshInventory()
-	inventory.show()
+	if gameFinished == false && currentFight == false:
+		for i in main.get_children():
+			i.hide()
+		inventory.refreshInventory()
+		inventory.show()
 
 func forceSave():
-	destinationSettings.save()
+	if gameFinished == false && currentFight == false:
+		destinationSettings.save()
 
 func _on_situation_pressed():
 	for i in main.get_children():
@@ -122,9 +131,10 @@ func _on_situation_pressed():
 
 
 func _on_equipage_pressed():
-	for i in main.get_children():
-		i.hide()
-	crew.show()
+	if gameFinished == false && currentFight == false:
+		for i in main.get_children():
+			i.hide()
+		crew.show()
 
 
 func _on_menuSettings_pressed():
@@ -160,7 +170,11 @@ func updateCrewmatesNameplates():
 		crewmates.add_child(nameplate)
 
 func _on_battleReward(value:Dictionary):
-	print(value)
+	Game.enemyCrew = []
+	currentFight = false
+	situationDone = true
+	destinationSettings.situationDone = false
+	destinationSettings.save()
 	sendBattlereport.emit(false,value)
 
 
@@ -211,23 +225,51 @@ func _on_destination_pressed():
 			i.hide()
 		nextDestinationNode.show()
 
+func _disable_during_fight():
+	currentFight = true
+
 func _input(event):
-	if Input.is_key_pressed(KEY_ESCAPE):
-		if optionsNode.visible:
-			_on_options_menu_exit()
-		elif !settings.visible:
-			_on_settings_pressed()
-		elif settings.visible:
-			_on_situation_pressed()
-	if Input.is_key_pressed(KEY_E):
-		if !crew.visible:
-			_on_equipage_pressed()
-		elif crew.visible:
-			_on_situation_pressed()
-	if Input.is_key_pressed(KEY_TAB)||(Input.is_key_pressed(KEY_S)):
-			_on_situation_pressed()
-	if Input.is_key_pressed(KEY_B)||Input.is_key_pressed(KEY_I):
-		if !inventory.visible:
-			_on_inventory_pressed()
-		elif inventory.visible:
-			_on_situation_pressed()
+	if gameFinished == false && currentFight == false:
+		if Input.is_key_pressed(KEY_ESCAPE):
+			if optionsNode.visible:
+				_on_options_menu_exit()
+			elif !settings.visible:
+				_on_settings_pressed()
+			elif settings.visible:
+				_on_situation_pressed()
+		if Input.is_key_pressed(KEY_E):
+			if !crew.visible:
+				_on_equipage_pressed()
+			elif crew.visible:
+				_on_situation_pressed()
+		if Input.is_key_pressed(KEY_TAB)||(Input.is_key_pressed(KEY_S)):
+				_on_situation_pressed()
+		if Input.is_key_pressed(KEY_B)||Input.is_key_pressed(KEY_I):
+			if !inventory.visible:
+				_on_inventory_pressed()
+			elif inventory.visible:
+				_on_situation_pressed()
+
+func _on_victory(value):
+	for ch in main.get_children():
+		ch.hide()
+	%endTitle.text = "VICTOIRE"
+	%endScore.text = "Votre score : "+str(calcScore())
+	%EndScreen.show()
+	$MarginContainer/VBoxContainer/ButtonContainer.hide()
+	gameFinished = true
+
+func _on_defeat(value):
+	for ch in main.get_children():
+		ch.hide()
+	%endTitle.text = "DEFAITE"
+	%endScore.hide()
+	%EndScreen.show()
+	$MarginContainer/VBoxContainer/ButtonContainer.hide()
+	gameFinished = true
+
+func calcScore()->int:
+	return 0
+
+func _on_to_main_menu_pressed():
+	toMainMenu.emit()

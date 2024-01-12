@@ -2,6 +2,9 @@ extends Control
 
 #PROBLEMES AVEC LES TEXTBOX,peux attaquer 2x pdt un tour
 
+var bossFight:bool = false
+var rewardObtained:bool = false
+
 @onready var EnemyCrewContainer = %EnemyCrewContainer
 @onready var PlayerName = %PlayerName
 @onready var HP = %HP
@@ -14,10 +17,22 @@ extends Control
 @onready var batlle = %Battle
 @onready var Start = %Start
 
+@onready var dmgDealt = %dmgDealt
+@onready var dmgSuff = %dmgSuffered
+@onready var enKilled = %enKilled
+@onready var rounds = %rounds
+
+@onready var dmgDealtTwo = %dmgDealt
+@onready var dmgSuffTwo = %dmgSuffered
+@onready var enKilledTwo = %enKilled
+@onready var roundsTwo = %rounds
+
 @onready var damageInflicted: int = 0
 @onready var damageSuffered: int = 0
 @onready var nbEnnemiesKilled: int = 0
 @onready var nbRound: int = 0
+
+
 
 signal victor
 signal gameover
@@ -45,7 +60,9 @@ signal textbox_closed
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
+	for i in Game.crew:
+		i.applyModifiersToCrewmate()
+		print(i.attackCurrent)
 	gameOver.hide()
 	victory.hide()
 	batlle.hide()
@@ -180,9 +197,6 @@ func ko_crewmate():
 					#print("ORDER: ", order)
 
 func _on_attack_pressed():
-	
-	print("ENEMY LIST: ", Game.enemyCrew)
-	
 	if enemyTarget >= Game.enemyCrew.size() or enemyTarget < 0:
 		display_text("Cliquez sur un ennemi !")
 		await textbox_closed
@@ -396,31 +410,18 @@ func _on_start_pressed():
 func _on_victor():
 	batlle.hide()
 	victory.show()
-	$Victory/StatsFight.text = "damageInflicted: " \
-	+ str(damageInflicted) + "\n" + "damageSuffered: " \
-	+ str(damageSuffered) + "\n"+ "nbEnnemiesKilled: " \
-	+ str(nbEnnemiesKilled) + "\n"+ "nbRound: " + str(nbRound) + "\n"
+	dmgDealtTwo.text =  "Degats infliges aux ennemis : "+ str(damageInflicted)
+	dmgSuffTwo.text = "Degats subies par l'equipage : "+ str(damageSuffered)
+	enKilledTwo.text = "Ennemis tues : "+ str(nbEnnemiesKilled)
+	roundsTwo.text = "Duree du combat (en manches) : "+ str(nbRound) 
 
 func _on_gameover():
 	batlle.hide()
 	gameOver.show()
-	$GameOver/StatsFight.text = "damageInflicted: " \
-	+ str(damageInflicted) + "\n" + "damageSuffered: " \
-	+ str(damageSuffered) + "\n"+ "nbEnnemiesKilled: " \
-	+ str(nbEnnemiesKilled) + "\n"+ "nbRound: " + str(nbRound) + "\n"
-
-func _on_gear_gui_input(event):
-	if event is InputEventMouseButton  && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
-		var gearDict: Dictionary = {"gear":1,}
-		reward.emit(gearDict)
-		print("GEAR")
-
-func _on_credits_gui_input(event):
-	if event is InputEventMouseButton  && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
-		var creditDict: Dictionary = {"credits":100,}
-		reward.emit(creditDict)
-		print("CREDITS")
-
+	dmgDealt.text =  "Degats infliges aux ennemis : "+ str(damageInflicted)
+	dmgSuff.text = "Degats subies par l'equipage : "+ str(damageSuffered)
+	enKilled.text = "Ennemis tues : "+ str(nbEnnemiesKilled)
+	rounds.text = "Duree du combat (en manches) : "+ str(nbRound) 
 func erase_enemy():
 	for en in Game.enemyCrew:
 		if en.healthCurrent <= 0:
@@ -429,8 +430,36 @@ func erase_enemy():
 				if c[0] is Enemy and c[0].identity == id:
 					order.erase(c)
 
-func emis():
-	print("Signal émis")
+func _on_choice_credits_gui_input(event):
+	if event is InputEventMouseButton  && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
+		if !rewardObtained:
+			var loot = 100000
+			#var loot = (25 * nbEnnemiesKilled + snapped(50/nbRound,1))
+			var fightResult: Dictionary = {
+				"credits":loot,
+				"total_damage_dealt":damageInflicted,
+				"enemies_killed":nbEnnemiesKilled,
+				"fight_result":true,
+				"boss_fight":bossFight
+				}
+			Game.credits += loot
+			rewardObtained = true
+			%HBoxContainer.hide()
+			reward.emit(fightResult)
 
-func _on_reward(dict):
-	print("SIGNAL EMIS: ", dict)
+
+func _on_choice_item_gui_input(event):
+	if event is InputEventMouseButton  && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
+		if !rewardObtained:
+			var loot = Item.new(int(JsonHandling.item_data[randi()%JsonHandling.item_data.size()]))
+			var fightResult: Dictionary = {
+				"item_drops":1,
+				"total_damage_dealt":damageInflicted,
+				"enemies_killed":nbEnnemiesKilled,
+				"fight_result":true,
+				"boss_fight":bossFight
+				}
+			rewardObtained = true
+			Game.inventory.append(loot)
+			%HBoxContainer.hide()
+			reward.emit(fightResult)

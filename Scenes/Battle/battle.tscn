@@ -1,21 +1,77 @@
-[gd_scene load_steps=7 format=3 uid="uid://djvo81yru6mtq"]
+[gd_scene load_steps=23 format=3 uid="uid://djvo81yru6mtq"]
 
 [ext_resource type="Script" path="res://Scripts/Battle/battle.gd" id="1_eon26"]
+[ext_resource type="FontFile" uid="uid://j5854hdtucyt" path="res://Assets/Font/Montserrat-VariableFont_wght.ttf" id="2_eq36c"]
+[ext_resource type="Texture2D" uid="uid://b1f8gka4f1pfv" path="res://Assets/Portraits/Human (1).jpg" id="2_jsb8t"]
+[ext_resource type="Texture2D" uid="uid://dn1ely4x28j4u" path="res://Assets/UI/MiniPanel01.jpg" id="2_o7oik"]
+[ext_resource type="Texture2D" uid="uid://dfp8glsnvg08h" path="res://Assets/UI/Button01.png" id="3_koo7i"]
+[ext_resource type="Texture2D" uid="uid://dwmo0522m0a6g" path="res://Assets/UI/Cell01.png" id="6_ratxw"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vciuo"]
-bg_color = Color(0.0196078, 0.0196078, 0.0196078, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d48wy"]
+texture = ExtResource("2_o7oik")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5e4hh"]
-bg_color = Color(1, 1, 1, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o6kk1"]
-bg_color = Color(1, 1, 1, 1)
+[sub_resource type="LabelSettings" id="LabelSettings_1txor"]
+font = ExtResource("2_eq36c")
+font_size = 32
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r8630"]
 bg_color = Color(0.803922, 0.172549, 0.0352941, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b61lo"]
 bg_color = Color(0.34902, 1, 0.141176, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y2rcw"]
+texture = ExtResource("3_koo7i")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_846cw"]
+texture = ExtResource("2_o7oik")
+
+[sub_resource type="LabelSettings" id="LabelSettings_ucn8g"]
+font = ExtResource("2_eq36c")
+font_size = 40
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eyafy"]
+texture = ExtResource("3_koo7i")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3as0f"]
+texture = ExtResource("2_o7oik")
+
+[sub_resource type="LabelSettings" id="LabelSettings_4o6x6"]
+font = ExtResource("2_eq36c")
+font_size = 100
+
+[sub_resource type="LabelSettings" id="LabelSettings_ye4av"]
+font = ExtResource("2_eq36c")
+font_size = 38
+
+[sub_resource type="LabelSettings" id="LabelSettings_wywe3"]
+font = ExtResource("2_eq36c")
+font_size = 32
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tyl70"]
+texture = ExtResource("3_koo7i")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hodds"]
+texture = ExtResource("6_ratxw")
+
+[sub_resource type="LabelSettings" id="LabelSettings_ntn1s"]
+font = ExtResource("2_eq36c")
+font_size = 32
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xassk"]
+texture = ExtResource("6_ratxw")
 
 [node name="Battle" type="Control"]
 layout_mode = 3
@@ -46,100 +102,58 @@ alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Textbox" type="PanelContainer" parent="Battle"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-
-[node name="TextboxLabel" type="Label" parent="Battle/Textbox"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 1
-text = "A Fishstick appears !"
-
-[node name="Ticker" type="Label" parent="Battle/Textbox"]
-layout_mode = 2
-text = ">"
-
 [node name="PlayerPanel" type="PanelContainer" parent="Battle"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_d48wy")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Battle/PlayerPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="Battle/PlayerPanel"]
 layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
-[node name="Actions" type="HBoxContainer" parent="Battle/PlayerPanel/VBoxContainer"]
-unique_name_in_owner = true
+[node name="VBoxContainer" type="VBoxContainer" parent="Battle/PlayerPanel/MarginContainer"]
 layout_mode = 2
-alignment = 1
+theme_override_constants/separation = 10
 
-[node name="Attack" type="Button" parent="Battle/PlayerPanel/VBoxContainer/Actions"]
-custom_minimum_size = Vector2(0, 50)
+[node name="HBoxContainer2" type="HBoxContainer" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
-mouse_default_cursor_shape = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = SubResource("StyleBoxFlat_vciuo")
-theme_override_styles/hover = SubResource("StyleBoxFlat_5e4hh")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_o6kk1")
-text = "Attack
-"
+theme_override_constants/separation = 20
 
-[node name="Skill1" type="Button" parent="Battle/PlayerPanel/VBoxContainer/Actions"]
-custom_minimum_size = Vector2(0, 50)
+[node name="PlayerData" type="HBoxContainer" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
-mouse_default_cursor_shape = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = SubResource("StyleBoxFlat_vciuo")
-theme_override_styles/hover = SubResource("StyleBoxFlat_5e4hh")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_o6kk1")
-text = "Skill1
-"
 
-[node name="Skill2" type="Button" parent="Battle/PlayerPanel/VBoxContainer/Actions"]
+[node name="crewmateIcon" type="TextureRect" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer2/PlayerData"]
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
-text = "Skill2"
+texture = ExtResource("2_jsb8t")
+expand_mode = 3
 
-[node name="Defend" type="Button" parent="Battle/PlayerPanel/VBoxContainer/Actions"]
-custom_minimum_size = Vector2(0, 50)
+[node name="VBoxContainer" type="VBoxContainer" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer2/PlayerData"]
 layout_mode = 2
 size_flags_horizontal = 3
-mouse_default_cursor_shape = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = SubResource("StyleBoxFlat_vciuo")
-theme_override_styles/hover = SubResource("StyleBoxFlat_5e4hh")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_o6kk1")
-text = "Defend
-"
+alignment = 2
 
-[node name="PlayerData" type="HBoxContainer" parent="Battle/PlayerPanel/VBoxContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="PlayerName" type="Label" parent="Battle/PlayerPanel/VBoxContainer/PlayerData"]
+[node name="PlayerName" type="Label" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer2/PlayerData/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "
-
+TEST IGYY MAC GROS CUL
 "
-horizontal_alignment = 1
+label_settings = SubResource("LabelSettings_1txor")
 
-[node name="ProgressBar" type="ProgressBar" parent="Battle/PlayerPanel/VBoxContainer/PlayerData"]
+[node name="ProgressBar" type="ProgressBar" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer2/PlayerData/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
+size_flags_vertical = 1
 theme_override_styles/background = SubResource("StyleBoxFlat_r8630")
 theme_override_styles/fill = SubResource("StyleBoxFlat_b61lo")
 show_percentage = false
 
-[node name="HP" type="Label" parent="Battle/PlayerPanel/VBoxContainer/PlayerData/ProgressBar"]
+[node name="HP" type="Label" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer2/PlayerData/VBoxContainer/ProgressBar"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -148,71 +162,326 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 20
-text = "HP:25/50
+text = "25/50
 "
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Textbox" type="PanelContainer" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextboxLabel" type="RichTextLabel" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer2/Textbox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("2_eq36c")
+theme_override_font_sizes/normal_font_size = 34
+text = "TEST"
+fit_content = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Actions" type="GridContainer" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="Attack" type="Button" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/Actions"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_eq36c")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxTexture_y2rcw")
+text = "Attack
+"
+
+[node name="Defend" type="Button" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/Actions"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_eq36c")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxTexture_y2rcw")
+text = "Defend
+"
+
+[node name="Skill1" type="Button" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/Actions"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_eq36c")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxTexture_y2rcw")
+text = "Skill1
+"
+
+[node name="Skill2" type="Button" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/Actions"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_eq36c")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxTexture_y2rcw")
+text = "Skill2"
+
 [node name="Start" type="VBoxContainer" parent="."]
 unique_name_in_owner = true
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="start" type="Button" parent="Start"]
+[node name="CenterContainer" type="CenterContainer" parent="Start"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 200
-text = "LE CACA"
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="Start/CenterContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_846cw")
+
+[node name="MarginContainer" type="MarginContainer" parent="Start/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Start/CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="situationName" type="Label" parent="Start/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Test"
+label_settings = SubResource("LabelSettings_ucn8g")
+horizontal_alignment = 1
+
+[node name="start" type="Button" parent="Start/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("2_eq36c")
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxTexture_eyafy")
+text = "Lancer le combat"
 
 [node name="GameOver" type="VBoxContainer" parent="."]
 unique_name_in_owner = true
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Label" type="Label" parent="GameOver"]
+[node name="CenterContainer" type="CenterContainer" parent="GameOver"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="GameOver/CenterContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_3as0f")
+
+[node name="MarginContainer" type="MarginContainer" parent="GameOver/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOver/CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="GameOver/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "GAME OVER"
+label_settings = SubResource("LabelSettings_4o6x6")
+horizontal_alignment = 1
 
-[node name="StatsFight" type="Label" parent="GameOver"]
+[node name="Label2" type="Label" parent="GameOver/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+text = "Resume du combat"
+label_settings = SubResource("LabelSettings_ye4av")
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="GameOver/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="dmgDealt" type="Label" parent="GameOver/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Degats infliges aux ennemis : 250"
+label_settings = SubResource("LabelSettings_wywe3")
+
+[node name="dmgSuffered" type="Label" parent="GameOver/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Degats infliges aux ennemis : 250"
+label_settings = SubResource("LabelSettings_wywe3")
+
+[node name="enKilled" type="Label" parent="GameOver/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Degats infliges aux ennemis : 250"
+label_settings = SubResource("LabelSettings_wywe3")
+
+[node name="rounds" type="Label" parent="GameOver/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Degats infliges aux ennemis : 250"
+label_settings = SubResource("LabelSettings_wywe3")
+
+[node name="Button" type="Button" parent="GameOver/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_eq36c")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_tyl70")
+text = "Voir l'ecran de fin de partie"
 
 [node name="Victory" type="VBoxContainer" parent="."]
 unique_name_in_owner = true
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Label" type="Label" parent="Victory"]
+[node name="CenterContainer" type="CenterContainer" parent="Victory"]
 layout_mode = 2
-text = "VICTORY
-"
+size_flags_vertical = 3
 
-[node name="StatsFight" type="Label" parent="Victory"]
+[node name="PanelContainer" type="PanelContainer" parent="Victory/CenterContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_3as0f")
+
+[node name="MarginContainer" type="MarginContainer" parent="Victory/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Victory/CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "VICTOIRE"
+label_settings = SubResource("LabelSettings_4o6x6")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Resume du combat"
+label_settings = SubResource("LabelSettings_ye4av")
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Gear" type="VBoxContainer" parent="Victory"]
+[node name="dmgDealt2" type="Label" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+text = "Degats infliges aux ennemis : 250"
+label_settings = SubResource("LabelSettings_wywe3")
 
-[node name="Label" type="Label" parent="Victory/Gear"]
+[node name="dmgSuffered2" type="Label" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "GEAR"
+text = "Degats infliges aux ennemis : 250"
+label_settings = SubResource("LabelSettings_wywe3")
 
-[node name="Credits" type="VBoxContainer" parent="Victory"]
+[node name="enKilled2" type="Label" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+text = "Degats infliges aux ennemis : 250"
+label_settings = SubResource("LabelSettings_wywe3")
 
-[node name="Label" type="Label" parent="Victory/Credits"]
+[node name="rounds2" type="Label" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "CREDITS"
+text = "Degats infliges aux ennemis : 250"
+label_settings = SubResource("LabelSettings_wywe3")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+
+[node name="choiceCredits" type="Panel" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_hodds")
+
+[node name="choiceCreditsIcon" type="TextureRect" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/choiceCredits"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="choiceCreditsNumber" type="Label" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/choiceCredits"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "3000"
+label_settings = SubResource("LabelSettings_ntn1s")
+
+[node name="choiceItem" type="Panel" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_xassk")
+
+[node name="choiceItemIcon" type="TextureRect" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/choiceItem"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 5
 
 [connection signal="click_on_rewards" from="." to="." method="_on_click_on_rewards"]
 [connection signal="gameover" from="." to="." method="_on_gameover"]
-[connection signal="reward" from="." to="." method="_on_reward"]
 [connection signal="victor" from="." to="." method="_on_victor"]
-[connection signal="pressed" from="Battle/PlayerPanel/VBoxContainer/Actions/Attack" to="." method="_on_attack_pressed"]
-[connection signal="pressed" from="Battle/PlayerPanel/VBoxContainer/Actions/Skill1" to="." method="_on_skill_pressed"]
-[connection signal="pressed" from="Battle/PlayerPanel/VBoxContainer/Actions/Skill2" to="." method="_on_skill_2_pressed"]
-[connection signal="pressed" from="Battle/PlayerPanel/VBoxContainer/Actions/Defend" to="." method="_on_defend_pressed"]
-[connection signal="pressed" from="Start/start" to="." method="_on_start_pressed"]
-[connection signal="gui_input" from="Victory/Gear" to="." method="_on_gear_gui_input"]
-[connection signal="gui_input" from="Victory/Credits" to="." method="_on_credits_gui_input"]
+[connection signal="pressed" from="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/Actions/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/Actions/Defend" to="." method="_on_defend_pressed"]
+[connection signal="pressed" from="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/Actions/Skill1" to="." method="_on_skill_pressed"]
+[connection signal="pressed" from="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/Actions/Skill2" to="." method="_on_skill_2_pressed"]
+[connection signal="pressed" from="Start/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/start" to="." method="_on_start_pressed"]
+[connection signal="gui_input" from="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/choiceCredits" to="." method="_on_choice_credits_gui_input"]
+[connection signal="gui_input" from="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/choiceItem" to="." method="_on_choice_item_gui_input"]

@@ -41,8 +41,8 @@ func _load_game():
 	destinationScene.nextDestination.connect(_on_next_destination)
 	destinationScene.sendBattlereport.connect(objectiveScene.analyze)
 	
-	objectiveScene.defeat.connect(_on_objective_defeat)
-	objectiveScene.victory.connect(_on_objective_victory)
+	objectiveScene.defeat.connect(destinationScene._on_victory)
+	objectiveScene.victory.connect(destinationScene._on_defeat)
 	objectiveScene.newData.connect(destinationScene._on_objectiveUpdate_received)
 	
 	objectiveNode = str(objectiveScene)
@@ -80,8 +80,8 @@ func _on_gamestart_to_start_game(objData, crewData):
 	destinationScene.nextDestination.connect(_on_next_destination)
 	destinationScene.sendBattlereport.connect(objectiveScene.analyze)
 	
-	objectiveScene.defeat.connect(_on_objective_defeat)
-	objectiveScene.victory.connect(_on_objective_victory)
+	objectiveScene.defeat.connect(destinationScene._on_victory)
+	objectiveScene.victory.connect(destinationScene._on_defeat)
 	objectiveScene.newData.connect(destinationScene._on_objectiveUpdate_received)
 	
 	objectiveNode = str(objectiveScene)
@@ -96,8 +96,6 @@ func _on_gamestart_to_start_game(objData, crewData):
 
 func _on_next_destination(value):
 	var destinationSettings = DestinationSettings.load_or_create() 
-	print(value)
-	print(value['type'])
 	destinationSettings.name = value["name"]
 	destinationSettings.flavor = value["flavor"]
 	destinationSettings.backgroundFile = value["background"]
@@ -105,7 +103,6 @@ func _on_next_destination(value):
 	destinationSettings.type = value["type"]
 	destinationSettings.situationDone = false
 	destinationSettings.save()
-	print(destinationSettings.type)
 	
 	var destinationScene = destination.instantiate().init(true)
 	
@@ -114,6 +111,8 @@ func _on_next_destination(value):
 	destinationScene.nextDestination.connect(_on_next_destination)
 	destinationScene.sendBattlereport.connect($Game.get_children()[0].analyze)
 	
+	$Game.get_children()[0].victory.connect(destinationScene._on_victory)
+	$Game.get_children()[0].defeat.connect(destinationScene._on_defeat)
 	$Game.get_children()[0].newData.connect(destinationScene._on_objectiveUpdate_received)
 	
 	for c in $Game.get_children().size():
