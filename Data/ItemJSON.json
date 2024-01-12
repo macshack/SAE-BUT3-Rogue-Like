@@ -1,9 +1,9 @@
 {
 	"1000":{
 		"itemId":1000,
-		"itemName":"Lame du roi 3rbi",
+		"itemName":"Blood sword",
 		"itemFlavorText":"La lame de l'unique",
-		"itemIconLink":"Human (3).jpg",
+		"itemIconLink":"sword2.png",
 		"itemModifiers":{
 			"ATK":5,
 			"HP":0,
@@ -15,9 +15,9 @@
 	},
 	"1001":{
 		"itemId":1001,
-		"itemName":"Marteau de clochard",
-		"itemFlavorText":"Ca pue la 8.6 et le caca",
-		"itemIconLink":"Human (4).jpg",
+		"itemName":"Ancient weapon",
+		"itemFlavorText":"Bonk",
+		"itemIconLink":"sword1.png",
 		"itemModifiers":{
 			"ATK":7,
 			"HP":2,
@@ -29,9 +29,9 @@
 	},
 	"1002":{
 		"itemId":1002,
-		"itemName":"Force de la tritine",
-		"itemFlavorText":"Un peu de tout",
-		"itemIconLink":"Human (5).jpg",
+		"itemName":"Great mask",
+		"itemFlavorText":"A strong item",
+		"itemIconLink":"Armor5.png",
 		"itemModifiers":{
 			"ATK":1,
 			"HP":1,
@@ -40,5 +40,75 @@
 			"DDG":1,
 		},
 		"itemPrice":200
+	},
+	"1003":{
+		"itemId":1003,
+		"itemName":"Yellow armor",
+		"itemFlavorText":"An armor",
+		"itemIconLink":"Armor2.png",
+		"itemModifiers":{
+			"ATK":0,
+			"HP":4,
+			"SPD":0,
+			"CRT":0.00,
+			"DDG":0,
+		},
+		"itemPrice":150
+	},
+	"1004":{
+		"itemId":1005,
+		"itemName":"Bow",
+		"itemFlavorText":"A strong bow",
+		"itemIconLink":"Armor5.png",
+		"itemModifiers":{
+			"ATK":5,
+			"HP":0,
+			"SPD":0,
+			"CRT":0.00,
+			"DDG":0,
+		},
+		"itemPrice":300
+	},
+	"1005":{
+		"itemId":1005,
+		"itemName":"Speed amor",
+		"itemFlavorText":"SPEEEEDDD",
+		"itemIconLink":"Armor1.png",
+		"itemModifiers":{
+			"ATK":0,
+			"HP":1,
+			"SPD":5,
+			"CRT":0.00,
+			"DDG":0,
+		},
+		"itemPrice":75
+	},
+	"1006":{
+		"itemId":1006,
+		"itemName":"TANK ARMOR",
+		"itemFlavorText":"MAX HP",
+		"itemIconLink":"Armor3.png",
+		"itemModifiers":{
+			"ATK":0,
+			"HP":10,
+			"SPD":0,
+			"CRT":0.00,
+			"DDG":0,
+		},
+		"itemPrice":350
+	},
+	"1007":{
+		"itemId":1007,
+		"itemName":"Kaiser sword",
+		"itemFlavorText":"Degat degat",
+		"itemIconLink":"sword5.png",
+		"itemModifiers":{
+			"ATK":10,
+			"HP":0,
+			"SPD":0,
+			"CRT":2.00,
+			"DDG":0,
+		},
+		"itemPrice":550
 	},
 }
