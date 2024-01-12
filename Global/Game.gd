@@ -31,11 +31,11 @@ func update():
 func saveGameSetting():
 	var savedCrew:Array[Dictionary] = []
 	for i in crew:
-		savedCrew.append(i.toDictionnary())
+		savedCrew.append(i.toDictionary())
 	gameSettings.playerCrew = savedCrew
 	var savedEnnemyCrew:Array[Dictionary] = []
 	for i in enemyCrew:
-		savedEnnemyCrew.append(i.toDictionnary())
+		savedEnnemyCrew.append(i.toDictionary())
 	gameSettings.ennemyCrew = savedEnnemyCrew
 	var savedInventory:Array[int] = []
 	for i in inventory:

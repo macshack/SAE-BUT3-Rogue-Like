@@ -5,7 +5,7 @@
 		"itemFlavorText":"La lame de l'unique",
 		"itemIconLink":"Human (3).jpg",
 		"itemModifiers":{
-			"ATK":5,
+			"ATK":1000,
 			"HP":0,
 			"SPD":1,
 			"CRT":5.00,
@@ -19,7 +19,7 @@
 		"itemFlavorText":"Ca pue la 8.6 et le caca",
 		"itemIconLink":"Human (4).jpg",
 		"itemModifiers":{
-			"ATK":7,
+			"ATK":1000,
 			"HP":2,
 			"SPD":0,
 			"CRT":0.00,
@@ -33,7 +33,7 @@
 		"itemFlavorText":"Un peu de tout",
 		"itemIconLink":"Human (5).jpg",
 		"itemModifiers":{
-			"ATK":1,
+			"ATK":10000,
 			"HP":1,
 			"SPD":1,
 			"CRT":1.00,

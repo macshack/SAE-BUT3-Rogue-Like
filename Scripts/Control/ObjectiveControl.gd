@@ -55,6 +55,7 @@ func init(load:bool,data:Dictionary):
 		objective_settings.type = data["type"]
 		objective_settings.text = data["text"]
 		objective_settings.goal = data["goal"]
+		objective_settings.current = 0
 		objective_settings.constraint = data["constraint"]
 		if objective_settings.constraint:
 			objective_settings.constraintType = data["constraintType"]
