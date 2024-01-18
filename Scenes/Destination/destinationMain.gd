@@ -59,6 +59,7 @@ func _ready():
 				var scene = fightScene.instantiate()
 				scene.start.connect(_disable_during_fight)
 				scene.reward.connect(_on_battleReward)
+				scene.openDestination.connect(_on_destination_pressed)
 				situationNode = str(scene)
 				main.add_child(scene)
 				situationDone = false

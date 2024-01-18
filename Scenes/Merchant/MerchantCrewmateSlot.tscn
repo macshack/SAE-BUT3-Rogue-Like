@@ -36,11 +36,13 @@ custom_minimum_size = Vector2(100, 0)
 offset_right = 100.0
 offset_bottom = 188.0
 size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_s6thv")
 script = ExtResource("1_sbcpf")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
@@ -48,10 +50,12 @@ theme_override_constants/margin_bottom = 5
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 2
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 0
 
@@ -63,21 +67,25 @@ label_settings = SubResource("LabelSettings_u7uyj")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 5
 
 [node name="Icon" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="crewmateIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/Icon"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("2_fbpkx")
 expand_mode = 5
 
 [node name="Skills" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Skills"]
 layout_mode = 2

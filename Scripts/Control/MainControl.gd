@@ -4,9 +4,19 @@ extends Node
 @onready var objective = preload("res://Scenes/ObjectiveScene.tscn")
 @onready var destination = preload("res://Scenes/Destination/destinationMain.tscn")
 
+@onready var musicChannel = %Music
+@onready var vfxChannel = %SFX
+
 var objectiveNode
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	musicChannel.autoplay = true
+	musicChannel.stream = ResourceLoader.load("res://Assets/Audio/Music/music (2).mp3")
+	musicChannel.play()
+	Input.set_custom_mouse_cursor(ResourceLoader.load("res://Assets/Cursors/cursorCanClick.png"),Input.CURSOR_POINTING_HAND,Vector2i(32,32))
+	Input.set_custom_mouse_cursor(ResourceLoader.load("res://Assets/Cursors/cursorObserve.png"),Input.CURSOR_HELP,Vector2i(32,32))
+	Input.set_custom_mouse_cursor(ResourceLoader.load("res://Assets/Cursors/cursorAim.png"),Input.CURSOR_IBEAM,Vector2i(32,32))
+	Input.set_custom_mouse_cursor(ResourceLoader.load("res://Assets/Cursors/cursorCantClick.png"),Input.CURSOR_FORBIDDEN,Vector2i(32,32))
 	var mainMenuScene = mainMenu.instantiate()
 	mainMenuScene.toCrewcreator.connect(_on_root_to_crewcreator)
 	mainMenuScene.loadGame.connect(_load_game)
@@ -31,6 +41,8 @@ func _back_to_main_menu():
 	mainMenuScene.toCrewcreator.connect(_on_root_to_crewcreator)
 	mainMenuScene.loadGame.connect(_load_game)
 	$Game.add_child(mainMenuScene)
+	musicChannel.stream = ResourceLoader.load("res://Assets/Audio/Music/music (2).mp3")
+	musicChannel.play()
 
 func _load_game():
 	var objectiveScene = objective.instantiate().init(true,{})
@@ -52,11 +64,15 @@ func _load_game():
 		
 	$Game.add_child(objectiveScene)
 	$Game.add_child(destinationScene)
+	musicChannel.stream = ResourceLoader.load("res://Assets/Audio/Music/music (3).mp3")
+	musicChannel.play()
 
 func _on_gamestart_to_main_menu():
 	var mainMenuScene = mainMenu.instantiate()
 	mainMenuScene.toCrewcreator.connect(_on_root_to_crewcreator)
 	$Game.add_child(mainMenuScene)
+	musicChannel.stream = ResourceLoader.load("res://Assets/Audio/Music/music (2).mp3")
+	musicChannel.play()
 
 
 func _on_gamestart_to_start_game(objData, crewData):
@@ -93,6 +109,8 @@ func _on_gamestart_to_start_game(objData, crewData):
 		
 	$Game.add_child(objectiveScene)
 	$Game.add_child(destinationScene)
+	musicChannel.stream = ResourceLoader.load("res://Assets/Audio/Music/music (3).mp3")
+	musicChannel.play()
 
 func _on_next_destination(value):
 	var destinationSettings = DestinationSettings.load_or_create() 

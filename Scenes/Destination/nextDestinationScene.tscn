@@ -20,6 +20,7 @@ custom_minimum_size = Vector2(450, 0)
 offset_right = 40.0
 offset_bottom = 40.0
 size_flags_vertical = 3
+mouse_default_cursor_shape = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_b5b8c")
 script = ExtResource("2_albmi")
 

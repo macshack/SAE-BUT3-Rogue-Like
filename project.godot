@@ -26,6 +26,12 @@ window/size/viewport_height=1080
 window/size/mode=3
 window/size/borderless=true
 window/stretch/mode="canvas_items"
+mouse_cursor/custom_image="res://Assets/Cursors/cursorBase.png"
+mouse_cursor/custom_image_hotspot=Vector2(32, 32)
+
+[gui]
+
+theme/custom="res://Themes/mainTheme.tres"
 
 [rendering]
 

@@ -4,7 +4,7 @@ signal crewmateCreated(crewmate:Crewmate)
 signal back()
 signal finalNext(crew:Array[Crewmate])
 
-var crewmateNameplateScene = load("res://Scenes/UI/CrewmateNameplate.tscn")
+var crewmateNameplateScene = ResourceLoader.load("res://Scenes/UI/CrewmateNameplate.tscn")
 
 var skillMenu1
 var skillMenu2

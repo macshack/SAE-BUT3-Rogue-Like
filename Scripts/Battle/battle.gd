@@ -32,11 +32,13 @@ var rewardObtained:bool = false
 @onready var nbEnnemiesKilled: int = 0
 @onready var nbRound: int = 0
 
-
+@onready var nextDestButton = %nextDestination
+@onready var rewardBox = %RewardBox
 
 signal victor
 signal gameover
 signal start
+signal openDestination
 signal click_on_rewards(index_rewards: int) 
 signal reward(dict: Dictionary)
 
@@ -74,7 +76,7 @@ func _on_start():
 	Start.hide()
 	batlle.show()
 	
-	var randEnemy = randi()%5
+	var randEnemy = (randi()%4)+1
 	for i in randEnemy:
 		var en = JsonHandling.enemy_data[JsonHandling.enemy_data.keys()[ randi() % JsonHandling.enemy_data.size()]]
 		var enemy = Enemy.new(en.identity,
@@ -433,8 +435,7 @@ func erase_enemy():
 func _on_choice_credits_gui_input(event):
 	if event is InputEventMouseButton  && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 		if !rewardObtained:
-			var loot = 4000
-			#var loot = (25 * nbEnnemiesKilled + snapped(50/(1+nbRound),1))
+			var loot = (25 * nbEnnemiesKilled + snapped(50/(1+nbRound),1))
 			var fightResult: Dictionary = {
 				"credits":loot,
 				"total_damage_dealt":damageInflicted,
@@ -444,7 +445,7 @@ func _on_choice_credits_gui_input(event):
 				}
 			Game.credits += loot
 			rewardObtained = true
-			%HBoxContainer.hide()
+			rewardBox.hide()
 			reward.emit(fightResult)
 
 
@@ -462,5 +463,9 @@ func _on_choice_item_gui_input(event):
 				}
 			rewardObtained = true
 			Game.inventory.append(loot)
-			%HBoxContainer.hide()
+			rewardBox.hide()
 			reward.emit(fightResult)
+
+
+func _on_next_destination_pressed():
+	openDestination.emit()

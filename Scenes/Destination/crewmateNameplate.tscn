@@ -24,11 +24,13 @@ texture = ExtResource("6_t032h")
 custom_minimum_size = Vector2(120, 0)
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_default_cursor_shape = 16
 theme_override_styles/panel = SubResource("StyleBoxTexture_gy2l0")
 script = ExtResource("2_whse1")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
@@ -36,6 +38,7 @@ theme_override_constants/margin_bottom = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 5
 
 [node name="crewmateName" type="Label" parent="MarginContainer/VBoxContainer"]
@@ -48,11 +51,16 @@ label_settings = SubResource("LabelSettings_pjgor")
 [node name="crewmateIcon" type="TextureRect" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("4_5myyk")
 expand_mode = 5
 
 [node name="crewmateHP" type="ProgressBar" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 2
 theme_override_styles/background = SubResource("StyleBoxTexture_5yk5s")
 theme_override_styles/fill = SubResource("StyleBoxTexture_pwo5t")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

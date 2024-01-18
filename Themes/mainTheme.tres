@@ -1,0 +1,91 @@
+[gd_resource type="Theme" load_steps=18 format=3 uid="uid://cdovad1yl8hck"]
+
+[ext_resource type="FontFile" uid="uid://j5854hdtucyt" path="res://Assets/Font/Montserrat-VariableFont_wght.ttf" id="1_ldraa"]
+[ext_resource type="Texture2D" uid="uid://dfp8glsnvg08h" path="res://Assets/UI/Button01.png" id="2_577ki"]
+[ext_resource type="Texture2D" uid="uid://duw72oq56p7lo" path="res://Assets/UI/BarV1_Bar.png" id="3_7tol5"]
+[ext_resource type="Texture2D" uid="uid://cmic4emrc6gri" path="res://Assets/UI/BarV1_ProgressBar.png" id="4_be1j1"]
+[ext_resource type="Texture2D" uid="uid://dq8m8yadhxuss" path="res://Assets/UI/MiniPanel06.jpg" id="5_f7to7"]
+[ext_resource type="Texture2D" uid="uid://dn1ely4x28j4u" path="res://Assets/UI/MiniPanel01.jpg" id="6_4tlal"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k2uqs"]
+texture = ExtResource("2_577ki")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+modulate_color = Color(0.82606, 0.82606, 0.82606, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0kly6"]
+texture = ExtResource("2_577ki")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_70w8a"]
+texture = ExtResource("2_577ki")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+modulate_color = Color(1, 1, 1, 0.862745)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bq5ud"]
+texture = ExtResource("3_7tol5")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rw23h"]
+texture = ExtResource("4_be1j1")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_22wci"]
+texture = ExtResource("5_f7to7")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ixc3a"]
+texture = ExtResource("6_4tlal")
+texture_margin_left = 10.0
+texture_margin_top = 2.0
+texture_margin_right = 10.0
+modulate_color = Color(0.533037, 0.533037, 0.533037, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tynv7"]
+texture = ExtResource("6_4tlal")
+texture_margin_left = 10.0
+texture_margin_top = 2.0
+texture_margin_right = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e8c85"]
+texture = ExtResource("6_4tlal")
+texture_margin_left = 10.0
+texture_margin_top = 2.0
+texture_margin_right = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qwohn"]
+texture = ExtResource("6_4tlal")
+texture_margin_left = 10.0
+texture_margin_top = 2.0
+texture_margin_right = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ngrri"]
+texture = ExtResource("6_4tlal")
+texture_margin_left = 10.0
+texture_margin_top = 2.0
+texture_margin_right = 10.0
+modulate_color = Color(1, 1, 1, 0.862745)
+
+[resource]
+Button/constants/outline_size = 0
+Button/fonts/font = ExtResource("1_ldraa")
+Button/styles/disabled = SubResource("StyleBoxTexture_k2uqs")
+Button/styles/hover = SubResource("StyleBoxTexture_0kly6")
+Button/styles/normal = SubResource("StyleBoxTexture_70w8a")
+Fonts/fonts/normal = ExtResource("1_ldraa")
+Label/constants/outline_size = 0
+Label/fonts/font = ExtResource("1_ldraa")
+ProgressBar/styles/background = SubResource("StyleBoxTexture_bq5ud")
+ProgressBar/styles/fill = SubResource("StyleBoxTexture_rw23h")
+TabContainer/fonts/font = ExtResource("1_ldraa")
+TabContainer/styles/panel = SubResource("StyleBoxTexture_22wci")
+TabContainer/styles/tab_disabled = SubResource("StyleBoxTexture_ixc3a")
+TabContainer/styles/tab_focus = SubResource("StyleBoxTexture_tynv7")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxTexture_e8c85")
+TabContainer/styles/tab_selected = SubResource("StyleBoxTexture_qwohn")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxTexture_ngrri")

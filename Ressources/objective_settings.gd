@@ -17,7 +17,7 @@ func save():
 	ResourceSaver.save(self,"user://objective_settings.tres")
 	
 static func load_or_create() -> ObjectiveSettings:
-	var res: ObjectiveSettings = load("user://objective_settings.tres") as ObjectiveSettings
+	var res: ObjectiveSettings = ResourceLoader.load("user://objective_settings.tres") as ObjectiveSettings
 	if !res:
 		res = ObjectiveSettings.new()
 	return res

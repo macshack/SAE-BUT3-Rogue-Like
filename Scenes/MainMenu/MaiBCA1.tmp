@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dx6p8oed05e4q"]
+[gd_scene load_steps=15 format=3 uid="uid://dx6p8oed05e4q"]
 
 [ext_resource type="Texture2D" uid="uid://b5hf2886kqgh5" path="res://Assets/Background/Radar/GreenRadar/greenRadar (16).png" id="1_5s5hm"]
 [ext_resource type="Script" path="res://Scripts/MainMenu/MainMenuControl.gd" id="1_raduc"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://drh788ppk1ccw" path="res://Scenes/MainMenu/OptionsMenu.tscn" id="3_q52v0"]
 [ext_resource type="Texture2D" uid="uid://dfp8glsnvg08h" path="res://Assets/UI/Button01.png" id="4_5uogl"]
 [ext_resource type="FontFile" uid="uid://j5854hdtucyt" path="res://Assets/Font/Montserrat-VariableFont_wght.ttf" id="6_ip0k0"]
+[ext_resource type="Script" path="res://Scenes/MainMenu/buttonScript.gd" id="6_uiube"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k2ps8"]
 texture = ExtResource("1_5s5hm")
@@ -93,15 +94,14 @@ theme_override_constants/separation = 10
 
 [node name="Start" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/PanelContainer/MarginContainer/MainMenu"]
 layout_mode = 2
-mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("6_ip0k0")
 theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxTexture_85joi")
 text = "Lancer une partie"
+script = ExtResource("6_uiube")
 
 [node name="Load" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/PanelContainer/MarginContainer/MainMenu"]
 layout_mode = 2
-mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("6_ip0k0")
 theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxTexture_85joi")
@@ -109,7 +109,6 @@ text = "Charger une partie"
 
 [node name="Leaderboard" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/PanelContainer/MarginContainer/MainMenu"]
 layout_mode = 2
-mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("6_ip0k0")
 theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxTexture_85joi")
@@ -117,7 +116,6 @@ text = "Classement"
 
 [node name="Options" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/PanelContainer/MarginContainer/MainMenu"]
 layout_mode = 2
-mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("6_ip0k0")
 theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxTexture_85joi")
@@ -125,7 +123,6 @@ text = "Options"
 
 [node name="Quit" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/PanelContainer/MarginContainer/MainMenu"]
 layout_mode = 2
-mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("6_ip0k0")
 theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxTexture_85joi")
@@ -182,7 +179,6 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
-mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("6_ip0k0")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxTexture_qf313")

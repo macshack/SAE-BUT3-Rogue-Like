@@ -8,6 +8,8 @@ var crewmate
 @onready var iconNode = %crewmateIcon
 @onready var hpNode = %crewmateHP
 
+@export var currentPlayer = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	updatePanel()
@@ -49,3 +51,11 @@ func updatePanel():
 				self.hide()
 		else:
 			self.hide()
+
+
+func _on_mouse_entered():
+	pass # Replace with function body.
+
+
+func _on_mouse_exited():
+	pass # Replace with function body.
