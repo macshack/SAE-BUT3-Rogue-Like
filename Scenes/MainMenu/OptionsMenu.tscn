@@ -1,12 +1,45 @@
-[gd_scene load_steps=2 format=3 uid="uid://drh788ppk1ccw"]
+[gd_scene load_steps=10 format=3 uid="uid://drh788ppk1ccw"]
 
 [ext_resource type="Script" path="res://Scripts/MainMenu/OptionsMenuControl.gd" id="1_51qsw"]
+[ext_resource type="Texture2D" uid="uid://dn1ely4x28j4u" path="res://Assets/UI/MiniPanel01.jpg" id="2_imycb"]
+[ext_resource type="FontFile" uid="uid://j5854hdtucyt" path="res://Assets/Font/Montserrat-VariableFont_wght.ttf" id="2_xh86u"]
+[ext_resource type="Texture2D" uid="uid://dq8m8yadhxuss" path="res://Assets/UI/MiniPanel06.jpg" id="3_0at6r"]
+[ext_resource type="Texture2D" uid="uid://dfp8glsnvg08h" path="res://Assets/UI/Button01.png" id="4_ewbk1"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r4rsb"]
+texture = ExtResource("2_imycb")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n17fh"]
+texture = ExtResource("3_0at6r")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kb21q"]
+texture = ExtResource("3_0at6r")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1fgvl"]
+texture = ExtResource("4_ewbk1")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
 
 [node name="OptionsMenu" type="VBoxContainer"]
 script = ExtResource("1_51qsw")
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_xh86u")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/tab_selected = SubResource("StyleBoxTexture_r4rsb")
+theme_override_styles/tab_unselected = SubResource("StyleBoxTexture_n17fh")
+theme_override_styles/panel = SubResource("StyleBoxTexture_kb21q")
 clip_tabs = false
 all_tabs_in_front = true
 
@@ -28,16 +61,19 @@ layout_mode = 2
 [node name="Master" type="Label" parent="TabContainer/Audio/Columns/Left"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_xh86u")
 text = "Volume general"
 
 [node name="Music" type="Label" parent="TabContainer/Audio/Columns/Left"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_xh86u")
 text = "Musique"
 
 [node name="SFX" type="Label" parent="TabContainer/Audio/Columns/Left"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_xh86u")
 text = "Effets sonores"
 
 [node name="Right" type="VBoxContainer" parent="TabContainer/Audio/Columns"]
@@ -149,6 +185,9 @@ layout_mode = 2
 
 [node name="Back" type="Button" parent="HBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_xh86u")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxTexture_1fgvl")
 text = "Retour"
 
 [connection signal="value_changed" from="TabContainer/Audio/Columns/Right/MasterVolume/MasterVolumeSlider" to="." method="_on_master_volume_slider_value_changed"]

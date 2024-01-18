@@ -1,21 +1,42 @@
 {
 	"0":{
-		"identity":"Leeroy Jenkins",
+		"identity":"Mickael Starfire",
 		"background":"Une tete brulee.",
 		"icon":"Human (40).jpg",
 		"skills":[103,105],
 		"hirePrice":100
 	},
 	"1":{
-		"identity":"Abdelakim Farphadelos Loukoumio",
-		"background":"yes",
+		"identity":"Jennifer Astral",
+		"background":"Pas grand chose a dire",
 		"icon":"Human (41).jpg",
 		"skills":[103,108],
 		"hirePrice":500
 	},
 	"2":{
-		"identity":"Smkoin' Joe",
+		"identity":"Ata Bassem",
 		"background":"Rude boy.",
+		"icon":"Human (42).jpg",
+		"skills":[103,107],
+		"hirePrice":20
+	},
+	"3":{
+		"identity":"Brandon Okocha",
+		"background":"Un ancien joueur de galactic football.",
+		"icon":"Human (40).jpg",
+		"skills":[103,105],
+		"hirePrice":100
+	},
+	"4":{
+		"identity":"Navar Dja",
+		"background":"Un exile de New Roubaix",
+		"icon":"Human (41).jpg",
+		"skills":[103,108],
+		"hirePrice":500
+	},
+	"5":{
+		"identity":"Tau Kaas",
+		"background":"Rude boy 2",
 		"icon":"Human (42).jpg",
 		"skills":[103,107],
 		"hirePrice":20

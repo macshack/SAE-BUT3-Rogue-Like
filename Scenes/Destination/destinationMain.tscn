@@ -97,11 +97,13 @@ layout_mode = 2
 
 [node name="Inventory" parent="MarginContainer/VBoxContainer/Main" instance=ExtResource("2_tccvg")]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Settings" type="CenterContainer" parent="MarginContainer/VBoxContainer/Main"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -155,11 +157,13 @@ layout_mode = 2
 
 [node name="Equipage" parent="MarginContainer/VBoxContainer/Main" instance=ExtResource("5_d7fi2")]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Objective" type="CenterContainer" parent="MarginContainer/VBoxContainer/Main"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -167,11 +171,9 @@ size_flags_horizontal = 3
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer/Main"]
-layout_mode = 2
-
 [node name="NewDestination" type="CenterContainer" parent="MarginContainer/VBoxContainer/Main"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 

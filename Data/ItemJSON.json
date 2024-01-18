@@ -5,7 +5,7 @@
 		"itemFlavorText":"La lame de l'unique",
 		"itemIconLink":"sword2.png",
 		"itemModifiers":{
-			"ATK":1000,
+			"ATK":5,
 			"HP":0,
 			"SPD":1,
 			"CRT":5.00,
@@ -19,7 +19,7 @@
 		"itemFlavorText":"Bonk",
 		"itemIconLink":"sword1.png",
 		"itemModifiers":{
-			"ATK":1000,
+			"ATK":10,
 			"HP":2,
 			"SPD":0,
 			"CRT":0.00,
@@ -33,7 +33,7 @@
 		"itemFlavorText":"A strong item",
 		"itemIconLink":"Armor5.png",
 		"itemModifiers":{
-			"ATK":10000,
+			"ATK":4,
 			"HP":1,
 			"SPD":1,
 			"CRT":1.00,
@@ -59,7 +59,7 @@
 		"itemId":1005,
 		"itemName":"Bow",
 		"itemFlavorText":"A strong bow",
-		"itemIconLink":"Armor5.png",
+		"itemIconLink":"arrow_01a.png",
 		"itemModifiers":{
 			"ATK":5,
 			"HP":0,
@@ -71,7 +71,7 @@
 	},
 	"1005":{
 		"itemId":1005,
-		"itemName":"Speed amor",
+		"itemName":"Speed armor",
 		"itemFlavorText":"SPEEEEDDD",
 		"itemIconLink":"Armor1.png",
 		"itemModifiers":{

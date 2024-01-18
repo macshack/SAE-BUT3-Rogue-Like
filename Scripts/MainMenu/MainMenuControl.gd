@@ -5,6 +5,7 @@ signal loadGame()
 
 @onready var mainMenu = %MainMenu
 @onready var optionsMenu = %OptionsMenu
+@onready var leaderboard = %Leaderboard
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -38,3 +39,15 @@ func _on_load_pressed():
 func _on_start_pressed():
 	toCrewcreator.emit()
 	self.queue_free()
+
+
+func _on_button_pressed():
+	optionsMenu.hide()
+	leaderboard.hide()
+	mainMenu.show()
+
+
+func _on_leaderboard_pressed():
+	optionsMenu.hide()
+	mainMenu.hide()
+	leaderboard.show()

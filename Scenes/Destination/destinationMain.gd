@@ -193,26 +193,18 @@ func generateNextDestination(currentRound:int):
 			var scene = nextDestinationScene.instantiate().init(Game.tier1dest[randi()%Game.tier1dest.size()])
 			scene.click.connect(_on_next_destination_data)
 			nextDestinationContainerNode.add_child(scene)
-		elif currentRound == 5:
-			pass
 		elif currentRound < 10:
 			var scene = nextDestinationScene.instantiate().init(Game.tier1dest[randi()%Game.tier1dest.size()])
 			scene.click.connect(_on_next_destination_data)
 			nextDestinationContainerNode.add_child(scene)
-		elif currentRound == 10:
-			pass
 		elif currentRound < 15:
 			var scene = nextDestinationScene.instantiate().init(Game.tier2dest[randi()%Game.tier2dest.size()])
 			scene.click.connect(_on_next_destination_data)
 			nextDestinationContainerNode.add_child(scene)
-		elif currentRound == 15:
-			pass
 		elif currentRound < 20:
 			var scene = nextDestinationScene.instantiate().init(Game.tier3dest[randi()%Game.tier3dest.size()])
 			scene.click.connect(_on_next_destination_data)
 			nextDestinationContainerNode.add_child(scene)
-		elif currentRound == 20:
-			pass
 		elif currentRound > 20:
 			var scene = nextDestinationScene.instantiate().init(Game.tier4dest[randi()%Game.tier4dest.size()])
 			scene.click.connect(_on_next_destination_data)

@@ -9,6 +9,8 @@ var regex = RegEx.new()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	regex.compile("(\\.import)+")
+	var regex2 = RegEx.new()
+	regex2.compile("(Human)")
 	texture = $IconRect
 	var dir = DirAccess.open(portraitsFolder)
 	if dir:
@@ -16,7 +18,8 @@ func _ready():
 		var file_name = dir.get_next()
 		while file_name != "":
 			if !dir.current_is_dir() && regex.search_all(file_name).size() == 0:
-				portraitArray.append(file_name)
+				if regex2.search_all(file_name).size()>=1:
+					portraitArray.append(file_name)
 			file_name = dir.get_next()
 	texture.texture = load(portraitsFolder+portraitArray[currentIndex])
 	currentTexture = portraitArray[currentIndex]

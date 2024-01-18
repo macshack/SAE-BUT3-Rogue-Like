@@ -1,33 +1,8 @@
-FACILE : Payer pour des soins au marchand
-
-FACILE : Faire le systeme de boss
-
------------------
-
-BESOIN DES COMBATS POUR FAIRE LE RESTE CI-DESSOUS
-MOYEN : Faire l'ecran de fin de jeu -> Retour au menu principal
-
-----------------------
-
-Connecter les sognaux de victoire et game over pour ecran de fin
-
-Refaire menu principal, objectifs selector, crew creator et options
-
-Leaderboard
- 
-Trouver des vraies icones pour les objets
-
---------------
+objectifs selector, crew creator et options
 
 
-Faire les JSONs des ennemis
+chercher le vieux code pour le leaderboard
 
-Faire les JSONs des boss
+dans crew creator, faire enlever les items des icones
 
-Etoffer les listes JSON
-	- Plus de crewmates
-	- Plus d'objets
-	- Plus de marchands
-	
-
-Verifier que les objectifs defis fonctionnent
+point d'interogation pour items

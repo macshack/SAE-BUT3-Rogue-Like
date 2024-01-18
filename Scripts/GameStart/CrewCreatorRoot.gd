@@ -38,6 +38,8 @@ func _process(delta):
 			%Validate.disabled = true
 	if skillMenu1.get_selected_id() != -1 && skillMenu2.get_selected_id() != -1:
 		%Validate.disabled = false
+	if crew.size() > 0:
+		$PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/Start.disabled = false
 
 func fillForm(crewmate:Crewmate):
 	crewmateNameEdit.text = crewmate.identity

@@ -16,14 +16,14 @@
 	"2":{
 		"name":"Vaisseau 'Lionel le boss'",
 		"flavor":"",
-		"background":"",
+		"background":"YellowRadar/yellowRadar (9).png",
 		"difficulty":4,
 		"type":"FIGHT",
 	},
 	"3":{
 		"name":"Piege",
 		"flavor":"",
-		"background":"",
+		"background":"YellowRadar/yellowRadar (8).png",
 		"difficulty":4,
 		"type":"FIGHT",
 	},

@@ -22,10 +22,10 @@ var rewardObtained:bool = false
 @onready var enKilled = %enKilled
 @onready var rounds = %rounds
 
-@onready var dmgDealtTwo = %dmgDealt
-@onready var dmgSuffTwo = %dmgSuffered
-@onready var enKilledTwo = %enKilled
-@onready var roundsTwo = %rounds
+@onready var dmgDealtTwo =%dmgDealt2
+@onready var dmgSuffTwo =%dmgSuffered2
+@onready var enKilledTwo = %enKilled2
+@onready var roundsTwo = %rounds2
 
 @onready var damageInflicted: int = 0
 @onready var damageSuffered: int = 0
@@ -433,8 +433,8 @@ func erase_enemy():
 func _on_choice_credits_gui_input(event):
 	if event is InputEventMouseButton  && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 		if !rewardObtained:
-			var loot = 100000
-			#var loot = (25 * nbEnnemiesKilled + snapped(50/nbRound,1))
+			var loot = 4000
+			#var loot = (25 * nbEnnemiesKilled + snapped(50/(1+nbRound),1))
 			var fightResult: Dictionary = {
 				"credits":loot,
 				"total_damage_dealt":damageInflicted,
@@ -451,7 +451,8 @@ func _on_choice_credits_gui_input(event):
 func _on_choice_item_gui_input(event):
 	if event is InputEventMouseButton  && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 		if !rewardObtained:
-			var loot = Item.new(int(JsonHandling.item_data[randi()%JsonHandling.item_data.size()]))
+			var index = JsonHandling.item_data[JsonHandling.item_data.keys()[randi()%JsonHandling.item_data.size()]]["itemId"]
+			var loot = Item.new(index,'','','',{},0,true)
 			var fightResult: Dictionary = {
 				"item_drops":1,
 				"total_damage_dealt":damageInflicted,

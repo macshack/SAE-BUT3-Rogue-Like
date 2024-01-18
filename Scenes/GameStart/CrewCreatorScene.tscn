@@ -177,6 +177,7 @@ text = "Retour"
 [node name="Start" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
+disabled = true
 text = "Suivant"
 
 [connection signal="crewmateCreated" from="." to="." method="_on_crewmate_created"]

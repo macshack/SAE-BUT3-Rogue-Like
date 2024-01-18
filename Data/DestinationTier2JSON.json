@@ -23,7 +23,7 @@
 	"3":{
 		"name":"Escouade ferale en chasse",
 		"flavor":"",
-		"background":"",
+		"background":"YellowRadar/yellowRadar (11).png",
 		"difficulty":2,
 		"type":"FIGHT",
 	},

@@ -1,6 +1,5 @@
 extends Control
 
-var crewmateNameplate = preload("res://Scenes/Destination/crewmateDestinationNameplate.tscn")
 var merchandScene = preload("res://Scenes/Merchant/Merchant.tscn")
 
 
