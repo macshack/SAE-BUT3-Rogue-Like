@@ -12,6 +12,6 @@ func _set_item(value:Item):
 	item = value
 	itemName.text = item.itemName
 	itemFlavor.text = item.itemFlavorText
-	itemIcon.texture = load("res://Assets/Portraits/"+item.itemIconLink)
+	itemIcon.texture = ResourceLoader.load("res://Assets/Items/"+item.itemIconLink)
 	itemPrice.text = str(item.itemPrice)
 	self.show()

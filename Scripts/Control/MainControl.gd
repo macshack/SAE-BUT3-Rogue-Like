@@ -78,8 +78,9 @@ func _on_gamestart_to_main_menu():
 func _on_gamestart_to_start_game(objData, crewData):
 	var objectiveScene = objective.instantiate().init(false,objData)
 	
-	Game.gameSettings.reset()
+	Game.gameSettings = GameSettings.create()
 	Game.gameSettings.save()
+	Game.update()
 	
 	var destinationSettings = DestinationSettings.load_or_create()
 	destinationSettings.name = "Quelques part, dans le vide"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://djvo81yru6mtq"]
+[gd_scene load_steps=26 format=3 uid="uid://djvo81yru6mtq"]
 
 [ext_resource type="Script" path="res://Scripts/Battle/battle.gd" id="1_eon26"]
 [ext_resource type="FontFile" uid="uid://j5854hdtucyt" path="res://Assets/Font/Montserrat-VariableFont_wght.ttf" id="2_eq36c"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://dn1ely4x28j4u" path="res://Assets/UI/MiniPanel01.jpg" id="2_o7oik"]
 [ext_resource type="Texture2D" uid="uid://dfp8glsnvg08h" path="res://Assets/UI/Button01.png" id="3_koo7i"]
 [ext_resource type="Texture2D" uid="uid://dwmo0522m0a6g" path="res://Assets/UI/Cell01.png" id="6_ratxw"]
-[ext_resource type="Texture2D" uid="uid://dpijsdi07hqly" path="res://Assets/Items/itemCoin.png" id="7_kqifv"]
 [ext_resource type="Texture2D" uid="uid://bn2haro02lck1" path="res://Assets/UI/icons8-question-mark-64.png" id="8_67a8u"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d48wy"]
@@ -78,13 +77,6 @@ font_size = 32
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xassk"]
 texture = ExtResource("6_ratxw")
 
-[sub_resource type="LabelSettings" id="LabelSettings_lmw71"]
-font = ExtResource("2_eq36c")
-font_size = 24
-font_color = Color(0, 0.698039, 0.192157, 1)
-shadow_color = Color(0, 0.698039, 0.192157, 1)
-shadow_offset = Vector2(0, 0)
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_65i1w"]
 texture = ExtResource("3_koo7i")
 texture_margin_left = 10.0
@@ -145,7 +137,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="crewmateIcon" type="TextureRect" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer2/PlayerData"]
-unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 texture = ExtResource("2_jsb8t")
@@ -193,18 +184,15 @@ custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer2/Textbox"]
-layout_mode = 2
-
-[node name="TextboxLabel" type="VBoxContainer" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer2/Textbox/ScrollContainer"]
+[node name="TextboxLabel" type="RichTextLabel" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer2/Textbox"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("2_eq36c")
+theme_override_font_sizes/normal_font_size = 34
+fit_content = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 20
 
 [node name="Actions" type="GridContainer" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
@@ -215,7 +203,6 @@ theme_override_constants/v_separation = 10
 columns = 2
 
 [node name="Attack" type="Button" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/Actions"]
-unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -226,11 +213,10 @@ theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_eq36c")
 theme_override_font_sizes/font_size = 48
 theme_override_styles/normal = SubResource("StyleBoxTexture_y2rcw")
-text = "Attaquer
+text = "Attack
 "
 
 [node name="Defend" type="Button" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/Actions"]
-unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -241,10 +227,10 @@ theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_eq36c")
 theme_override_font_sizes/font_size = 48
 theme_override_styles/normal = SubResource("StyleBoxTexture_y2rcw")
-text = "Defendre"
+text = "Defend
+"
 
 [node name="Skill1" type="Button" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/Actions"]
-unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -259,37 +245,12 @@ text = "Skill1
 "
 
 [node name="Skill2" type="Button" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/Actions"]
-unique_name_in_owner = true
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("2_eq36c")
 theme_override_font_sizes/font_size = 48
 theme_override_styles/normal = SubResource("StyleBoxTexture_y2rcw")
 text = "Skill2"
-
-[node name="ActionDescription" type="PanelContainer" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ScrollContainer" type="ScrollContainer" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/ActionDescription"]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/ActionDescription/ScrollContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="actionName" type="Label" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/ActionDescription/ScrollContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Coup fracassant"
-
-[node name="actionDesc" type="RichTextLabel" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/ActionDescription/ScrollContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Une frappe devastatrice qui etourdit la cible pendant 1 tour et inflige des degats moderes"
-fit_content = true
 
 [node name="Start" type="VBoxContainer" parent="."]
 unique_name_in_owner = true
@@ -479,110 +440,27 @@ label_settings = SubResource("LabelSettings_wywe3")
 [node name="HSeparator3" type="HSeparator" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="RewardBox" type="HBoxContainer" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="choiceBox" type="VBoxContainer" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="rewardTopText" type="Label" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox/choiceBox"]
+[node name="rewardTopText" type="Label" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "- Choisissez une recompense -"
 label_settings = SubResource("LabelSettings_wywe3")
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox/choiceBox"]
+[node name="RewardBox" type="HBoxContainer" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 alignment = 1
 
-[node name="choiceCredits" type="Panel" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox/choiceBox/HBoxContainer"]
+[node name="choiceCredits" type="Panel" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.0
-mouse_default_cursor_shape = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_hodds")
 
-[node name="choiceCreditsIcon" type="TextureRect" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox/choiceBox/HBoxContainer/choiceCredits"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("7_kqifv")
-
-[node name="PanelContainer" type="PanelContainer" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox/choiceBox/HBoxContainer/choiceCredits"]
-clip_contents = true
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -84.0
-offset_top = -40.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_rv3w4")
-
-[node name="choiceCreditsNumber" type="Label" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox/choiceBox/HBoxContainer/choiceCredits/PanelContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-label_settings = SubResource("LabelSettings_ntn1s")
-horizontal_alignment = 2
-
-[node name="choiceItem" type="Panel" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox/choiceBox/HBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-size_flags_stretch_ratio = 0.0
-mouse_default_cursor_shape = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_xassk")
-
-[node name="choiceItemIcon" type="TextureRect" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox/choiceBox/HBoxContainer/choiceItem"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("8_67a8u")
-expand_mode = 5
-
-[node name="chosenBox" type="VBoxContainer" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-
-[node name="rewardTopText" type="Label" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox/chosenBox"]
-layout_mode = 2
-text = "- Vous avez choisi : -"
-label_settings = SubResource("LabelSettings_wywe3")
-horizontal_alignment = 1
-
-[node name="rewardText" type="Label" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox/chosenBox"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Credits"
-label_settings = SubResource("LabelSettings_lmw71")
-horizontal_alignment = 1
-
-[node name="chosenReward" type="Panel" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox/chosenBox"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_stretch_ratio = 0.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_hodds")
-
-[node name="chosenRewardIcon" type="TextureRect" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox/chosenBox/chosenReward"]
+[node name="choiceCreditsIcon" type="TextureRect" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox/choiceCredits"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -591,8 +469,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="chosenPanelNumber" type="PanelContainer" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox/chosenBox/chosenReward"]
-unique_name_in_owner = true
+[node name="PanelContainer" type="PanelContainer" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox/choiceCredits"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -605,12 +482,62 @@ grow_horizontal = 0
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_rv3w4")
 
-[node name="chosenRewardNumber" type="Label" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox/chosenBox/chosenReward/chosenPanelNumber"]
+[node name="choiceCreditsNumber" type="Label" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox/choiceCredits/PanelContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "4000"
 label_settings = SubResource("LabelSettings_ntn1s")
-horizontal_alignment = 2
+
+[node name="choiceItem" type="Panel" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_xassk")
+
+[node name="choiceItemIcon" type="TextureRect" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox/choiceItem"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_67a8u")
+expand_mode = 5
+
+[node name="chosenReward" type="Panel" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_hodds")
+
+[node name="chosenRewardIcon" type="TextureRect" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox/chosenReward"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox/chosenReward"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -81.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_rv3w4")
+
+[node name="chosenRewardNumber" type="Label" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox/chosenReward/PanelContainer"]
+layout_mode = 2
+text = "4000"
+label_settings = SubResource("LabelSettings_ntn1s")
 
 [node name="HSeparator2" type="HSeparator" parent="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -627,16 +554,12 @@ text = "Prochaine destination"
 [connection signal="click_on_rewards" from="." to="." method="_on_click_on_rewards"]
 [connection signal="gameover" from="." to="." method="_on_gameover"]
 [connection signal="victor" from="." to="." method="_on_victor"]
-[connection signal="mouse_entered" from="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/Actions/Attack" to="." method="_on_attack_mouse_entered"]
 [connection signal="pressed" from="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/Actions/Attack" to="." method="_on_attack_pressed"]
-[connection signal="mouse_entered" from="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/Actions/Defend" to="." method="_on_defend_mouse_entered"]
 [connection signal="pressed" from="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/Actions/Defend" to="." method="_on_defend_pressed"]
-[connection signal="mouse_entered" from="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/Actions/Skill1" to="." method="_on_skill_1_mouse_entered"]
-[connection signal="pressed" from="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/Actions/Skill1" to="." method="_on_skill_1_pressed"]
-[connection signal="mouse_entered" from="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/Actions/Skill2" to="." method="_on_skill_2_mouse_entered"]
+[connection signal="pressed" from="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/Actions/Skill1" to="." method="_on_skill_pressed"]
 [connection signal="pressed" from="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/Actions/Skill2" to="." method="_on_skill_2_pressed"]
 [connection signal="pressed" from="Start/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/start" to="." method="_on_start_pressed"]
-[connection signal="gui_input" from="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox/choiceBox/HBoxContainer/choiceCredits" to="." method="_on_choice_credits_gui_input"]
-[connection signal="gui_input" from="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox/choiceBox/HBoxContainer/choiceItem" to="." method="_on_choice_item_gui_input"]
-[connection signal="gui_input" from="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox/chosenBox/chosenReward" to="." method="_on_choice_credits_gui_input"]
+[connection signal="gui_input" from="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox/choiceCredits" to="." method="_on_choice_credits_gui_input"]
+[connection signal="gui_input" from="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox/choiceItem" to="." method="_on_choice_item_gui_input"]
+[connection signal="gui_input" from="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox/chosenReward" to="." method="_on_choice_credits_gui_input"]
 [connection signal="pressed" from="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/nextDestination" to="." method="_on_next_destination_pressed"]

@@ -82,7 +82,7 @@ func analyze(finalAnalysis:bool = false,situationResult:Dictionary = {}):
 		"GEAR":
 			#The amount of gear dropped through exploration/fights
 			if situationResult.has("item_drops"):
-				self.objective_settings.current += situationResult["item_drops"].size()
+				self.objective_settings.current += situationResult["item_drops"]
 				saveAndEmit()
 		"ENEMIES_KILLED":
 			if situationResult.has("enemies_killed"):

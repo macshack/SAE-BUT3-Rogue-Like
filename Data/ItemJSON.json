@@ -1,73 +1,73 @@
 {
 	"1000":{
 		"itemId":1000,
-		"itemName":"Blood sword",
-		"itemFlavorText":"La lame de l'unique",
-		"itemIconLink":"",
+		"itemName":"Lames mantis",
+		"itemFlavorText":"Une paire de lames retractables extremement tranchantes et discretes.",
+		"itemIconLink":"itemIcon (135).png",
 		"itemModifiers":{
-			"ATK":5,
+			"ATK":3,
 			"HP":0,
 			"SPD":1,
-			"CRT":5.00,
+			"CRT":0,
+			"DDG":0,
+		},
+		"itemPrice":125
+	},
+	"1001":{
+		"itemId":1001,
+		"itemName":"Pistolet Laser Venbrown MK-1",
+		"itemFlavorText":"Un pistolet laser de la marque Venbrown, pas particulierement puissant mais c'est une arme fiable.",
+		"itemIconLink":"itemIcon (177).png",
+		"itemModifiers":{
+			"ATK":2,
+			"HP":0,
+			"SPD":0,
+			"CRT":0.00,
+			"DDG":0,
+		},
+		"itemPrice":75
+	},
+	"1002":{
+		"itemId":1002,
+		"itemName":"Casque anti-radiations",
+		"itemFlavorText":"Un casque anti-radiation conforme aux normes de l'ANI.",
+		"itemIconLink":"itemIcon (173).png",
+		"itemModifiers":{
+			"ATK":0,
+			"HP":2,
+			"SPD":0,
+			"CRT":0,
 			"DDG":0,
 		},
 		"itemPrice":100
 	},
-	"1001":{
-		"itemId":1001,
-		"itemName":"Ancient weapon",
-		"itemFlavorText":"Bonk",
-		"itemIconLink":"",
-		"itemModifiers":{
-			"ATK":10,
-			"HP":2,
-			"SPD":0,
-			"CRT":0.00,
-			"DDG":0,
-		},
-		"itemPrice":10
-	},
-	"1002":{
-		"itemId":1002,
-		"itemName":"Great mask",
-		"itemFlavorText":"A strong item",
-		"itemIconLink":"",
-		"itemModifiers":{
-			"ATK":4,
-			"HP":1,
-			"SPD":1,
-			"CRT":1.00,
-			"DDG":1,
-		},
-		"itemPrice":200
-	},
 	"1003":{
 		"itemId":1003,
-		"itemName":"Yellow armor",
-		"itemFlavorText":"An armor",
-		"itemIconLink":"",
+		"itemName":"Lunettes de protection",
+		"itemFlavorText":"Une paire de lunettes en verre trempe servant a proteger les yeux de la poussiere ou de tout autre corps etrangers.",
+		"itemIconLink":"itemIcon (97).png",
 		"itemModifiers":{
 			"ATK":0,
-			"HP":4,
-			"SPD":0,
+			"HP":0,
+			"SPD":1,
 			"CRT":0.00,
-			"DDG":0,
+			"DDG":2,
 		},
-		"itemPrice":150
+		"itemPrice":75
 	},
 	"1004":{
 		"itemId":1005,
-		"itemName":"Bow",
-		"itemFlavorText":"A strong bow",
-		"itemIconLink":"",
+		"itemName":"Fusil automatique Venbrown MK-2",
+		"itemFlavorText":"Une fusil automatique a laser de la marque Venbrown, les fusils MK-2 se distinguent par un systeme de refroidissement plus performant que les MK-1 mais egalement par un poids plus eleve.",
+		"itemIconLink":"itemIcon (84).png",
 		"itemModifiers":{
-			"ATK":5,
+			"ATK":6,
 			"HP":0,
-			"SPD":0,
+			"SPD":-1,
 			"CRT":0.00,
 			"DDG":0,
 		},
-		"itemPrice":300
+		"itemPrice":200
 	},
 	"1005":{
 		"itemId":1005,

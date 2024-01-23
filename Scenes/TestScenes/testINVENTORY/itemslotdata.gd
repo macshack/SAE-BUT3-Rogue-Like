@@ -12,7 +12,7 @@ extends TextureRect
 	set(value):
 		property = value
 		if property is Item:
-			self.texture = load("res://Assets/Portraits/"+property.itemIconLink)
+			self.texture = ResourceLoader.load("res://Assets/Items/"+property.itemIconLink)
 		else:
 			self.texture = null
 

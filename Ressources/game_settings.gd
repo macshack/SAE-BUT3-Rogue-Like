@@ -16,6 +16,10 @@ static func load_or_create() -> GameSettings:
 		res = GameSettings.new()
 	return res
 
+static func create() -> GameSettings:
+	var res = GameSettings.new()
+	return res
+
 func reset():
 	currentRound = 1
 	credits = 200
