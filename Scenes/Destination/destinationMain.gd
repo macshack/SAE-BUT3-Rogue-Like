@@ -62,9 +62,8 @@ func _ready():
 				scene.openDestination.connect(_on_destination_pressed)
 				situationNode = str(scene)
 				main.add_child(scene)
-				situationDone = false
 				if destinationSettings:
-					destinationSettings.situationDone = false
+					destinationSettings.situationDone = situationDone
 					destinationSettings.save()
 			"MERCHANT":
 				var merchant = merchantScene.instantiate()
@@ -74,6 +73,8 @@ func _ready():
 					destinationSettings.situationDone = true
 					destinationSettings.save()
 				main.add_child(merchant)
+	save.emit()
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -101,6 +102,7 @@ func init(load:bool):
 		situation["type"] = destinationSettings.type
 		situation["difficulty"] = destinationSettings.difficulty
 		situationDone = destinationSettings.situationDone
+		
 	else:
 		destinationSettings = DestinationSettings.load_or_create()
 		destinationSettings.reset()
@@ -109,6 +111,7 @@ func init(load:bool):
 		situation["difficulty"] = destinationSettings.difficulty
 		situationDone = destinationSettings.situationDone
 		destinationSettings.save()
+	print(destinationSettings.situationDone)
 	return self
 
 func _on_inventory_pressed():
@@ -174,7 +177,7 @@ func _on_battleReward(value:Dictionary):
 	Game.enemyCrew = []
 	currentFight = false
 	situationDone = true
-	destinationSettings.situationDone = false
+	destinationSettings.situationDone = true
 	destinationSettings.save()
 	sendBattlereport.emit(false,value)
 

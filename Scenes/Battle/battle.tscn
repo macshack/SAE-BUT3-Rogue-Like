@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://djvo81yru6mtq"]
+[gd_scene load_steps=30 format=3 uid="uid://djvo81yru6mtq"]
 
 [ext_resource type="Script" path="res://Scripts/Battle/battle.gd" id="1_eon26"]
 [ext_resource type="FontFile" uid="uid://j5854hdtucyt" path="res://Assets/Font/Montserrat-VariableFont_wght.ttf" id="2_eq36c"]
@@ -28,6 +28,16 @@ texture_margin_left = 10.0
 texture_margin_top = 10.0
 texture_margin_right = 10.0
 texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n011s"]
+texture = ExtResource("2_o7oik")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_xt7f2"]
+font_size = 32
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_846cw"]
 texture = ExtResource("2_o7oik")
@@ -193,10 +203,11 @@ custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer2/Textbox"]
+[node name="TextboxScroll" type="ScrollContainer" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer2/Textbox"]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="TextboxLabel" type="VBoxContainer" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer2/Textbox/ScrollContainer"]
+[node name="TextboxLabel" type="VBoxContainer" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer2/Textbox/TextboxScroll"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -220,9 +231,6 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_eq36c")
 theme_override_font_sizes/font_size = 48
 theme_override_styles/normal = SubResource("StyleBoxTexture_y2rcw")
@@ -235,9 +243,6 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_eq36c")
 theme_override_font_sizes/font_size = 48
 theme_override_styles/normal = SubResource("StyleBoxTexture_y2rcw")
@@ -249,45 +254,41 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_eq36c")
-theme_override_font_sizes/font_size = 48
-theme_override_styles/normal = SubResource("StyleBoxTexture_y2rcw")
 text = "Skill1
 "
 
 [node name="Skill2" type="Button" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/Actions"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
-theme_override_fonts/font = ExtResource("2_eq36c")
-theme_override_font_sizes/font_size = 48
-theme_override_styles/normal = SubResource("StyleBoxTexture_y2rcw")
 text = "Skill2"
 
 [node name="ActionDescription" type="PanelContainer" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_n011s")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/ActionDescription"]
+[node name="ActionDescScroll" type="ScrollContainer" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/ActionDescription"]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/ActionDescription/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/ActionDescription/ActionDescScroll"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="actionName" type="Label" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/ActionDescription/ScrollContainer/VBoxContainer"]
+[node name="actionName" type="Label" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/ActionDescription/ActionDescScroll/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Coup fracassant"
+label_settings = SubResource("LabelSettings_xt7f2")
 
-[node name="actionDesc" type="RichTextLabel" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/ActionDescription/ScrollContainer/VBoxContainer"]
+[node name="actionDesc" type="RichTextLabel" parent="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/ActionDescription/ActionDescScroll/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/normal_font_size = 18
 text = "Une frappe devastatrice qui etourdit la cible pendant 1 tour et inflige des degats moderes"
 fit_content = true
 
@@ -320,6 +321,7 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 
 [node name="situationName" type="Label" parent="Start/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Test"
 label_settings = SubResource("LabelSettings_ucn8g")

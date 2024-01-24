@@ -20,7 +20,8 @@ func equipItem(item,index = 0):
 	elif (item is int):
 		var newItem = Item.new(item,"","","",{},0,true)
 		var clampedIndex = clamp(index,0,2)
-		itemList[clampedIndex] = item
+		itemList[clampedIndex] = newItem
+	print(itemList)
 
 func getItemIds():
 	var list = []

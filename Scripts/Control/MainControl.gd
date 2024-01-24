@@ -142,7 +142,8 @@ func _on_next_destination(value):
 func _save():
 	Game.saveGameSetting()
 	for c in $Game.get_children():
-		c.forceSave()
+		if c.has_signal("save"):
+			c.forceSave()
 
 func _on_objective_defeat(objectiveResult):
 	pass # Replace with function body.

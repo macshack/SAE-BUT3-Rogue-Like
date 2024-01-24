@@ -35,7 +35,7 @@ func updatePanel():
 		if crewmate is Crewmate:
 			self.show()
 			nameNode.text = crewmate.identity
-			iconNode.texture = load("res://Assets/Portraits/"+crewmate.icon)
+			iconNode.texture = ResourceLoader.load("res://Assets/Portraits/"+crewmate.icon)
 			backgroundNode.text = crewmate.background
 			skillOneNode.text = crewmate.skillOne.skillName
 			skillTwoNode.text = crewmate.skillTwo.skillName
@@ -45,7 +45,7 @@ func updatePanel():
 		if (crewIndex is int) && (Game.crew[crewIndex] is Crewmate):
 			self.show()
 			nameNode.text = Game.crew[crewIndex].identity
-			iconNode.texture = load("res://Assets/Portraits/"+Game.crew[crewIndex].icon)
+			iconNode.texture = ResourceLoader.load("res://Assets/Portraits/"+Game.crew[crewIndex].icon)
 			backgroundNode.text = Game.crew[crewIndex].background
 			skillOneNode.text = Game.crew[crewIndex].skillOne.skillName
 			skillTwoNode.text = Game.crew[crewIndex].skillTwo.skillName

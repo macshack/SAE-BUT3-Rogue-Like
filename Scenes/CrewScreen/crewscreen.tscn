@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dx3p34k3lfrli"]
+[gd_scene load_steps=12 format=3 uid="uid://dx3p34k3lfrli"]
 
 [ext_resource type="Texture2D" uid="uid://dq8m8yadhxuss" path="res://Assets/UI/MiniPanel06.jpg" id="1_bbrsh"]
 [ext_resource type="Script" path="res://Scenes/CrewScreen/crewscreen.gd" id="1_otcr3"]
@@ -12,10 +12,21 @@ modulate_color = Color(1, 1, 1, 0.862745)
 [sub_resource type="LabelSettings" id="LabelSettings_587ls"]
 font = ExtResource("3_x1ncn")
 font_size = 42
+outline_size = 1
 
 [sub_resource type="LabelSettings" id="LabelSettings_a7tal"]
 font = ExtResource("3_x1ncn")
 font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_qnhqn"]
+font_size = 32
+outline_size = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_d0ixh"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_36h5d"]
+font_size = 24
 
 [sub_resource type="LabelSettings" id="LabelSettings_sej0y"]
 font = ExtResource("3_x1ncn")
@@ -65,19 +76,21 @@ alignment = 1
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
-
-[node name="HSeparator" type="HSeparator" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate"]
-layout_mode = 2
+size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate"]
 layout_mode = 2
 text = "Vue detaillee"
 label_settings = SubResource("LabelSettings_587ls")
 
+[node name="HSeparator" type="HSeparator" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate"]
+layout_mode = 2
+
 [node name="extendedCrewmate" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.52
+theme_override_constants/separation = 20
 
 [node name="CrewmateExtended" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/extendedCrewmate"]
 layout_mode = 2
@@ -101,7 +114,7 @@ size_flags_horizontal = 3
 [node name="crewmateName" type="Label" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/extendedCrewmate/CrewmateExtended/TextBox"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Skill Two"
+text = "Michel Jackson"
 label_settings = SubResource("LabelSettings_a7tal")
 
 [node name="scrollingbox" type="ScrollContainer" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/extendedCrewmate/CrewmateExtended/TextBox"]
@@ -134,6 +147,102 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 50
+
+[node name="CrewmateStats" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/extendedCrewmate/SkillsExtended/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="hpTopText" type="Label" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/extendedCrewmate/SkillsExtended/ScrollContainer/VBoxContainer/CrewmateStats"]
+layout_mode = 2
+text = "Points de vie actuels"
+label_settings = SubResource("LabelSettings_qnhqn")
+
+[node name="hpBar" type="ProgressBar" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/extendedCrewmate/SkillsExtended/ScrollContainer/VBoxContainer/CrewmateStats"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 15)
+layout_mode = 2
+size_flags_horizontal = 0
+show_percentage = false
+
+[node name="hpBarLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/extendedCrewmate/SkillsExtended/ScrollContainer/VBoxContainer/CrewmateStats"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "10/10"
+label_settings = SubResource("LabelSettings_d0ixh")
+
+[node name="statsTopText" type="Label" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/extendedCrewmate/SkillsExtended/ScrollContainer/VBoxContainer/CrewmateStats"]
+layout_mode = 2
+text = "Statistiques"
+label_settings = SubResource("LabelSettings_qnhqn")
+
+[node name="atkLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/extendedCrewmate/SkillsExtended/ScrollContainer/VBoxContainer/CrewmateStats"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "10 (+5) Attaque"
+label_settings = SubResource("LabelSettings_36h5d")
+
+[node name="atkModifiersBox" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/extendedCrewmate/SkillsExtended/ScrollContainer/VBoxContainer/CrewmateStats"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+
+[node name="atkModifiers" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/extendedCrewmate/SkillsExtended/ScrollContainer/VBoxContainer/CrewmateStats/atkModifiersBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="hpLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/extendedCrewmate/SkillsExtended/ScrollContainer/VBoxContainer/CrewmateStats"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "10 (+5) Attaque"
+label_settings = SubResource("LabelSettings_36h5d")
+
+[node name="hpModifiersBox" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/extendedCrewmate/SkillsExtended/ScrollContainer/VBoxContainer/CrewmateStats"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+
+[node name="hpModifiers" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/extendedCrewmate/SkillsExtended/ScrollContainer/VBoxContainer/CrewmateStats/hpModifiersBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="spdLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/extendedCrewmate/SkillsExtended/ScrollContainer/VBoxContainer/CrewmateStats"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "10 (+5) Attaque"
+label_settings = SubResource("LabelSettings_36h5d")
+
+[node name="spdModifiersBox" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/extendedCrewmate/SkillsExtended/ScrollContainer/VBoxContainer/CrewmateStats"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+
+[node name="spdModifiers" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/extendedCrewmate/SkillsExtended/ScrollContainer/VBoxContainer/CrewmateStats/spdModifiersBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="crtLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/extendedCrewmate/SkillsExtended/ScrollContainer/VBoxContainer/CrewmateStats"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "10 (+5) Attaque"
+label_settings = SubResource("LabelSettings_36h5d")
+
+[node name="crtModifiersBox" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/extendedCrewmate/SkillsExtended/ScrollContainer/VBoxContainer/CrewmateStats"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+
+[node name="crtModifiers" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/extendedCrewmate/SkillsExtended/ScrollContainer/VBoxContainer/CrewmateStats/crtModifiersBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ddgLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/extendedCrewmate/SkillsExtended/ScrollContainer/VBoxContainer/CrewmateStats"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "10 (+5) Attaque"
+label_settings = SubResource("LabelSettings_36h5d")
+
+[node name="ddgModifiersBox" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/extendedCrewmate/SkillsExtended/ScrollContainer/VBoxContainer/CrewmateStats"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+
+[node name="ddgModifiers" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/extendedCrewmate/SkillsExtended/ScrollContainer/VBoxContainer/CrewmateStats/ddgModifiersBox"]
+unique_name_in_owner = true
+layout_mode = 2
 
 [node name="SkillOne" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/extendCrewmate/extendedCrewmate/SkillsExtended/ScrollContainer/VBoxContainer"]
 layout_mode = 2

@@ -56,7 +56,7 @@
 		"itemPrice":75
 	},
 	"1004":{
-		"itemId":1005,
+		"itemId":1004,
 		"itemName":"Fusil automatique Venbrown MK-2",
 		"itemFlavorText":"Une fusil automatique a laser de la marque Venbrown, les fusils MK-2 se distinguent par un systeme de refroidissement plus performant que les MK-1 mais egalement par un poids plus eleve.",
 		"itemIconLink":"itemIcon (84).png",
@@ -71,44 +71,16 @@
 	},
 	"1005":{
 		"itemId":1005,
-		"itemName":"Speed armor",
-		"itemFlavorText":"SPEEEEDDD",
-		"itemIconLink":"",
+		"itemName":"Col-roule cybernetique",
+		"itemFlavorText":"Un col-roule capable d'accelerer la transmission de signaux nerveux. Le col intercepte le signal depuis la moelle epiniere et l'amplifie.",
+		"itemIconLink":"itemIcon (100).png",
 		"itemModifiers":{
 			"ATK":0,
-			"HP":1,
-			"SPD":5,
-			"CRT":0.00,
-			"DDG":0,
-		},
-		"itemPrice":75
-	},
-	"1006":{
-		"itemId":1006,
-		"itemName":"TANK ARMOR",
-		"itemFlavorText":"MAX HP",
-		"itemIconLink":"",
-		"itemModifiers":{
-			"ATK":0,
-			"HP":10,
-			"SPD":0,
-			"CRT":0.00,
-			"DDG":0,
-		},
-		"itemPrice":350
-	},
-	"1007":{
-		"itemId":1007,
-		"itemName":"Kaiser sword",
-		"itemFlavorText":"Degat degat",
-		"itemIconLink":"",
-		"itemModifiers":{
-			"ATK":10,
 			"HP":0,
-			"SPD":0,
-			"CRT":2.00,
-			"DDG":0,
+			"SPD":2,
+			"CRT":0.00,
+			"DDG":5,
 		},
-		"itemPrice":550
+		"itemPrice":200
 	},
 }

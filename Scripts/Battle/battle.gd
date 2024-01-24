@@ -17,6 +17,7 @@ var rewardObtained:bool = false
 @onready var HP = %HP
 @onready var enemyTarget: int = -1
 @onready var textboxNode = %Textbox
+@onready var textboxScroll = %TextboxScroll
 @onready var textboxLabelNode = %TextboxLabel
 @onready var playerActionNode = %Actions
 @onready var gameOver = %GameOver
@@ -470,24 +471,25 @@ func _on_skill_2_pressed():
 
 
 func _on_attack_mouse_entered():
+	%ActionDescScroll.show()
 	if character is Crewmate:
 		actionName.text = "Attaque de base"
 		actionDesc.text = "L'attaque principale du membre d'equipage."
 
-
 func _on_defend_mouse_entered():
+	%ActionDescScroll.show()
 	if character is Crewmate:
 		actionName.text = "Posture defensive"
 		actionDesc.text = "Le membre d'equipage se met en posture defensive et reduit les degats de la prochaine de 50%."
 
-
 func _on_skill_1_mouse_entered():
+	%ActionDescScroll.show()
 	if character is Crewmate:
 		actionName.text = character.skillOne.activeAbility.general.name
 		actionDesc.text = character.skillOne.activeAbility.general.flavorText
 
-
 func _on_skill_2_mouse_entered():
+	%ActionDescScroll.show()
 	if character is Crewmate:
 		actionName.text = character.skillTwo.activeAbility.general.name
 		actionDesc.text = character.skillTwo.activeAbility.general.flavorText
