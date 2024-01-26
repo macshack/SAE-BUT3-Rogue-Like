@@ -21,7 +21,6 @@ func equipItem(item,index = 0):
 		var newItem = Item.new(item,"","","",{},0,true)
 		var clampedIndex = clamp(index,0,2)
 		itemList[clampedIndex] = newItem
-	print(itemList)
 
 func getItemIds():
 	var list = []

@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://dx6p8oed05e4q"]
+[gd_scene load_steps=17 format=3 uid="uid://dx6p8oed05e4q"]
 
 [ext_resource type="Texture2D" uid="uid://b5hf2886kqgh5" path="res://Assets/Background/Radar/GreenRadar/greenRadar (16).png" id="1_5s5hm"]
 [ext_resource type="Script" path="res://Scripts/MainMenu/MainMenuControl.gd" id="1_raduc"]
 [ext_resource type="Texture2D" uid="uid://dn1ely4x28j4u" path="res://Assets/UI/MiniPanel01.jpg" id="3_byhaw"]
 [ext_resource type="PackedScene" uid="uid://drh788ppk1ccw" path="res://Scenes/MainMenu/OptionsMenu.tscn" id="3_q52v0"]
 [ext_resource type="Texture2D" uid="uid://dfp8glsnvg08h" path="res://Assets/UI/Button01.png" id="4_5uogl"]
+[ext_resource type="Texture2D" uid="uid://b33ho2s5lnd26" path="res://Assets/Background/Radar/BlueRadar/blueRadar (1).png" id="4_143m3"]
 [ext_resource type="FontFile" uid="uid://j5854hdtucyt" path="res://Assets/Font/Montserrat-VariableFont_wght.ttf" id="6_ip0k0"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k2ps8"]
@@ -12,6 +13,13 @@ texture = ExtResource("1_5s5hm")
 
 [sub_resource type="LabelSettings" id="LabelSettings_d67w0"]
 font_size = 100
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rbedp"]
+texture = ExtResource("3_byhaw")
+modulate_color = Color(1, 1, 1, 0.901961)
+
+[sub_resource type="LabelSettings" id="LabelSettings_c25hn"]
+font_size = 24
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2w1pa"]
 texture = ExtResource("3_byhaw")
@@ -73,11 +81,102 @@ text = "STARFARERS"
 label_settings = SubResource("LabelSettings_d67w0")
 horizontal_alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/CenterContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
+alignment = 1
+
+[node name="LoadingPreview" type="PanelContainer" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_rbedp")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/LoadingPreview"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/LoadingPreview/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/LoadingPreview/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "- Partie sauvegardee -"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/LoadingPreview/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="objLabel" type="Label" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/LoadingPreview/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Voie du pirate"
+label_settings = SubResource("LabelSettings_c25hn")
+horizontal_alignment = 1
+clip_text = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/LoadingPreview/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="objBar" type="ProgressBar" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/LoadingPreview/MarginContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+show_percentage = false
+
+[node name="objBarLabel" type="Label" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/LoadingPreview/MarginContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "50/10000"
+
+[node name="destIcon" type="TextureRect" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/LoadingPreview/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("4_143m3")
+expand_mode = 5
+
+[node name="situationType" type="TextureRect" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/LoadingPreview/MarginContainer/VBoxContainer/destIcon"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="crewBox" type="HBoxContainer" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/LoadingPreview/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="creditsLabel" type="Label" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/LoadingPreview/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Credits : 200C"
+
+[node name="Load" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/LoadingPreview/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 20
+text = "Charger la partie"
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+size_flags_stretch_ratio = 1.53
 theme_override_styles/panel = SubResource("StyleBoxTexture_2w1pa")
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/CenterContainer/VBoxContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/margin_left = 20
@@ -85,13 +184,13 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="MainMenu" type="VBoxContainer" parent="PanelContainer/CenterContainer/VBoxContainer/PanelContainer/MarginContainer"]
+[node name="MainMenu" type="VBoxContainer" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/separation = 10
 
-[node name="Start" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/PanelContainer/MarginContainer/MainMenu"]
+[node name="Start" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/MainMenu"]
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("6_ip0k0")
@@ -99,7 +198,8 @@ theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxTexture_85joi")
 text = "Lancer une partie"
 
-[node name="Load" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/PanelContainer/MarginContainer/MainMenu"]
+[node name="Load" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/MainMenu"]
+visible = false
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("6_ip0k0")
@@ -107,7 +207,7 @@ theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxTexture_85joi")
 text = "Charger une partie"
 
-[node name="Leaderboard" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/PanelContainer/MarginContainer/MainMenu"]
+[node name="Leaderboard" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/MainMenu"]
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("6_ip0k0")
@@ -115,7 +215,7 @@ theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxTexture_85joi")
 text = "Classement"
 
-[node name="Options" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/PanelContainer/MarginContainer/MainMenu"]
+[node name="Options" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/MainMenu"]
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("6_ip0k0")
@@ -123,7 +223,7 @@ theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxTexture_85joi")
 text = "Options"
 
-[node name="Quit" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/PanelContainer/MarginContainer/MainMenu"]
+[node name="Quit" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/MainMenu"]
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("6_ip0k0")
@@ -131,54 +231,54 @@ theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxTexture_85joi")
 text = "Quitter"
 
-[node name="OptionsMenu" parent="PanelContainer/CenterContainer/VBoxContainer/PanelContainer/MarginContainer" instance=ExtResource("3_q52v0")]
+[node name="OptionsMenu" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer" instance=ExtResource("3_q52v0")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 
-[node name="Leaderboard" type="VBoxContainer" parent="PanelContainer/CenterContainer/VBoxContainer/PanelContainer/MarginContainer"]
+[node name="Leaderboard" type="VBoxContainer" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/CenterContainer/VBoxContainer/PanelContainer/MarginContainer/Leaderboard"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/Leaderboard"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="PanelContainer/CenterContainer/VBoxContainer/PanelContainer/MarginContainer/Leaderboard/VBoxContainer"]
+[node name="Label" type="Label" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/Leaderboard/VBoxContainer"]
 layout_mode = 2
 text = "Classement des meilleurs joueurs"
 label_settings = SubResource("LabelSettings_kuoua")
 
-[node name="HSeparator" type="HSeparator" parent="PanelContainer/CenterContainer/VBoxContainer/PanelContainer/MarginContainer/Leaderboard/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/Leaderboard/VBoxContainer"]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/CenterContainer/VBoxContainer/PanelContainer/MarginContainer/Leaderboard/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/Leaderboard/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="LeaderboardLine" type="VBoxContainer" parent="PanelContainer/CenterContainer/VBoxContainer/PanelContainer/MarginContainer/Leaderboard/VBoxContainer/ScrollContainer"]
+[node name="LeaderboardLine" type="VBoxContainer" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/Leaderboard/VBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
 clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="PanelContainer/CenterContainer/VBoxContainer/PanelContainer/MarginContainer/Leaderboard/VBoxContainer/ScrollContainer/LeaderboardLine"]
+[node name="Label" type="Label" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/Leaderboard/VBoxContainer/ScrollContainer/LeaderboardLine"]
 layout_mode = 2
 text = "1 Mathieu 4829"
 label_settings = SubResource("LabelSettings_4ctkl")
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="PanelContainer/CenterContainer/VBoxContainer/PanelContainer/MarginContainer/Leaderboard/VBoxContainer/ScrollContainer/LeaderboardLine"]
+[node name="Label2" type="Label" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/Leaderboard/VBoxContainer/ScrollContainer/LeaderboardLine"]
 layout_mode = 2
 text = "2 Quentin 4300"
 label_settings = SubResource("LabelSettings_4ctkl")
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/PanelContainer/MarginContainer/Leaderboard"]
+[node name="Button" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/Leaderboard"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -188,10 +288,11 @@ theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxTexture_qf313")
 text = "Retour"
 
-[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/PanelContainer/MarginContainer/MainMenu/Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/PanelContainer/MarginContainer/MainMenu/Load" to="." method="_on_load_pressed"]
-[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/PanelContainer/MarginContainer/MainMenu/Leaderboard" to="." method="_on_leaderboard_pressed"]
-[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/PanelContainer/MarginContainer/MainMenu/Options" to="." method="_on_options_pressed"]
-[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/PanelContainer/MarginContainer/MainMenu/Quit" to="." method="_on_quit_pressed"]
-[connection signal="exit" from="PanelContainer/CenterContainer/VBoxContainer/PanelContainer/MarginContainer/OptionsMenu" to="." method="_on_options_menu_exit"]
-[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/PanelContainer/MarginContainer/Leaderboard/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/LoadingPreview/MarginContainer/VBoxContainer/Load" to="." method="_on_load_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/MainMenu/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/MainMenu/Load" to="." method="_on_load_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/MainMenu/Leaderboard" to="." method="_on_leaderboard_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/MainMenu/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/MainMenu/Quit" to="." method="_on_quit_pressed"]
+[connection signal="exit" from="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/OptionsMenu" to="." method="_on_options_menu_exit"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/Leaderboard/Button" to="." method="_on_button_pressed"]

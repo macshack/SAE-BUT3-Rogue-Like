@@ -1,0 +1,87 @@
+[gd_scene load_steps=6 format=3 uid="uid://bxmnq2vh0gy1"]
+
+[ext_resource type="Texture2D" uid="uid://dwmo0522m0a6g" path="res://Assets/UI/Cell01.png" id="1_whs7k"]
+[ext_resource type="Texture2D" uid="uid://bljpspbg7hayi" path="res://Assets/UI/crewmate.png" id="2_5vvgn"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c6ry5"]
+texture = ExtResource("1_whs7k")
+
+[sub_resource type="GDScript" id="GDScript_soimu"]
+script/source = "extends PanelContainer
+
+@onready var itemOnePanel = %itemOne
+@onready var itemTwoPanel = %itemTwo
+@onready var itemThreePanel = %itemThree
+
+var crewmate
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	var greenStyleBox = StyleBoxFlat.new()
+	greenStyleBox.bg_color = Color(\"37b468\")
+	var count = 0
+	for item in crewmate[\"gear\"]:
+		count += 1
+		if item is int:
+			match(count):
+				1:
+					itemOnePanel.modulate = Color(0,255,0)
+				2:
+					itemTwoPanel.modulate = Color(0,255,0)
+				3:
+					itemThreePanel.modulate = Color(0,255,0)
+
+func init(crewmateTemp):
+	crewmate = crewmateTemp
+	return self
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ufnp3"]
+bg_color = Color(0.188235, 0.172549, 0.180392, 1)
+
+[node name="PanelContainer" type="PanelContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_c6ry5")
+script = SubResource("GDScript_soimu")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="crewmateIcon" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_5vvgn")
+expand_mode = 2
+
+[node name="itemBox" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="itemOne" type="Panel" parent="MarginContainer/HBoxContainer/itemBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ufnp3")
+
+[node name="itemTwo" type="Panel" parent="MarginContainer/HBoxContainer/itemBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ufnp3")
+
+[node name="itemThree" type="Panel" parent="MarginContainer/HBoxContainer/itemBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ufnp3")

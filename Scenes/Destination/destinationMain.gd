@@ -98,7 +98,7 @@ func _on_settings_pressed():
 func init(load:bool):
 	if load:
 		destinationSettings = DestinationSettings.load_or_create()
-		$TextureRect.texture = load("res://Assets/Background/Radar/"+destinationSettings.backgroundFile)
+		$TextureRect.texture = ResourceLoader.load("res://Assets/Background/Radar/"+destinationSettings.backgroundFile)
 		situation["type"] = destinationSettings.type
 		situation["difficulty"] = destinationSettings.difficulty
 		situationDone = destinationSettings.situationDone
@@ -106,12 +106,12 @@ func init(load:bool):
 	else:
 		destinationSettings = DestinationSettings.load_or_create()
 		destinationSettings.reset()
-		$TextureRect.texture = load("res://Assets/Background/Radar/"+destinationSettings.backgroundFile)
+		$TextureRect.texture = ResourceLoader.load("res://Assets/Background/Radar/"+destinationSettings.backgroundFile)
 		situation["type"] = destinationSettings.type
 		situation["difficulty"] = destinationSettings.difficulty
 		situationDone = destinationSettings.situationDone
+		destinationSettings.started = true
 		destinationSettings.save()
-	print(destinationSettings.situationDone)
 	return self
 
 func _on_inventory_pressed():

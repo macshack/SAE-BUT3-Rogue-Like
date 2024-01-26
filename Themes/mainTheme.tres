@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=18 format=3 uid="uid://cdovad1yl8hck"]
+[gd_resource type="Theme" load_steps=19 format=3 uid="uid://cdovad1yl8hck"]
 
 [ext_resource type="FontFile" uid="uid://j5854hdtucyt" path="res://Assets/Font/Montserrat-VariableFont_wght.ttf" id="1_ldraa"]
 [ext_resource type="Texture2D" uid="uid://dfp8glsnvg08h" path="res://Assets/UI/Button01.png" id="2_577ki"]
@@ -29,6 +29,9 @@ texture_margin_top = 10.0
 texture_margin_right = 10.0
 texture_margin_bottom = 10.0
 modulate_color = Color(1, 1, 1, 0.862745)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r48ub"]
+texture = ExtResource("6_4tlal")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bq5ud"]
 texture = ExtResource("3_7tol5")
@@ -80,6 +83,7 @@ Button/styles/normal = SubResource("StyleBoxTexture_70w8a")
 Fonts/fonts/normal = ExtResource("1_ldraa")
 Label/constants/outline_size = 0
 Label/fonts/font = ExtResource("1_ldraa")
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_r48ub")
 ProgressBar/styles/background = SubResource("StyleBoxTexture_bq5ud")
 ProgressBar/styles/fill = SubResource("StyleBoxTexture_rw23h")
 TabContainer/fonts/font = ExtResource("1_ldraa")

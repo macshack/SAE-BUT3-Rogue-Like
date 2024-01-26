@@ -37,10 +37,8 @@ func loadPlayercrew()->Array[Crewmate]:
 			skillsTab.append(int(skill))
 		for item in i["gear"]:
 			gearTab.append(int(item))
-		print(gearTab)
 		var crewmate = Crewmate.new(i["identity"],i["icon"],i["background"],skillsTab,i["price"],gearTab,i["healthBase"],i["healthCurrent"],i["attackBase"],i["speedBase"],i["critBase"],i["dodgeBase"])
 		list.append(crewmate)
-		print("Crewmate loaded")
 	return list
 	
 func loadEnemycrew()->Array[Enemy]:

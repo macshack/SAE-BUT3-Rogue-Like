@@ -88,7 +88,9 @@ func _on_gamestart_to_start_game(objData, crewData):
 	destinationSettings.backgroundFile = "BlueRadar/blueRadar (5).png"
 	destinationSettings.difficulty = 1
 	destinationSettings.type = "MERCHANT"
+	destinationSettings.started = true
 	destinationSettings.save()
+	print("After start : "+str(destinationSettings.started))
 	
 	var destinationScene = destination.instantiate().init(false)
 	
