@@ -62,6 +62,7 @@ signal start
 signal openDestination
 signal click_on_rewards(index_rewards: int) 
 signal reward(dict: Dictionary)
+signal lost(dict: Dictionary)
 
 var startEnd = false
 
@@ -399,6 +400,8 @@ func _on_choice_credits_gui_input(event):
 				"credits":loot,
 				"total_damage_dealt":damageInflicted,
 				"enemies_killed":nbEnnemiesKilled,
+				"rounds":nbRound,
+				"total_damage_suffered":damageSuffered,
 				"fight_result":true,
 				"boss_fight":bossFight
 				}
@@ -424,6 +427,8 @@ func _on_choice_item_gui_input(event):
 				"item_drops":1,
 				"total_damage_dealt":damageInflicted,
 				"enemies_killed":nbEnnemiesKilled,
+				"rounds":nbRound,
+				"total_damage_suffered":damageSuffered,
 				"fight_result":true,
 				"boss_fight":bossFight
 				}
@@ -493,3 +498,26 @@ func _on_skill_2_mouse_entered():
 	if character is Crewmate:
 		actionName.text = character.skillTwo.activeAbility.general.name
 		actionDesc.text = character.skillTwo.activeAbility.general.flavorText
+
+
+func _on_view_endscreen_pressed():
+	var fightResult: Dictionary = {
+		"total_damage_dealt":damageInflicted,
+		"enemies_killed":nbEnnemiesKilled,
+		"rounds":nbRound,
+		"total_damage_suffered":damageSuffered,
+		"fight_result":false,
+		"boss_fight":bossFight
+	}
+	lost.emit(fightResult)
+
+func setFightEndScreen(value:Dictionary):
+	for i in self.get_children():
+		i.hide()
+	dmgDealtTwo.text =  "Degats infliges aux ennemis : "+ str(value["total_damage_dealt"])
+	dmgSuffTwo.text = "Degats subies par l'equipage : "+ str(value["total_damage_suffered"])
+	enKilledTwo.text = "Ennemis tues : "+ str(value["enemies_killed"])
+	roundsTwo.text = "Duree du combat (en manches) : "+ str(value["rounds"])
+	choiceBox.hide()
+	rewardObtained = true
+	victory.show()

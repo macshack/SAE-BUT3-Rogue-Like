@@ -294,7 +294,6 @@ fit_content = true
 
 [node name="Start" type="VBoxContainer" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -412,7 +411,6 @@ text = "Voir l'ecran de fin de partie"
 
 [node name="Victory" type="VBoxContainer" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -638,6 +636,7 @@ text = "Prochaine destination"
 [connection signal="mouse_entered" from="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/Actions/Skill2" to="." method="_on_skill_2_mouse_entered"]
 [connection signal="pressed" from="Battle/PlayerPanel/MarginContainer/VBoxContainer/HBoxContainer/Actions/Skill2" to="." method="_on_skill_2_pressed"]
 [connection signal="pressed" from="Start/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="GameOver/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Button" to="." method="_on_view_endscreen_pressed"]
 [connection signal="gui_input" from="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox/choiceBox/HBoxContainer/choiceCredits" to="." method="_on_choice_credits_gui_input"]
 [connection signal="gui_input" from="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox/choiceBox/HBoxContainer/choiceItem" to="." method="_on_choice_item_gui_input"]
 [connection signal="gui_input" from="Victory/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardBox/chosenBox/chosenReward" to="." method="_on_choice_credits_gui_input"]

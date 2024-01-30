@@ -12,6 +12,8 @@ class_name ObjectiveSettings extends Resource
 @export_range(1,7200,1) var constraintValue:int = 1
 @export var constraintRemaining:int = -1
 @export_enum("VICTORY","DEFEAT","PROGRESS") var state:String="PROGRESS"
+@export var scoringRounds = 0
+@export var scoringWins = 0
 
 func save():
 	ResourceSaver.save(self,"user://objective_settings.tres")
@@ -21,3 +23,6 @@ static func load_or_create() -> ObjectiveSettings:
 	if !res:
 		res = ObjectiveSettings.new()
 	return res
+
+static func reset():
+	return ObjectiveSettings.new()
