@@ -30,6 +30,7 @@ func _ready():
 			var panel = crewmatePanel.instantiate().init(int(cr))
 			panel.send_old_item.connect(_receive_old_item)
 			self.send_old_item.connect(panel._receive_old_item)
+			panel.equiped_item_preview.connect(preview._set_item)
 			crewNode.add_child(panel)
 		for i in 72:
 			var slot = itemSlot.instantiate()

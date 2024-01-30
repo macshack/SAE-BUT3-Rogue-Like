@@ -36,7 +36,7 @@ func _ready():
 	else:
 		currentPrice = item.itemPrice
 	priceNode.text = "Acheter - "+str(currentPrice)+"C"
-	iconNode.texture = load("res://Assets/Portraits/"+item.itemIconLink)
+	iconNode.texture = ResourceLoader.load("res://Assets/Items/"+item.itemIconLink)
 	nameNode.text = item.itemName
 	for stat in item.itemModifiers:
 		if item.itemModifiers[stat] != 0:

@@ -11,9 +11,13 @@ func save():
 	ResourceSaver.save(self,"user://game_settings.tres")
 
 static func load_or_create() -> GameSettings:
-	var res: GameSettings = load("user://game_settings.tres") as GameSettings
+	var res: GameSettings = ResourceLoader.load("user://game_settings.tres") as GameSettings
 	if !res:
 		res = GameSettings.new()
+	return res
+
+static func create() -> GameSettings:
+	var res = GameSettings.new()
 	return res
 
 func reset():

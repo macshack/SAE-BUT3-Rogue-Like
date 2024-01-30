@@ -56,6 +56,8 @@ func init(load:bool,data:Dictionary):
 		objective_settings.text = data["text"]
 		objective_settings.goal = data["goal"]
 		objective_settings.current = 0
+		objective_settings.scoringRounds = 0
+		objective_settings.scoringWins = 0
 		objective_settings.constraint = data["constraint"]
 		if objective_settings.constraint:
 			objective_settings.constraintType = data["constraintType"]
@@ -82,7 +84,7 @@ func analyze(finalAnalysis:bool = false,situationResult:Dictionary = {}):
 		"GEAR":
 			#The amount of gear dropped through exploration/fights
 			if situationResult.has("item_drops"):
-				self.objective_settings.current += situationResult["item_drops"].size()
+				self.objective_settings.current += situationResult["item_drops"]
 				saveAndEmit()
 		"ENEMIES_KILLED":
 			if situationResult.has("enemies_killed"):
@@ -92,11 +94,15 @@ func analyze(finalAnalysis:bool = false,situationResult:Dictionary = {}):
 			if situationResult.has("fight_result"):
 				if situationResult["fight_result"]:
 					self.objective_settings.current += 1
+					self.objective_settings.scoringRounds += 1
+					self.objective_settings.scoringWins += 1.5
 					saveAndEmit()
 		"EXPLORATION_DONE":
 			if situationResult.has("exploration_result"):
 				if situationResult["exploration_result"]:
 					self.objective_settings.current += 1
+					self.objective_settings.scoringRounds += 1
+					self.objective_settings.scoringWins += 1
 					saveAndEmit()
 		"BOSS_KILLED":
 			if situationResult.has("boss_fight"):
@@ -107,28 +113,30 @@ func analyze(finalAnalysis:bool = false,situationResult:Dictionary = {}):
 	match(objective_settings.family):
 		"ACCUMULATION":
 			if self.objective_settings.current >= self.objective_settings.goal:
-				victory.emit(objectiveDataToDictionnary())
+				victory.emit(objective_settings)
+			elif finalAnalysis:
+				defeat.emit(objective_settings)
 				
 		"NEVER":
 			if self.objective_settings.current > 0:
-				defeat.emit(objectiveDataToDictionnary())
+				defeat.emit(objective_settings)
 			else:
 				if finalAnalysis:
-					victory.emit(objectiveDataToDictionnary())
+					victory.emit(objective_settings)
 				
 		"LESSER":
 			if self.objective_settings.current > self.objective_settings.goal:
-				defeat.emit(objectiveDataToDictionnary())
+				defeat.emit(objective_settings)
 			else:
 				if finalAnalysis:
-					victory.emit(objectiveDataToDictionnary())
+					victory.emit(objective_settings)
 				
 		"MORE":
 			if finalAnalysis:
 				if self.objective_settings.current >= self.objective_settings.goal:
-					victory.emit(objectiveDataToDictionnary())
+					victory.emit(objective_settings)
 				else:
-					defeat.emit(objectiveDataToDictionnary())
+					defeat.emit(objective_settings)
 
 func objectiveDataToDictionnary():
 	pass

@@ -127,6 +127,7 @@ theme_override_constants/separation = 20
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
+mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("2_bxder")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxTexture_a5mst")
@@ -136,6 +137,7 @@ text = "Sauvegarder"
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
+mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("2_bxder")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxTexture_a5mst")
@@ -145,6 +147,7 @@ text = "Options"
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
+mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("2_bxder")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxTexture_a5mst")
@@ -218,18 +221,21 @@ horizontal_alignment = 1
 [node name="toMainMenu" type="Button" parent="MarginContainer/VBoxContainer/Main/EndScreen/PanelContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("2_bxder")
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxTexture_bjxmk")
 text = "Retour au menu principal"
 
 [node name="ButtonContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 alignment = 1
 
 [node name="Situation" type="Button" parent="MarginContainer/VBoxContainer/ButtonContainer"]
 layout_mode = 2
 focus_mode = 0
+mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("2_bxder")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxTexture_lhq7j")
@@ -238,6 +244,7 @@ text = "Situation"
 [node name="Equipage" type="Button" parent="MarginContainer/VBoxContainer/ButtonContainer"]
 layout_mode = 2
 focus_mode = 0
+mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("2_bxder")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxTexture_lhq7j")
@@ -246,6 +253,7 @@ text = "Equipage"
 [node name="Inventory" type="Button" parent="MarginContainer/VBoxContainer/ButtonContainer"]
 layout_mode = 2
 focus_mode = 0
+mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("2_bxder")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxTexture_lhq7j")
@@ -254,6 +262,7 @@ text = "Inventaire"
 [node name="Settings" type="Button" parent="MarginContainer/VBoxContainer/ButtonContainer"]
 layout_mode = 2
 focus_mode = 0
+mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("2_bxder")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxTexture_lhq7j")
@@ -262,10 +271,12 @@ text = "Menu "
 [node name="ObjectiveWidget" parent="MarginContainer/VBoxContainer/ButtonContainer" instance=ExtResource("9_bjlfw")]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_default_cursor_shape = 2
 
 [node name="Destination" type="Button" parent="MarginContainer/VBoxContainer/ButtonContainer"]
 layout_mode = 2
 focus_mode = 0
+mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("2_bxder")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxTexture_lhq7j")

@@ -67,5 +67,8 @@ unique_name_in_owner = true
 layout_mode = 2
 
 [connection signal="new_item" from="MarginContainer/VBoxContainer/HBoxContainer/ItemContainer/ItemSlot1" to="." method="_on_item_slot_1_new_item"]
+[connection signal="preview" from="MarginContainer/VBoxContainer/HBoxContainer/ItemContainer/ItemSlot1" to="." method="_on_item_preview"]
 [connection signal="new_item" from="MarginContainer/VBoxContainer/HBoxContainer/ItemContainer/ItemSlot2" to="." method="_on_item_slot_2_new_item"]
+[connection signal="preview" from="MarginContainer/VBoxContainer/HBoxContainer/ItemContainer/ItemSlot2" to="." method="_on_item_preview"]
 [connection signal="new_item" from="MarginContainer/VBoxContainer/HBoxContainer/ItemContainer/ItemSlot3" to="." method="_on_item_slot_3_new_item"]
+[connection signal="preview" from="MarginContainer/VBoxContainer/HBoxContainer/ItemContainer/ItemSlot3" to="." method="_on_item_preview"]

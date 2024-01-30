@@ -7,9 +7,17 @@ var rewardObtained:bool = false
 
 @onready var EnemyCrewContainer = %EnemyCrewContainer
 @onready var PlayerName = %PlayerName
+@onready var playerIcon = %crewmateIcon
+
+@onready var attackActionNode = %Attack
+@onready var defenseActionNode = %Defend
+@onready var skillOneNode = %Skill1
+@onready var skillTwoNode = %Skill2
+
 @onready var HP = %HP
 @onready var enemyTarget: int = -1
 @onready var textboxNode = %Textbox
+@onready var textboxScroll = %TextboxScroll
 @onready var textboxLabelNode = %TextboxLabel
 @onready var playerActionNode = %Actions
 @onready var gameOver = %GameOver
@@ -32,13 +40,29 @@ var rewardObtained:bool = false
 @onready var nbEnnemiesKilled: int = 0
 @onready var nbRound: int = 0
 
+@onready var nextDestButton = %nextDestination
+@onready var choiceBox = %choiceBox
+@onready var choiceCreditsNumber = %choiceCreditsNumber
 
+@onready var chosenBox = %chosenBox
+@onready var chosenText = %rewardText
+@onready var chosenNumber = %chosenRewardNumber
+@onready var chosenIcon = %chosenRewardIcon
+@onready var chosenPanel = %chosenPanelNumber
+
+@onready var actionName = %actionName
+@onready var actionDesc = %actionDesc
+
+
+var waitingForTarget:bool = false
 
 signal victor
 signal gameover
 signal start
+signal openDestination
 signal click_on_rewards(index_rewards: int) 
 signal reward(dict: Dictionary)
+signal lost(dict: Dictionary)
 
 var startEnd = false
 
@@ -57,12 +81,12 @@ var i = 0
 var is_defending = false
 
 signal textbox_closed
+signal targetSelected
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	for i in Game.crew:
 		i.applyModifiersToCrewmate()
-		print(i.attackCurrent)
 	gameOver.hide()
 	victory.hide()
 	batlle.hide()
@@ -73,8 +97,7 @@ func _on_start():
 	
 	Start.hide()
 	batlle.show()
-	
-	var randEnemy = randi()%5
+	var randEnemy = (randi()%Game.crew.size())+1
 	for i in randEnemy:
 		var en = JsonHandling.enemy_data[JsonHandling.enemy_data.keys()[ randi() % JsonHandling.enemy_data.size()]]
 		var enemy = Enemy.new(en.identity,
@@ -88,24 +111,10 @@ func _on_start():
 		var new = enemyBattleNameplate.instantiate().init(c)
 		new.click_on_nameplate.connect(_on_enemy_click)
 		EnemyCrewContainer.add_child(new)
-	
-	textboxNode.hide()
-	
-	display_text("An enemy crew appears !")
-	await textbox_closed
-	
+	newLine_textBox("An enemy crew appears !",0)
 	character = order[i][0]
 	
 	startFight = true
-	
-func _input(event):
-	if (Input.is_action_just_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and textboxNode.visible:
-		textboxNode.hide()
-		emit_signal("textbox_closed")
-
-func display_text(text):
-	textboxNode.show()
-	textboxLabelNode.text = text
 
 func _process(delta):
 	if startEnd:
@@ -116,8 +125,6 @@ func _process(delta):
 			if en.healthCurrent > 0:
 				victory_bool = false
 		if victory_bool:
-			display_text("Victory !")
-			await textbox_closed
 			emit_signal("victor")
 		if character is Crewmate:
 			updatePlayerPanel(character)
@@ -138,8 +145,7 @@ func startFunction():
 	enemy_turn()
 
 func _on_defend_pressed():
-	display_text("You are on guard !")
-	await textbox_closed
+	newLine_textBox(str("> "+character.identity+" entre en posture defensive."),1)
 	
 	var k = 0
 	for c in Game.crew:
@@ -147,7 +153,7 @@ func _on_defend_pressed():
 			Game.crew[k].isdefending = true
 		k = k +1
 	
-	enemyTarget = -1
+	_on_enemy_click(-1)
 	
 	if i >= order.size()-1:
 		i = -1
@@ -157,7 +163,13 @@ func _on_defend_pressed():
 	
 func _on_enemy_click(index_en: int):
 	enemyTarget = index_en
-	#print("ENNEMY INDEX: " + str(enemyTarget))
+	for i in EnemyCrewContainer.get_children():
+		if i.enemyIndex == index_en:
+			i.setTarget(true)
+		else:
+			i.setTarget(false)
+	if enemyTarget != -1:
+		targetSelected.emit()
 
 func tri_insertion(tableau):
 	var longueur = tableau.size()
@@ -171,8 +183,11 @@ func tri_insertion(tableau):
 	return tableau
 
 func updatePlayerPanel(crewmate: Crewmate):
+	playerIcon.texture = ResourceLoader.load("res://Assets/Portraits/"+crewmate.icon)
 	PlayerName.text = crewmate.identity
-	HP.text = "Hp: %d/%d" % [crewmate.healthCurrent, crewmate.healthMax]
+	skillOneNode.text = crewmate.skillOne.skillName
+	skillTwoNode.text = crewmate.skillTwo.skillName
+	HP.text = "%d/%d" % [crewmate.healthCurrent, crewmate.healthMax]
 
 func orderFight(crewTab: Array[Crewmate], enemyTab:Array[Enemy]):
 	var enemySpeed: Array = []
@@ -193,47 +208,32 @@ func ko_crewmate():
 			for c in order:
 				if c[0] is Crewmate and c[0].identity == id:
 					order.erase(c)
-					#print("ERASE crewmate: ", c)
-					#print("ORDER: ", order)
 
 func _on_attack_pressed():
-	if enemyTarget >= Game.enemyCrew.size() or enemyTarget < 0:
-		display_text("Cliquez sur un ennemi !")
-		await textbox_closed
-		return 0
-	
-	print("ENEMY TARGET: ", enemyTarget)
+	if !waitingForTarget:
+		waitingForTarget = true
+		await targetSelected
+		if Game.enemyCrew[enemyTarget].weakpoint[0]:
+			Game.enemyCrew[enemyTarget].healthCurrent = max(0, Game.enemyCrew[enemyTarget].healthCurrent - (character.attackCurrent + 2))
+			damageInflicted += (character.attackCurrent + 2)
+		else:
+			Game.enemyCrew[enemyTarget].healthCurrent = max(0, Game.enemyCrew[enemyTarget].healthCurrent - character.attackCurrent)
+			damageInflicted += character.attackCurrent
 		
-	display_text("You attack the enemy !")
-	await textbox_closed
+		if Game.enemyCrew[enemyTarget].healthCurrent <= 0:
+			EnemyCrewContainer.get_child(enemyTarget).hide()
+			nbEnnemiesKilled = nbEnnemiesKilled + 1
+			erase_enemy()
+		
+		_on_enemy_click(-1)
+		
+		if i >= order.size()-1:
+			i = -1
+			nbRound = nbRound + 1
+		character = order[i+1][0]
+		i = i+1
+		waitingForTarget = false
 	
-	print("BEFORE IF: ", Game.enemyCrew[enemyTarget].weakpoint)
-	
-	if Game.enemyCrew[enemyTarget].weakpoint[0]:
-		print("ON ATTACK: ", Game.enemyCrew[enemyTarget].weakpoint)
-		Game.enemyCrew[enemyTarget].healthCurrent = max(0, Game.enemyCrew[enemyTarget].healthCurrent - (character.attackCurrent + 2))
-		damageInflicted = damageInflicted + character.attackCurrent + 2
-		var val = character.attackCurrent + 2
-		display_text("You dealt %d damage !" % val)
-		await textbox_closed
-	else:
-		Game.enemyCrew[enemyTarget].healthCurrent = max(0, Game.enemyCrew[enemyTarget].healthCurrent - character.attackCurrent)
-		damageInflicted = damageInflicted + character.attackCurrent
-		display_text("You dealt %d damage !" % character.attackCurrent)
-		await textbox_closed
-	
-	if Game.enemyCrew[enemyTarget].healthCurrent <= 0:
-		EnemyCrewContainer.get_child(enemyTarget).hide()
-		nbEnnemiesKilled = nbEnnemiesKilled + 1
-		erase_enemy()
-	
-	enemyTarget = -1
-	
-	if i >= order.size()-1:
-		i = -1
-		nbRound = nbRound + 1
-	character = order[i+1][0]
-	i = i+1
 
 func enemy_turn():
 	
@@ -245,13 +245,10 @@ func enemy_turn():
 			enIndex = i	
 	
 	if Game.enemyCrew[enIndex].weakpoint[0]:
-		print("INIT: ", Game.enemyCrew[enIndex].weakpoint)
 		Game.enemyCrew[enIndex].weakpoint[1] = Game.enemyCrew[enIndex].weakpoint[1] - 1
 		if Game.enemyCrew[enIndex].weakpoint[1] == 0:
 			Game.enemyCrew[enIndex].weakpoint[0] = false
-		print("FINAL: ", Game.enemyCrew[enemyTarget].weakpoint)
-		display_text(Game.enemyCrew[enIndex].identity + " weakpoints STOP")
-		await textbox_closed
+			newLine_textBox(Game.enemyCrew[enIndex].identity + " weakpoints STOP",2)
 	
 	if Game.enemyCrew[enIndex].burn[0]:
 		Game.enemyCrew[enIndex].burn[1] = Game.enemyCrew[enIndex].burn[1] - 1
@@ -259,39 +256,29 @@ func enemy_turn():
 		damageInflicted = damageInflicted + Game.enemyCrew[enIndex].burn[2]
 		if Game.enemyCrew[enIndex].burn[1] == 0:
 			Game.enemyCrew[enIndex].burn[0] = false
-		display_text(character.identity + " is burning: " + str(Game.enemyCrew[enIndex].burn[2]))
-		await textbox_closed
+			newLine_textBox(character.identity + " is burning: " + str(Game.enemyCrew[enIndex].burn[2]),2)
 	
 	if Game.enemyCrew[enIndex].stun[0]:
 		Game.enemyCrew[enIndex].stun[1] = Game.enemyCrew[enIndex].stun[1] - 1
 		if Game.enemyCrew[enIndex].stun[1] == 0:
 			Game.enemyCrew[enIndex].stun[0] = false
-		display_text(character.identity + " is stunned !")
-		await textbox_closed
+			newLine_textBox(character.identity + " is stunned !",2)
 	else:
-
 		var index: int = -42
-		print("size: ", Game.crew.size())
-		print("index: ", index)
 		index = randi() % Game.crew.size()
 		if Game.crew[index].healthCurrent <= 0:
 			while Game.crew[index].healthCurrent <= 0:
 				index = randi() % Game.crew.size()
 		
-		display_text(character.identity + " takes a swing at " + Game.crew[index].identity)
-		await textbox_closed
-		
 		if not Game.crew[index].isdefending:
 			Game.crew[index].healthCurrent = max(0, Game.crew[index].healthCurrent - character.attackBase)
 			damageSuffered = damageSuffered + character.attackBase
-			display_text(character.identity + " dealts %d damage " % character.attackBase + "to " + Game.crew[index].identity)
-			await textbox_closed
+			newLine_textBox(character.identity + " deals %d damage " % character.attackBase + "to " + Game.crew[index].identity,2)
 		else:
 			Game.crew[index].healthCurrent = max(0, Game.crew[index].healthCurrent - (character.attackBase/2))
 			damageSuffered = damageSuffered + (character.attackBase/2)
 			Game.crew[index].isdefending = false
-			display_text(character.identity + " dealts %d damage " % (character.attackBase/2) + "to " + Game.crew[index].identity)
-			await textbox_closed
+			newLine_textBox(character.identity + " deals %d damage " % (character.attackBase/2) + "to " + Game.crew[index].identity,2)
 		
 		if Game.crew[index].identity == PlayerName.text:
 			updatePlayerPanel(Game.crew[index])
@@ -302,10 +289,9 @@ func enemy_turn():
 	
 	if crew_dead():
 			startEnd = true
-			display_text("Game over !")
-			await textbox_closed
+			newLine_textBox("Game over !",0)
 			gameover.emit()
-	
+	await get_tree().create_timer(1).timeout
 	if i >= order.size()-1:
 		i = -1
 		nbRound = nbRound + 1
@@ -321,55 +307,33 @@ func crew_dead():
 			val_bool = false
 	return val_bool
 	
-func _on_skill_pressed():
-	
-	if enemyTarget >= Game.enemyCrew.size() or enemyTarget < 0:
-		display_text("Cliquez sur un ennemi !")
-		await textbox_closed
-		return 0
-	
-	display_text("You use the skill %s" % character.skillOne.skillName)
-	await textbox_closed
-	
-	useSkill(character, character.skillOne, enemyTarget)
-	
-	if Game.enemyCrew[enemyTarget].healthCurrent <= 0:
-		EnemyCrewContainer.get_child(enemyTarget).hide()
-		nbEnnemiesKilled = nbEnnemiesKilled + 1
-		erase_enemy()
-	
-	enemyTarget = -1
-	
-	if i >= order.size()-1:
-		i = -1
-		nbRound = nbRound + 1
-	character = order[i+1][0]
-	i = i+1
-
-func _on_skill_2_pressed():
-	
-	if enemyTarget >= Game.enemyCrew.size() or enemyTarget < 0:
-		display_text("Cliquez sur un ennemi !")
-		await textbox_closed
-		return 0
-	
-	display_text("You use the skill %s" % character.skillTwo.skillName)
-	await textbox_closed
-	
-	useSkill(character, character.skillTwo, enemyTarget)
-	
-	if Game.enemyCrew[enemyTarget].healthCurrent <= 0:
-		EnemyCrewContainer.get_child(enemyTarget).hide()
-		nbEnnemiesKilled = nbEnnemiesKilled + 1
-		erase_enemy()
-	
-	enemyTarget = -1
-	
-	if i >= order.size()-1:
-		i = -1
-		nbRound = nbRound + 1
-	character = order[i+1][0]
-	i = i+1
+func _on_skill_used(whichSkill:int):
+	if !waitingForTarget:
+		waitingForTarget = true
+		await targetSelected
+		
+		match(whichSkill):
+			1:
+				useSkill(character, character.skillOne, enemyTarget)
+				newLine_textBox("You use the skill %s" % character.skillOne.skillName,1)
+			2:
+				useSkill(character, character.skillTwo, enemyTarget)
+				newLine_textBox("You use the skill %s" % character.skillTwo.skillName,1)
+		
+		if Game.enemyCrew[enemyTarget].healthCurrent <= 0:
+			EnemyCrewContainer.get_child(enemyTarget).hide()
+			nbEnnemiesKilled = nbEnnemiesKilled + 1
+			erase_enemy()
+		
+		_on_enemy_click(-1)
+		
+		if i >= order.size()-1:
+			i = -1
+			nbRound = nbRound + 1
+		character = order[i+1][0]
+		i = i+1
+		waitingForTarget = false
+		
 
 func useSkill(charater: Character, skill: Skill, target: int):
 	var general = skill.activeAbility.general
@@ -385,31 +349,28 @@ func useSkill(charater: Character, skill: Skill, target: int):
 	var burn = [status.burn.valid, status.burn.burnDuration, status.burn.burnDamage]
 	
 	if weakpoint[0]:
-		display_text("You discover weakpoint of " + str(Game.enemyCrew[target].identity))
-		await textbox_closed
+		newLine_textBox("You discover weakpoint of " + str(Game.enemyCrew[target].identity),1)
 		Game.enemyCrew[target].weakpoint = weakpoint
 	if stun[0]:
-		display_text("You stun " + str(Game.enemyCrew[target].identity))
-		await textbox_closed
+		newLine_textBox("You stun " + str(Game.enemyCrew[target].identity),1)
 		Game.enemyCrew[target].stun = stun
 	if burn[0]:
-		display_text("You burn " + str(Game.enemyCrew[target].identity))
-		await textbox_closed
+		newLine_textBox("You burn " + str(Game.enemyCrew[target].identity),1)
 		Game.enemyCrew[target].burn = burn
 	
 	Game.enemyCrew[target].healthCurrent = max(
 		0, Game.enemyCrew[target].healthCurrent - (damage[0] + damage[1]))
 	damageInflicted = damageInflicted + damage[0] + damage[1]
 	
-	display_text("You dealt %d damage !" % damage[0])
-	await textbox_closed
+	newLine_textBox("You dealt %d damage !" % damage[0],1)
 
 func _on_start_pressed():
-	emit_signal("start")
+	start.emit()
 
 func _on_victor():
 	batlle.hide()
 	victory.show()
+	choiceCreditsNumber.text = str((25 * nbEnnemiesKilled + snapped(50/(1+nbRound),1)))
 	dmgDealtTwo.text =  "Degats infliges aux ennemis : "+ str(damageInflicted)
 	dmgSuffTwo.text = "Degats subies par l'equipage : "+ str(damageSuffered)
 	enKilledTwo.text = "Ennemis tues : "+ str(nbEnnemiesKilled)
@@ -421,7 +382,8 @@ func _on_gameover():
 	dmgDealt.text =  "Degats infliges aux ennemis : "+ str(damageInflicted)
 	dmgSuff.text = "Degats subies par l'equipage : "+ str(damageSuffered)
 	enKilled.text = "Ennemis tues : "+ str(nbEnnemiesKilled)
-	rounds.text = "Duree du combat (en manches) : "+ str(nbRound) 
+	rounds.text = "Duree du combat (en manches) : "+ str(nbRound)
+
 func erase_enemy():
 	for en in Game.enemyCrew:
 		if en.healthCurrent <= 0:
@@ -433,18 +395,26 @@ func erase_enemy():
 func _on_choice_credits_gui_input(event):
 	if event is InputEventMouseButton  && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 		if !rewardObtained:
-			var loot = 4000
-			#var loot = (25 * nbEnnemiesKilled + snapped(50/(1+nbRound),1))
+			var loot = (25 * nbEnnemiesKilled + snapped(50/(1+nbRound),1))
 			var fightResult: Dictionary = {
 				"credits":loot,
 				"total_damage_dealt":damageInflicted,
 				"enemies_killed":nbEnnemiesKilled,
+				"rounds":nbRound,
+				"total_damage_suffered":damageSuffered,
 				"fight_result":true,
 				"boss_fight":bossFight
 				}
 			Game.credits += loot
 			rewardObtained = true
-			%HBoxContainer.hide()
+			choiceBox.hide()
+			
+			chosenText.text = "Credits"
+			chosenIcon.texture = ResourceLoader.load("res://Assets/Items/itemCoin.png")
+			chosenPanel.show()
+			chosenNumber.text = str(loot)
+			
+			chosenBox.show()
 			reward.emit(fightResult)
 
 
@@ -457,10 +427,97 @@ func _on_choice_item_gui_input(event):
 				"item_drops":1,
 				"total_damage_dealt":damageInflicted,
 				"enemies_killed":nbEnnemiesKilled,
+				"rounds":nbRound,
+				"total_damage_suffered":damageSuffered,
 				"fight_result":true,
 				"boss_fight":bossFight
 				}
 			rewardObtained = true
 			Game.inventory.append(loot)
-			%HBoxContainer.hide()
+			choiceBox.hide()
+			
+			chosenText.text = loot.itemName
+			chosenIcon.texture = ResourceLoader.load("res://Assets/Items/"+loot.itemIconLink)
+			chosenPanel.hide()
+			
+			chosenBox.show()
 			reward.emit(fightResult)
+
+
+func _on_next_destination_pressed():
+	openDestination.emit()
+
+func newLine_textBox(value:String,messageType:int):
+	textboxNode.show()
+	var label = Label.new()
+	label.label_settings = LabelSettings.new()
+	label.label_settings.font_size = 24
+	label.label_settings.outline_size = 1
+	match(messageType):
+		0:
+			label.label_settings.font_color = Color("yellow")
+			label.label_settings.outline_color = Color("yellow")
+		1:
+			label.label_settings.font_color = Color(255,255,255)
+			label.label_settings.outline_color = Color(255,255,255)
+		2:
+			label.label_settings.font_color = Color(255,0,0)
+			label.label_settings.outline_color = Color(255,0,0)
+	label.text = value
+	textboxLabelNode.add_child(label)
+
+
+func _on_skill_1_pressed():
+	_on_skill_used(1)
+
+
+func _on_skill_2_pressed():
+	_on_skill_used(2)
+
+
+func _on_attack_mouse_entered():
+	%ActionDescScroll.show()
+	if character is Crewmate:
+		actionName.text = "Attaque de base"
+		actionDesc.text = "L'attaque principale du membre d'equipage."
+
+func _on_defend_mouse_entered():
+	%ActionDescScroll.show()
+	if character is Crewmate:
+		actionName.text = "Posture defensive"
+		actionDesc.text = "Le membre d'equipage se met en posture defensive et reduit les degats de la prochaine de 50%."
+
+func _on_skill_1_mouse_entered():
+	%ActionDescScroll.show()
+	if character is Crewmate:
+		actionName.text = character.skillOne.activeAbility.general.name
+		actionDesc.text = character.skillOne.activeAbility.general.flavorText
+
+func _on_skill_2_mouse_entered():
+	%ActionDescScroll.show()
+	if character is Crewmate:
+		actionName.text = character.skillTwo.activeAbility.general.name
+		actionDesc.text = character.skillTwo.activeAbility.general.flavorText
+
+
+func _on_view_endscreen_pressed():
+	var fightResult: Dictionary = {
+		"total_damage_dealt":damageInflicted,
+		"enemies_killed":nbEnnemiesKilled,
+		"rounds":nbRound,
+		"total_damage_suffered":damageSuffered,
+		"fight_result":false,
+		"boss_fight":bossFight
+	}
+	lost.emit(fightResult)
+
+func setFightEndScreen(value:Dictionary):
+	for i in self.get_children():
+		i.hide()
+	dmgDealtTwo.text =  "Degats infliges aux ennemis : "+ str(value["total_damage_dealt"])
+	dmgSuffTwo.text = "Degats subies par l'equipage : "+ str(value["total_damage_suffered"])
+	enKilledTwo.text = "Ennemis tues : "+ str(value["enemies_killed"])
+	roundsTwo.text = "Duree du combat (en manches) : "+ str(value["rounds"])
+	choiceBox.hide()
+	rewardObtained = true
+	victory.show()

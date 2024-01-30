@@ -17,11 +17,12 @@ func _ready():
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
-			if !dir.current_is_dir() && regex.search_all(file_name).size() == 0:
+			if !dir.current_is_dir() && regex.search_all(file_name).size() > 0:
 				if regex2.search_all(file_name).size()>=1:
+					file_name = file_name.replace(".import","")
 					portraitArray.append(file_name)
 			file_name = dir.get_next()
-	texture.texture = load(portraitsFolder+portraitArray[currentIndex])
+	texture.texture = ResourceLoader.load(portraitsFolder+portraitArray[currentIndex])
 	currentTexture = portraitArray[currentIndex]
 
 
@@ -34,7 +35,7 @@ func loadFromString(link):
 		if i == link:
 			var index = portraitArray.find(i)
 			currentIndex = index
-			texture.texture = load(portraitsFolder+portraitArray[currentIndex])
+			texture.texture = ResourceLoader.load(portraitsFolder+portraitArray[currentIndex])
 			currentTexture = portraitArray[currentIndex]
 
 func _on_previous_pressed():
@@ -42,7 +43,7 @@ func _on_previous_pressed():
 		currentIndex -= 1
 	else:
 		currentIndex = portraitArray.size()-1
-	texture.texture = load(portraitsFolder+portraitArray[currentIndex])
+	texture.texture = ResourceLoader.load(portraitsFolder+portraitArray[currentIndex])
 	currentTexture = portraitArray[currentIndex]
 
 
@@ -51,6 +52,6 @@ func _on_next_pressed():
 		currentIndex += 1
 	else:
 		currentIndex = 0
-	texture.texture = load(portraitsFolder+portraitArray[currentIndex])
+	texture.texture = ResourceLoader.load(portraitsFolder+portraitArray[currentIndex])
 	currentTexture = portraitArray[currentIndex]
 	

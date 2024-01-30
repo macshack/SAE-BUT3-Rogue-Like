@@ -5,6 +5,8 @@ signal emitFightResult()
 signal nextDestination()
 signal save()
 signal sendBattlereport(boolean, value)
+signal newRound()
+signal sendVictoryScore(score,obj)
 
 var situationDone = false
 
@@ -57,13 +59,17 @@ func _ready():
 		match(situation["type"]):
 			"FIGHT":
 				var scene = fightScene.instantiate()
+				
 				scene.start.connect(_disable_during_fight)
 				scene.reward.connect(_on_battleReward)
+				scene.lost.connect(_on_situation_lost)
+				scene.openDestination.connect(_on_destination_pressed)
 				situationNode = str(scene)
 				main.add_child(scene)
-				situationDone = false
+				if situationDone:
+					scene.setFightEndScreen(destinationSettings.situationResult)
 				if destinationSettings:
-					destinationSettings.situationDone = false
+					destinationSettings.situationDone = situationDone
 					destinationSettings.save()
 			"MERCHANT":
 				var merchant = merchantScene.instantiate()
@@ -73,6 +79,8 @@ func _ready():
 					destinationSettings.situationDone = true
 					destinationSettings.save()
 				main.add_child(merchant)
+	save.emit()
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -96,17 +104,19 @@ func _on_settings_pressed():
 func init(load:bool):
 	if load:
 		destinationSettings = DestinationSettings.load_or_create()
-		$TextureRect.texture = load("res://Assets/Background/Radar/"+destinationSettings.backgroundFile)
+		$TextureRect.texture = ResourceLoader.load("res://Assets/Background/Radar/"+destinationSettings.backgroundFile)
 		situation["type"] = destinationSettings.type
 		situation["difficulty"] = destinationSettings.difficulty
 		situationDone = destinationSettings.situationDone
+		
 	else:
 		destinationSettings = DestinationSettings.load_or_create()
 		destinationSettings.reset()
-		$TextureRect.texture = load("res://Assets/Background/Radar/"+destinationSettings.backgroundFile)
+		$TextureRect.texture = ResourceLoader.load("res://Assets/Background/Radar/"+destinationSettings.backgroundFile)
 		situation["type"] = destinationSettings.type
 		situation["difficulty"] = destinationSettings.difficulty
 		situationDone = destinationSettings.situationDone
+		destinationSettings.started = true
 		destinationSettings.save()
 	return self
 
@@ -148,7 +158,7 @@ func _on_menuSauvegarder_pressed():
 
 func _on_menuQuitter_pressed():
 	save.emit()
-	toMainMenu.emit()
+	toMainMenu.emit(false)
 	self.queue_free()
 
 
@@ -173,10 +183,22 @@ func _on_battleReward(value:Dictionary):
 	Game.enemyCrew = []
 	currentFight = false
 	situationDone = true
-	destinationSettings.situationDone = false
+	destinationSettings.situationResult = {
+		"total_damage_dealt":value["total_damage_dealt"],
+		"enemies_killed":value["enemies_killed"],
+		"rounds":value["rounds"],
+		"total_damage_suffered":value["total_damage_suffered"],
+	}
+	destinationSettings.situationDone = true
 	destinationSettings.save()
+	for i in Game.crew:
+		var heal = clamp(i.healthCurrent+snapped(i.healthMax/4,1),0,i.healthMax)
+		i.healthCurrent = heal
 	sendBattlereport.emit(false,value)
 
+func _on_situation_lost(value:Dictionary):
+	print("battle_report sent")
+	sendBattlereport.emit(true)
 
 func _on_next_destination_data(value:Dictionary):
 	nextDestination.emit(value)
@@ -242,13 +264,15 @@ func _input(event):
 			elif inventory.visible:
 				_on_situation_pressed()
 
-func _on_victory(value):
+func _on_victory(value:ObjectiveSettings):
 	for ch in main.get_children():
 		ch.hide()
+	var finalScore = calcScore(value)
 	%endTitle.text = "VICTOIRE"
-	%endScore.text = "Votre score : "+str(calcScore())
+	%endScore.text = "Votre score : "+str(finalScore)
 	%EndScreen.show()
-	$MarginContainer/VBoxContainer/ButtonContainer.hide()
+	%ButtonContainer.hide()
+	sendGameResultToDB()
 	gameFinished = true
 
 func _on_defeat(value):
@@ -257,11 +281,16 @@ func _on_defeat(value):
 	%endTitle.text = "DEFAITE"
 	%endScore.hide()
 	%EndScreen.show()
-	$MarginContainer/VBoxContainer/ButtonContainer.hide()
+	%ButtonContainer.hide()
 	gameFinished = true
 
-func calcScore()->int:
-	return 0
+func calcScore(value:ObjectiveSettings)->int:
+	var score = 2000+value.scoringWins*20-value.scoringRounds*10
+	return score
 
 func _on_to_main_menu_pressed():
-	toMainMenu.emit()
+	toMainMenu.emit(true)
+
+#A faire
+func sendGameResultToDB():
+	pass

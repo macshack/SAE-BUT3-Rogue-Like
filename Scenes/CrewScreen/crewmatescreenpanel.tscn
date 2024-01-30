@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://be4arc1tp3uhw"]
+[gd_scene load_steps=9 format=3 uid="uid://be4arc1tp3uhw"]
 
 [ext_resource type="Texture2D" uid="uid://dn1ely4x28j4u" path="res://Assets/UI/MiniPanel01.jpg" id="1_d7e67"]
 [ext_resource type="FontFile" uid="uid://j5854hdtucyt" path="res://Assets/Font/Montserrat-VariableFont_wght.ttf" id="2_qth15"]
 [ext_resource type="Script" path="res://Scenes/CrewScreen/crewmatescreenpanel.gd" id="2_xxh7j"]
-[ext_resource type="Texture2D" uid="uid://dfp8glsnvg08h" path="res://Assets/UI/Button01.png" id="3_uqomn"]
 [ext_resource type="Texture2D" uid="uid://uhtwkdcwk14g" path="res://Assets/Portraits/Human (55).jpg" id="4_2iwrb"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7nty0"]
@@ -21,23 +20,17 @@ font_size = 30
 font = ExtResource("2_qth15")
 font_size = 24
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xu435"]
-texture = ExtResource("3_uqomn")
-texture_margin_left = 10.0
-texture_margin_top = 10.0
-texture_margin_right = 10.0
-texture_margin_bottom = 10.0
-
 [node name="PanelContainer" type="PanelContainer"]
-custom_minimum_size = Vector2(0, 100)
 offset_right = 226.0
-offset_bottom = 529.0
+offset_bottom = 517.0
 size_flags_vertical = 0
+mouse_default_cursor_shape = 16
 theme_override_styles/panel = SubResource("StyleBoxTexture_7nty0")
 script = ExtResource("2_xxh7j")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
@@ -45,6 +38,7 @@ theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="crewmateName" type="Label" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -56,6 +50,7 @@ clip_text = true
 [node name="crewmateIcon" type="TextureRect" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("4_2iwrb")
 expand_mode = 5
 
@@ -67,10 +62,12 @@ horizontal_alignment = 1
 
 [node name="crewmateSkillbox" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 alignment = 1
 
 [node name="skillOne" type="VBoxContainer" parent="MarginContainer/VBoxContainer/crewmateSkillbox"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="skillOneName" type="Label" parent="MarginContainer/VBoxContainer/crewmateSkillbox/skillOne"]
 unique_name_in_owner = true
@@ -81,6 +78,7 @@ horizontal_alignment = 1
 
 [node name="skillTwo" type="VBoxContainer" parent="MarginContainer/VBoxContainer/crewmateSkillbox"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="skillTwoName" type="Label" parent="MarginContainer/VBoxContainer/crewmateSkillbox/skillTwo"]
 unique_name_in_owner = true
@@ -92,14 +90,14 @@ horizontal_alignment = 1
 [node name="crewmateBackground" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 2
 
 [node name="fireButton" type="Button" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
-theme_override_fonts/font = ExtResource("2_qth15")
-theme_override_font_sizes/font_size = 26
-theme_override_styles/normal = SubResource("StyleBoxTexture_xu435")
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 28
 text = "Licencier"
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]

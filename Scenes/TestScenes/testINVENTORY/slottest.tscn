@@ -11,6 +11,7 @@ texture = ExtResource("1_bpywf")
 custom_minimum_size = Vector2(100, 100)
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_default_cursor_shape = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_jgebl")
 script = ExtResource("2_0s8pw")
 

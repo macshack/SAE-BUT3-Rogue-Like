@@ -1,6 +1,7 @@
 extends PanelContainer
 
 signal send_old_item(oldItem,newItem,parent)
+signal equiped_item_preview(item)
 
 var previousScroll
 var timer = 0.05
@@ -18,11 +19,11 @@ var crewIndex:int = -1
 func _ready():
 	if crewmate is Crewmate:
 		nameNode.text = crewmate.identity
-		iconNode.texture = load("res://Assets/Portraits/"+crewmate.icon)
+		iconNode.texture = ResourceLoader.load("res://Assets/Portraits/"+crewmate.icon)
 		updateCrewmateGear(true)
 	elif (crewIndex is int) && (crewIndex > -1):
 		nameNode.text = Game.crew[crewIndex].identity
-		iconNode.texture = load("res://Assets/Portraits/"+Game.crew[crewIndex].icon)
+		iconNode.texture = ResourceLoader.load("res://Assets/Portraits/"+Game.crew[crewIndex].icon)
 		updateCrewmateGear(false)
 
 func getSelfNodeName():
@@ -87,7 +88,7 @@ func _receive_old_item(oldItem,newItem,ownerName):
 			if oldItem is Item:
 				Game.crew[crewIndex].gear.equipItem(oldItem,Game.crew[crewIndex].gear.getList().find_key(newItem))
 			else:
-				print("Avant remove - "+str(Game.crew[crewIndex].gear.getList()))
+				print("Avant remove - "+str(Game.crew[crewIndex].gear.itemList))
 				Game.crew[crewIndex].gear.removeItem(Game.crew[crewIndex].gear.getList().find_key(newItem))
 	
 
@@ -126,3 +127,6 @@ func _on_item_slot_3_new_item(newItem,oldItem,owner):
 		if newItem is Item:
 			Game.crew[crewIndex].gear.equipItem(newItem,2)
 		send_old_item.emit(oldItem,newItem,getSelfNodeName())
+
+func _on_item_preview(item):
+	equiped_item_preview.emit(item)
