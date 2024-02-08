@@ -27,7 +27,7 @@
 		 
 	  },
 	  "flags":[
-		 "stealth"
+		 "stealth","buff"
 	  ]
    },
    "ranged":{
@@ -38,9 +38,9 @@
 	  "passive":{
 		 
 	  },
-	  "active":{"general":{"name":"Pluie de balles","flavorText":"Tires une pluie de balles sur le champs de bataille, blessant au maximum 3 adversaires.","weaponType":"ranged","targetNumber":3,"weakPointCheck":true,"damageSplit":true},"damage":{"base":10,"attackModifier":0,"hpModifier":0},"status":{"stun":{"valid":false,"stunDuration":1},"weakPoint":{"valid":false,"weakpointDuration":2},"burn":{"valid":false,"burnDuration":2,"burnDamage":2}}},
+	  "active":{"general":{"name":"Pluie de balles","flavorText":"Tires une pluie de balles sur le champs de bataille, blessant au maximum 3 adversaires.","weaponType":"ranged","targetNumber":3,"weakPointCheck":true,"damageSplit":true},"damage":{"base":5,"attackModifier":0,"hpModifier":0},"status":{"stun":{"valid":false,"stunDuration":1},"weakPoint":{"valid":false,"weakpointDuration":2},"burn":{"valid":true,"burnDuration":2,"burnDamage":2}}},
 	  "flags":[
-		 "ranged"
+		 "ranged","attack"
 	  ]
    },
    "melee":{
@@ -53,7 +53,7 @@
 	  },
 	  "active":{"general":{"name":"Attaque vicieuse","flavorText":"Frappes la cible de manière violente mais précise, cette attaque cause des saignements pendant 2 tours.","weaponType":"melee","targetNumber":1,"weakPointCheck":true,"damageSplit":false},"damage":{"base":5,"attackModifier":0,"hpModifier":0},"status":{"stun":{"valid":false,"stunDuration":1},"weakPoint":{"valid":false,"weakpointDuration":2},"burn":{"valid":true,"burnDuration":2,"burnDamage":2}}},
 	  "flags":[
-		 "melee"
+		 "melee","attack"
 	  ]
    },
    "strength":{
@@ -66,7 +66,7 @@
 	  },
 	  "active":{"general":{"name":"Frappe etourdissante","flavorText":"Etourdit la cible pendant 1 tours et inflige des dégâts modeste.","weaponType":"unarmed","targetNumber":1,"weakPointCheck":true,"damageSplit":false},"damage":{"base":0,"attackModifier":0,"hpModifier":0},"status":{"stun":{"valid":true,"stunDuration":1},"weakPoint":{"valid":false,"weakpointDuration":0},"burn":{"valid":false,"burnDuration":0,"burnDamage":1}}},
 	  "flags":[
-		 "strength"
+		 "strength","attack"
 	  ]
    },
    "agility":{
@@ -96,7 +96,7 @@
 		 
 	  },
 	  "flags":[
-		 "knowledge",
+		 "knowledge","debuff"
 	  ]
    },
    "medecine":{
@@ -108,10 +108,22 @@
 		 
 	  },
 	  "active":{
-		 
-	  },
+   "general":{
+	  "name":"Protocole de soin d'urgence",
+	  "flavorText":"Soignes une cible alliee.",
+	  "weaponType":"unarmed",
+	  "targetNumber":1,
+	  "weakPointCheck":false,
+	  "damageSplit":false
+   },
+   "heal":{
+	  "base":0,"hpModifier":0.3
+   }
+},
 	  "flags":[
-		 "medecine"
+		 "medecine",
+		"heal",
+		 "ally"
 	  ]
    },
    "hacking":{
@@ -126,7 +138,7 @@
 		 
 	  },
 	  "flags":[
-		 "hacking"
+		 "hacking","debuff"
 	  ]
    },
    "technology":{
@@ -141,7 +153,7 @@
 		 
 	  },
 	  "flags":[
-		 "technology"
+		 "technology","buff","ally"
 	  ]
    },
 }

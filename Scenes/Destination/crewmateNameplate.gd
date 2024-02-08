@@ -4,6 +4,8 @@ extends PanelContainer
 var crewIndex:int = -1
 var crewmate
 
+signal clickOnNameplate(idx:int)
+
 @onready var nameNode = %crewmateName
 @onready var iconNode = %crewmateIcon
 @onready var hpNode = %crewmateHP
@@ -35,7 +37,7 @@ func updatePanel():
 					hpNode.value = crewmate.healthCurrent
 					hpNode.max_value = crewmate.healthMax
 					nameNode.text = crewmate.identity
-					iconNode.texture = load("res://Assets/Portraits/"+crewmate.icon)
+					iconNode.texture = ResourceLoader.load("res://Assets/Portraits/"+crewmate.icon)
 					self.show()
 	else:
 		if (crewIndex is int) && (crewIndex > -1) && (Game.crew.size()>crewIndex):
@@ -44,7 +46,7 @@ func updatePanel():
 					hpNode.value = Game.crew[crewIndex].healthCurrent
 					hpNode.max_value = Game.crew[crewIndex].healthMax
 					nameNode.text = Game.crew[crewIndex].identity
-					iconNode.texture = load("res://Assets/Portraits/"+Game.crew[crewIndex].icon)
+					iconNode.texture = ResourceLoader.load("res://Assets/Portraits/"+Game.crew[crewIndex].icon)
 					self.show()
 						
 			else:
@@ -59,3 +61,10 @@ func _on_mouse_entered():
 
 func _on_mouse_exited():
 	pass # Replace with function body.
+
+
+func _on_gui_input(event):
+	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
+		if !test && crewIndex >= 0:
+			clickOnNameplate.emit(crewIndex)
+			

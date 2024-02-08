@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://dukbva2ocmp4o"]
+
+[ext_resource type="Script" path="res://Scenes/Battle/characterBuffDebuffScene.gd" id="1_5ja6n"]
+[ext_resource type="Texture2D" uid="uid://dwmo0522m0a6g" path="res://Assets/UI/Cell01.png" id="1_cdo43"]
+[ext_resource type="Texture2D" uid="uid://d3xl401qjvao2" path="res://Assets/Icons/iconDebuff (2).png" id="2_xh56l"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_aqqjb"]
+outline_size = 1
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0, 0)
+
+[node name="Cell" type="TextureRect"]
+custom_minimum_size = Vector2(24, 24)
+texture = ExtResource("1_cdo43")
+expand_mode = 1
+script = ExtResource("1_5ja6n")
+
+[node name="ModifIcon" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 24.0
+texture = ExtResource("2_xh56l")
+expand_mode = 5
+
+[node name="Duration" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -4.5
+offset_top = -12.0
+offset_right = 4.5
+offset_bottom = 9.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "2"
+label_settings = SubResource("LabelSettings_aqqjb")

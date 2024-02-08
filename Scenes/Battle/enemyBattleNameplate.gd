@@ -8,6 +8,13 @@ signal click_on_nameplate(index: int)
 @onready var hpLabel = %hpLabel
 @onready var targetIcon = %TextureRect
 
+#Effects
+@onready var buffNode = %BuffEffect
+@onready var debuffNode = %DebuffEffect
+@onready var weakpointNode = %WeakpointEffect
+@onready var burnNode = %BurnEffect
+@onready var stunNode = %StunEffect
+
 @export var isTarget:bool = false 
 var enemyIndex:int
 
@@ -30,6 +37,11 @@ func _process(delta):
 		healthbar.max_value = Game.enemyCrew[enemyIndex].healthMax
 		healthbar.value = Game.enemyCrew[enemyIndex].healthCurrent
 		hpLabel.text = "%d/%d" % [healthbar.value, healthbar.max_value]
+		buffNode.update(Game.enemyCrew[enemyIndex].buff,"buff")
+		debuffNode.update(Game.enemyCrew[enemyIndex].debuff,"debuff")
+		weakpointNode.update(Game.enemyCrew[enemyIndex].weakpoint,"weakpoint")
+		burnNode.update(Game.enemyCrew[enemyIndex].burn,"burn")
+		stunNode.update(Game.enemyCrew[enemyIndex].stun,"stun")
 
 func init(value):
 	enemyIndex = value

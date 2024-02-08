@@ -51,10 +51,6 @@ var destinationSettings:DestinationSettings
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	generateNextDestination(Game.currentRound)
-	for cr in Game.crew.size():
-		var nameplate = crewmateNameplateScene.instantiate().init(int(cr))
-		crewmates.add_child(nameplate)
-	crewmates.show()
 	if situation:
 		match(situation["type"]):
 			"FIGHT":
@@ -79,6 +75,13 @@ func _ready():
 					destinationSettings.situationDone = true
 					destinationSettings.save()
 				main.add_child(merchant)
+	for cr in Game.crew.size():
+		var nameplate = crewmateNameplateScene.instantiate().init(int(cr))
+		var node = NodePath(situationNode)
+		if situation["type"] == "FIGHT":
+			nameplate.clickOnNameplate.connect(main.get_node(node)._on_crew_nameplate_click)
+		crewmates.add_child(nameplate)
+	crewmates.show()
 	save.emit()
 	
 
