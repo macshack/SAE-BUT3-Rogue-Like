@@ -31,10 +31,10 @@ func update(effectArray:Array=[],type:String=""):
 				tooltipValues = [effectArray[1]]
 			"buff":
 				durationNode.text = str(effectArray[1])
-				tooltipValues = [effectArray[2],effectArray[1]]
+				tooltipValues = [effectArray[1]]
 			"debuff":
 				durationNode.text = str(effectArray[1])
-				tooltipValues = [effectArray[2],effectArray[1]]
+				tooltipValues = [effectArray[1]]
 		self.show()
 	else:
 		self.hide()

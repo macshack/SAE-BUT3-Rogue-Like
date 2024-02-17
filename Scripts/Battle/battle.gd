@@ -155,7 +155,7 @@ func _on_defend_pressed():
 		if c.identity == character.identity:
 			Game.crew[k].isdefending = true
 		k = k +1
-	
+	crewmate_endturn()
 	_on_enemy_click(-1)
 	_on_crew_nameplate_click(-1)
 	nextCharacter()
@@ -212,24 +212,29 @@ func _on_attack_pressed():
 	if !waitingForTarget:
 		waitingForTarget = true
 		await targetSelected
+		var damageDealt = character.attackCurrent
+		if character.buff[0]:
+			damageDealt += 2
 		if Game.enemyCrew[enemyTarget].weakpoint[0]:
-			Game.enemyCrew[enemyTarget].healthCurrent = max(0, Game.enemyCrew[enemyTarget].healthCurrent - (character.attackCurrent + 2))
-			damageInflicted += (character.attackCurrent + 2)
+			damageDealt += 2
+			Game.enemyCrew[enemyTarget].healthCurrent = max(0, Game.enemyCrew[enemyTarget].healthCurrent - damageDealt)
+			damageInflicted += damageDealt
 		else:
-			Game.enemyCrew[enemyTarget].healthCurrent = max(0, Game.enemyCrew[enemyTarget].healthCurrent - character.attackCurrent)
-			damageInflicted += character.attackCurrent
+			Game.enemyCrew[enemyTarget].healthCurrent = max(0, Game.enemyCrew[enemyTarget].healthCurrent - damageDealt)
+			damageInflicted += damageDealt
 		
 		if Game.enemyCrew[enemyTarget].healthCurrent <= 0:
 			EnemyCrewContainer.get_child(enemyTarget).hide()
 			nbEnnemiesKilled = nbEnnemiesKilled + 1
 			erase_enemy()
-		
+		crewmate_endturn()
 		_on_enemy_click(-1)
 		_on_crew_nameplate_click(-1)
 		nextCharacter()
 		waitingForTarget = false
 
 func enemy_turn():
+	var damageReduction = 0
 	var enIndex: int = characterIndex
 	if Game.enemyCrew[enIndex].weakpoint[0]:
 		Game.enemyCrew[enIndex].weakpoint[1] -= 1
@@ -251,29 +256,37 @@ func enemy_turn():
 		if Game.enemyCrew[enIndex].stun[1] == 0:
 			Game.enemyCrew[enIndex].stun[0] = false
 			newLine_textBox(character.identity + " is stunned !",2)
+			
+	if Game.enemyCrew[enIndex].debuff[0]:
+		damageReduction = -2
+		Game.enemyCrew[enIndex].debuff[1] = Game.enemyCrew[enIndex].debuff[1] - 1
+		if Game.enemyCrew[enIndex].debuff[1] == 0:
+			damageReduction = 0
+			Game.enemyCrew[enIndex].debuff[0] = false
+			
+	var index: int = -42
+	
+	var damageDealt = clamp(character.attackBase+damageReduction,0,999)
+	index = randi() % Game.crew.size()
+	if Game.crew[index].healthCurrent <= 0:
+		while Game.crew[index].healthCurrent <= 0:
+			index = randi() % Game.crew.size()
+	if not Game.crew[index].isdefending:
+		Game.crew[index].healthCurrent = max(0, Game.crew[index].healthCurrent - damageDealt)
+		damageSuffered = damageSuffered + damageDealt
+		newLine_textBox(character.identity + " deals %d damage " % damageDealt + "to " + Game.crew[index].identity,2)
 	else:
-		var index: int = -42
-		index = randi() % Game.crew.size()
-		if Game.crew[index].healthCurrent <= 0:
-			while Game.crew[index].healthCurrent <= 0:
-				index = randi() % Game.crew.size()
+		Game.crew[index].healthCurrent = max(0, Game.crew[index].healthCurrent - (damageDealt/2))
+		damageSuffered = damageSuffered + (damageDealt/2)
+		Game.crew[index].isdefending = false
+		newLine_textBox(character.identity + " deals %d damage " % (damageDealt/2) + "to " + Game.crew[index].identity,2)
 		
-		if not Game.crew[index].isdefending:
-			Game.crew[index].healthCurrent = max(0, Game.crew[index].healthCurrent - character.attackBase)
-			damageSuffered = damageSuffered + character.attackBase
-			newLine_textBox(character.identity + " deals %d damage " % character.attackBase + "to " + Game.crew[index].identity,2)
-		else:
-			Game.crew[index].healthCurrent = max(0, Game.crew[index].healthCurrent - (character.attackBase/2))
-			damageSuffered = damageSuffered + (character.attackBase/2)
-			Game.crew[index].isdefending = false
-			newLine_textBox(character.identity + " deals %d damage " % (character.attackBase/2) + "to " + Game.crew[index].identity,2)
+	if Game.crew[index].identity == PlayerName.text:
+		updatePlayerPanel(Game.crew[index])
 		
-		if Game.crew[index].identity == PlayerName.text:
-			updatePlayerPanel(Game.crew[index])
-		
-		if Game.crew[index].healthCurrent <= 0:
-			ko_crewmate()
-			i = i-1
+	if Game.crew[index].healthCurrent <= 0:
+		ko_crewmate()
+		i = i-1
 	
 	if crew_dead():
 			startEnd = true
@@ -332,6 +345,7 @@ func _on_skill_used(whichSkill:int):
 				EnemyCrewContainer.get_child(enemyTarget).hide()
 				nbEnnemiesKilled = nbEnnemiesKilled + 1
 				erase_enemy()
+		crewmate_endturn()
 		_on_enemy_click(-1)
 		_on_crew_nameplate_click(-1)
 		nextCharacter()
@@ -348,10 +362,17 @@ func useSkill(charater: Character, skill: Skill, target: int):
 		var totalHeal = clamp(heal[0]+snapped(Game.crew[target].healthMax*heal[1],1),0,Game.crew[target].healthMax)
 		Game.crew[target].healthCurrent = clamp(Game.crew[target].healthCurrent+totalHeal,0,Game.crew[target].healthMax)
 		newLine_textBox("You healed "+str(totalHeal)+" HP to "+ Game.crew[target].identity,1)
+	elif skill.skillFlags.has("buff"):
+		var buff = [skill.activeAbility.status.buff.valid, skill.activeAbility.status.buff.buffDuration]
+		if buff && buff[0]:
+			Game.crew[target].buff = buff
 	else:
 		var damage = skill.activeAbility.damage
 		damage = [damage.base, damage.attackModifier, damage.hpModifier]
 		var status = skill.activeAbility.status
+		var debuff
+		if status.has("debuff"):
+			debuff = [status.debuff.valid, status.debuff.debuffDuration]
 		var stun = [status.stun.valid, status.stun.stunDuration]
 		var weakpoint = [status.weakPoint.valid, status.weakPoint.weakpointDuration]
 		var burn = [status.burn.valid, status.burn.burnDuration, status.burn.burnDamage]
@@ -365,11 +386,26 @@ func useSkill(charater: Character, skill: Skill, target: int):
 		if burn[0]:
 			newLine_textBox("You burn " + str(Game.enemyCrew[target].identity),1)
 			Game.enemyCrew[target].burn = burn
+		if debuff && debuff[0]:
+			Game.enemyCrew[target].debuff = debuff
+		
+		var damageDealt = damage[0]+snapped(character.attackCurrent*damage[1],1)+snapped(character.healthMax*damage[2],1)
+		if character.buff[0]:
+			damageDealt += 2
 		
 		Game.enemyCrew[target].healthCurrent = max(
-			0, Game.enemyCrew[target].healthCurrent - (damage[0] + damage[1]))
-		damageInflicted = damageInflicted + damage[0] + damage[1]
-		newLine_textBox("You dealt %d damage !" % damage[0],1)
+			0, Game.enemyCrew[target].healthCurrent - damageDealt)
+			
+		damageInflicted = damageInflicted + damageDealt
+		newLine_textBox("You dealt %d damage !" % damageDealt,1)
+	await get_tree().create_timer(1).timeout
+
+func crewmate_endturn():
+	if Game.crew[characterIndex] is Crewmate:
+		if Game.crew[characterIndex].buff[0]:
+			Game.crew[characterIndex].buff[1] -= 1
+			if Game.crew[characterIndex].buff[1] == 0:
+				Game.crew[characterIndex].buff[0] = false
 
 func _on_start_pressed():
 	start.emit()

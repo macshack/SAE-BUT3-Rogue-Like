@@ -14,6 +14,7 @@ var attackCurrent:int
 var speedCurrent:int
 var critCurrent:int
 var hirePrice:int
+var buff:Array=[]
 
 func get_health_max():
 	return healthMax
@@ -31,6 +32,7 @@ func _init(identity = "",icon="", background = "",skills:Array[int]=[100,101],pr
 	self.healthMax = self.healthBase
 	self.skillOne = Game.skillList[skills[0]]
 	self.skillTwo = Game.skillList[skills[1]]
+	self.buff = [false,0]
 	for item in gear:
 		self.gear.equipItem(item)
 	applyModifiersToCrewmate()

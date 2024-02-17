@@ -19,15 +19,11 @@ func _init(identity = "", icon = "", healthCurrent = 10, healthMax = 10, attackP
 	self.burn = [false, 0, 0]
 	self.stun = [false, 0]
 	self.weakpoint = [false, 0]
-	self.buff = [false,0,0]
-	self.debuff = [false,0,0]
+	self.buff = [false,0]
+	self.debuff = [false,0]
   
 func _process(delta):
 	var totalAttackPower = self.baseAttackPower
-	if buff[0]:
-		totalAttackPower += buff[2]
-	if debuff[0]:
-		totalAttackPower -= buff[2]
 	self.attackPower = totalAttackPower
 
 func toDictionary()->Dictionary:

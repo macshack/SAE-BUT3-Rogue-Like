@@ -92,9 +92,8 @@
 	  "passive":{
 		 
 	  },
-	  "active":{
-		 
-	  },
+	  "active":
+		 {"general":{"name":"Analyse approfondie","flavorText":"Analyse les points faibles d'un ennemi et lui inflige une affaiblissement de type Point faible pendant 2 tours.","weaponType":"unarmed","targetNumber":1,"weakPointCheck":false,"damageSplit":false},"damage":{"base":0,"attackModifier":0,"hpModifier":0},"status":{"stun":{"valid":false,"stunDuration":0},"weakPoint":{"valid":true,"weakpointDuration":2},"burn":{"valid":false,"burnDuration":0,"burnDamage":1}}},
 	  "flags":[
 		 "knowledge","debuff"
 	  ]
@@ -108,18 +107,18 @@
 		 
 	  },
 	  "active":{
-   "general":{
-	  "name":"Protocole de soin d'urgence",
-	  "flavorText":"Soignes une cible alliee.",
-	  "weaponType":"unarmed",
-	  "targetNumber":1,
-	  "weakPointCheck":false,
-	  "damageSplit":false
-   },
-   "heal":{
-	  "base":0,"hpModifier":0.3
-   }
-},
+		"general":{
+		  "name":"Protocole de soin d'urgence",
+		  "flavorText":"Soignes une cible alliee.",
+		  "weaponType":"unarmed",
+		  "targetNumber":1,
+		  "weakPointCheck":false,
+		  "damageSplit":false
+	   },
+	   "heal":{
+		  "base":0,"hpModifier":0.3
+	   }
+	},
 	  "flags":[
 		 "medecine",
 		"heal",
@@ -134,9 +133,7 @@
 	  "passive":{
 		 
 	  },
-	  "active":{
-		 
-	  },
+	  "active":{"general":{"name":"Piratage","flavorText":"Pirates les armes d'un ennemi et reduit les degats qu'il inflige de 2 points pendant 2 tours.","weaponType":"unarmed","targetNumber":1,"weakPointCheck":false,"damageSplit":false},"damage":{"base":0,"attackModifier":0,"hpModifier":0},"status":{"stun":{"valid":false,"stunDuration":0},"weakPoint":{"valid":false,"weakpointDuration":0},"burn":{"valid":false,"burnDuration":0,"burnDamage":0},"debuff":{"valid":true,"debuffDuration":2}}},
 	  "flags":[
 		 "hacking","debuff"
 	  ]
@@ -149,9 +146,9 @@
 	  "passive":{
 		 
 	  },
-	  "active":{
-		 
-	  },
+	  "active":
+		 {"general":{"name":"Overdrive","flavorText":"Pirates les armes d'un allie epour augmenter leur puissance pendant 1 tour.","weaponType":"unarmed","targetNumber":1,"weakPointCheck":false,"damageSplit":false},"damage":{"base":0,"attackModifier":0,"hpModifier":0},"status":{"stun":{"valid":false,"stunDuration":0},"weakPoint":{"valid":false,"weakpointDuration":0},"burn":{"valid":false,"burnDuration":0,"burnDamage":0},"buff":{"valid":true,"buffDuration":1}}}
+	  ,
 	  "flags":[
 		 "technology","buff","ally"
 	  ]
