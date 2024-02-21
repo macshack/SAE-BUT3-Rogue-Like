@@ -9,6 +9,8 @@ var destinationData
 @onready var nameNode = %destinationName
 @onready var flavorNode = %destinationFlavor
 @onready var scrollNode = %ScrollContainer
+@onready var typeNode = %destinationType
+@onready var typeIconNode = %typeIcon
 
 var secondTimer = 0.25
 var timer = 0.05
@@ -16,9 +18,19 @@ var previousScroll = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	backgroundNode.texture = load("res://Assets/Background/Radar/"+destinationData["background"])
+	backgroundNode.texture = ResourceLoader.load("res://Assets/Background/Radar/"+destinationData["background"])
 	difficultyNode.value = destinationData["difficulty"]
 	nameNode.text = destinationData["name"]
+	match(destinationData["type"]):
+		"BOSS":
+			typeNode.text = "Boss"
+			typeIconNode.texture = ResourceLoader.load("res://Assets/Icons/bossIcon.png")
+		"FIGHT":
+			typeNode.text = "Combat"
+			typeIconNode.texture = ResourceLoader.load("res://Assets/Icons/fightIcon.png")
+		_:
+			typeNode.text = "Marchand"
+			typeIconNode.texture = ResourceLoader.load("res://Assets/Icons/merchantIcon.png")
 	flavorNode.text = destinationData["flavor"]
 
 func init(value):

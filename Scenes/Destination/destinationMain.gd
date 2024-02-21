@@ -55,7 +55,19 @@ func _ready():
 		match(situation["type"]):
 			"FIGHT":
 				var scene = fightScene.instantiate()
-				
+				scene.start.connect(_disable_during_fight)
+				scene.reward.connect(_on_battleReward)
+				scene.lost.connect(_on_situation_lost)
+				scene.openDestination.connect(_on_destination_pressed)
+				situationNode = str(scene)
+				main.add_child(scene)
+				if situationDone:
+					scene.setFightEndScreen(destinationSettings.situationResult)
+				if destinationSettings:
+					destinationSettings.situationDone = situationDone
+					destinationSettings.save()
+			"BOSS":
+				var scene = fightScene.instantiate().init(true,Game.bosstemplate[randi() % Game.bosstemplate.size()])
 				scene.start.connect(_disable_during_fight)
 				scene.reward.connect(_on_battleReward)
 				scene.lost.connect(_on_situation_lost)
@@ -200,7 +212,6 @@ func _on_battleReward(value:Dictionary):
 	sendBattlereport.emit(false,value)
 
 func _on_situation_lost(value:Dictionary):
-	print("battle_report sent")
 	sendBattlereport.emit(true)
 
 func _on_next_destination_data(value:Dictionary):
@@ -209,31 +220,38 @@ func _on_next_destination_data(value:Dictionary):
 func generateNextDestination(currentRound:int):
 	var merchant:bool = true
 	var rand = randi() % 2
-	if rand == 1:
-		var scene = nextDestinationScene.instantiate().init(Game.merchantdest[randi()%Game.merchantdest.size()])
+	if (currentRound+1)/5 > 0:
+		var dest = Game.tier1dest[randi()%Game.tier1dest.size()]
+		dest.type = "BOSS"
+		var scene = nextDestinationScene.instantiate().init(dest)
 		scene.click.connect(_on_next_destination_data)
 		nextDestinationContainerNode.add_child(scene)
-	for i in 2:
-		if currentRound < 5:
-			var scene = nextDestinationScene.instantiate().init(Game.tier1dest[randi()%Game.tier1dest.size()])
+	else:
+		if rand == 1:
+			var scene = nextDestinationScene.instantiate().init(Game.merchantdest[randi()%Game.merchantdest.size()])
 			scene.click.connect(_on_next_destination_data)
 			nextDestinationContainerNode.add_child(scene)
-		elif currentRound < 10:
-			var scene = nextDestinationScene.instantiate().init(Game.tier1dest[randi()%Game.tier1dest.size()])
-			scene.click.connect(_on_next_destination_data)
-			nextDestinationContainerNode.add_child(scene)
-		elif currentRound < 15:
-			var scene = nextDestinationScene.instantiate().init(Game.tier2dest[randi()%Game.tier2dest.size()])
-			scene.click.connect(_on_next_destination_data)
-			nextDestinationContainerNode.add_child(scene)
-		elif currentRound < 20:
-			var scene = nextDestinationScene.instantiate().init(Game.tier3dest[randi()%Game.tier3dest.size()])
-			scene.click.connect(_on_next_destination_data)
-			nextDestinationContainerNode.add_child(scene)
-		elif currentRound > 20:
-			var scene = nextDestinationScene.instantiate().init(Game.tier4dest[randi()%Game.tier4dest.size()])
-			scene.click.connect(_on_next_destination_data)
-			nextDestinationContainerNode.add_child(scene)
+		for i in 2:
+			if currentRound < 5:
+				var scene = nextDestinationScene.instantiate().init(Game.tier1dest[randi()%Game.tier1dest.size()])
+				scene.click.connect(_on_next_destination_data)
+				nextDestinationContainerNode.add_child(scene)
+			elif currentRound < 10:
+				var scene = nextDestinationScene.instantiate().init(Game.tier1dest[randi()%Game.tier1dest.size()])
+				scene.click.connect(_on_next_destination_data)
+				nextDestinationContainerNode.add_child(scene)
+			elif currentRound < 15:
+				var scene = nextDestinationScene.instantiate().init(Game.tier2dest[randi()%Game.tier2dest.size()])
+				scene.click.connect(_on_next_destination_data)
+				nextDestinationContainerNode.add_child(scene)
+			elif currentRound < 20:
+				var scene = nextDestinationScene.instantiate().init(Game.tier3dest[randi()%Game.tier3dest.size()])
+				scene.click.connect(_on_next_destination_data)
+				nextDestinationContainerNode.add_child(scene)
+			elif currentRound > 20:
+				var scene = nextDestinationScene.instantiate().init(Game.tier4dest[randi()%Game.tier4dest.size()])
+				scene.click.connect(_on_next_destination_data)
+				nextDestinationContainerNode.add_child(scene)
 
 
 func _on_destination_pressed():

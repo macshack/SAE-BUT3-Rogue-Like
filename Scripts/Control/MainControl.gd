@@ -142,6 +142,8 @@ func _on_next_destination(value):
 	$Game.get_children()[0].defeat.connect(destinationScene._on_defeat)
 	$Game.get_children()[0].newData.connect(destinationScene._on_objectiveUpdate_received)
 	
+	Game.currentRound+=1
+	
 	for c in $Game.get_children().size():
 		if c != 0:
 			$Game.get_children()[c].queue_free()

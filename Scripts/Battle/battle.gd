@@ -1,8 +1,7 @@
 extends Control
 
-#PROBLEMES AVEC LES TEXTBOX,peux attaquer 2x pdt un tour
-
 var bossFight:bool = false
+var bossTemplate = {}
 var rewardObtained:bool = false
 
 @onready var EnemyCrewContainer = %EnemyCrewContainer
@@ -96,17 +95,33 @@ func _ready():
 	Start.show()
 	$".".connect("start", _on_start)
 
+func init(bossFight:bool = false, bossTemplate = {}):
+	self.bossFight = bossFight
+	self.bossTemplate = bossTemplate
+	return self
+
 func _on_start():
-	
 	Start.hide()
 	batlle.show()
-	var randEnemy = (randi()%Game.crew.size())+1
-	for enn in randEnemy:
-		var en = JsonHandling.enemy_data[JsonHandling.enemy_data.keys()[ randi() % JsonHandling.enemy_data.size()]]
-		var enemy = Enemy.new(en.identity,
-		 en.icon, en.health,
-		 en.health, en.attackPower)
-		Game.enemyCrew.append(enemy)
+	if bossFight:
+		if bossFight && bossTemplate && bossTemplate != {}:
+			var boss = Enemy.new(bossTemplate.identity,
+			 bossTemplate.icon, bossTemplate.health,
+			 bossTemplate.health, bossTemplate.attackPower)
+			Game.enemyCrew.append(boss)
+			for en in bossTemplate.minionsArchetypes:
+				var enn = Enemy.new(en.identity,
+			 en.icon, en.health,
+			 en.health, en.attackPower)
+				Game.enemyCrew.append(enn)
+	else:
+		var randEnemy = (randi()%Game.crew.size())+1
+		for enn in randEnemy:
+			var en = JsonHandling.enemy_data[JsonHandling.enemy_data.keys()[ randi() % JsonHandling.enemy_data.size()]]
+			var enemy = Enemy.new(en.identity,
+			 en.icon, en.health,
+			 en.health, en.attackPower)
+			Game.enemyCrew.append(enemy)
 	orderFight(Game.crew, Game.enemyCrew)
 	
 	for c in Game.enemyCrew.size():
@@ -215,6 +230,13 @@ func _on_attack_pressed():
 		var damageDealt = character.attackCurrent
 		if character.buff[0]:
 			damageDealt += 2
+			
+		var criticalHit = false
+		var roll = snapped(randf(),0.01)*100
+		if roll <= character.critCurrent:
+			damageDealt = snapped(damageDealt * 1.5,1)
+			criticalHit = true
+			
 		if Game.enemyCrew[enemyTarget].weakpoint[0]:
 			damageDealt += 2
 			Game.enemyCrew[enemyTarget].healthCurrent = max(0, Game.enemyCrew[enemyTarget].healthCurrent - damageDealt)
@@ -227,6 +249,12 @@ func _on_attack_pressed():
 			EnemyCrewContainer.get_child(enemyTarget).hide()
 			nbEnnemiesKilled = nbEnnemiesKilled + 1
 			erase_enemy()
+		
+		if criticalHit:
+			newLine_textBox("Critical hit! You dealt %d damage !" % damageDealt,1)
+		else:
+			newLine_textBox("You dealt %d damage !" % damageDealt,1)	
+		
 		crewmate_endturn()
 		_on_enemy_click(-1)
 		_on_crew_nameplate_click(-1)
@@ -267,19 +295,32 @@ func enemy_turn():
 	var index: int = -42
 	
 	var damageDealt = clamp(character.attackBase+damageReduction,0,999)
+	
 	index = randi() % Game.crew.size()
+	
 	if Game.crew[index].healthCurrent <= 0:
 		while Game.crew[index].healthCurrent <= 0:
 			index = randi() % Game.crew.size()
+	#Dealing damage
+	#Target is Not Defending itself
 	if not Game.crew[index].isdefending:
-		Game.crew[index].healthCurrent = max(0, Game.crew[index].healthCurrent - damageDealt)
-		damageSuffered = damageSuffered + damageDealt
-		newLine_textBox(character.identity + " deals %d damage " % damageDealt + "to " + Game.crew[index].identity,2)
+		var roll = snapped(randf(),0.01)*100
+		if roll <= Game.crew[index].dodgeCurrent:
+			newLine_textBox(Game.crew[index].identity+" dodged "+character.identity+"'s attack.",1)
+		else:
+			Game.crew[index].healthCurrent = max(0, Game.crew[index].healthCurrent - damageDealt)
+			damageSuffered = damageSuffered + damageDealt
+			newLine_textBox(character.identity + " deals %d damage " % damageDealt + "to " + Game.crew[index].identity,2)
 	else:
-		Game.crew[index].healthCurrent = max(0, Game.crew[index].healthCurrent - (damageDealt/2))
-		damageSuffered = damageSuffered + (damageDealt/2)
-		Game.crew[index].isdefending = false
-		newLine_textBox(character.identity + " deals %d damage " % (damageDealt/2) + "to " + Game.crew[index].identity,2)
+	#Target is Defending itself
+		var roll = snapped(randf(),0.01)*100
+		if roll <= Game.crew[index].dodgeCurrent:
+			newLine_textBox(Game.crew[index].identity+" dodged "+character.identity+"'s attack.",1)
+		else:
+			Game.crew[index].healthCurrent = max(0, Game.crew[index].healthCurrent - (damageDealt/2))
+			damageSuffered = damageSuffered + (damageDealt/2)
+			Game.crew[index].isdefending = false
+			newLine_textBox(character.identity + " deals %d damage " % (damageDealt/2) + "to " + Game.crew[index].identity,2)
 		
 	if Game.crew[index].identity == PlayerName.text:
 		updatePlayerPanel(Game.crew[index])
@@ -377,6 +418,7 @@ func useSkill(charater: Character, skill: Skill, target: int):
 		var weakpoint = [status.weakPoint.valid, status.weakPoint.weakpointDuration]
 		var burn = [status.burn.valid, status.burn.burnDuration, status.burn.burnDamage]
 		
+		#Check for status effects
 		if weakpoint[0]:
 			newLine_textBox("You discover weakpoint of " + str(Game.enemyCrew[target].identity),1)
 			Game.enemyCrew[target].weakpoint = weakpoint
@@ -389,15 +431,29 @@ func useSkill(charater: Character, skill: Skill, target: int):
 		if debuff && debuff[0]:
 			Game.enemyCrew[target].debuff = debuff
 		
+		#Check for buff
 		var damageDealt = damage[0]+snapped(character.attackCurrent*damage[1],1)+snapped(character.healthMax*damage[2],1)
 		if character.buff[0]:
 			damageDealt += 2
 		
-		Game.enemyCrew[target].healthCurrent = max(
-			0, Game.enemyCrew[target].healthCurrent - damageDealt)
+		#Calculating critical strike
+		var criticalHit = false
+		var roll = snapped(randf(),0.01)*100
+		if roll <= character.critCurrent:
+			damageDealt = snapped(damageDealt * 1.5,1)
+			criticalHit = true
 			
+		#Dealing damage
+		Game.enemyCrew[target].healthCurrent = max(0, Game.enemyCrew[target].healthCurrent - damageDealt)
+		
+		#Saving the fight's data
 		damageInflicted = damageInflicted + damageDealt
-		newLine_textBox("You dealt %d damage !" % damageDealt,1)
+		
+		#Damage message in the textbox
+		if criticalHit:
+			newLine_textBox("Critical hit! You dealt %d damage !" % damageDealt,1)
+		else:
+			newLine_textBox("You dealt %d damage !" % damageDealt,1)
 	await get_tree().create_timer(1).timeout
 
 func crewmate_endturn():

@@ -9,7 +9,7 @@ var objective_settings:ObjectiveSettings
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if objective_settings:
-		if objective_settings.constraint:
+		if objective_settings.constraint == true:
 			if objective_settings.constraintValue > 0:
 				if objective_settings.constraintType == "TIMER":
 					var timer = Timer.new()
@@ -37,8 +37,9 @@ func forceSave():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	saveAndEmit()
-	if Game.currentRound > objective_settings.constraintValue:
-		_endGame()
+	if objective_settings.constraint == true:
+		if Game.currentRound > objective_settings.constraintValue:
+			_endGame()
 		
 func saveAndEmit():
 	objective_settings.save()
@@ -137,9 +138,6 @@ func analyze(finalAnalysis:bool = false,situationResult:Dictionary = {}):
 					victory.emit(objective_settings)
 				else:
 					defeat.emit(objective_settings)
-
-func objectiveDataToDictionnary():
-	pass
 
 func changeTimerState(value:bool):
 	if self.get_child(0):

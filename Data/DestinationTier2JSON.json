@@ -11,7 +11,7 @@
 		"flavor":"Qu'est-ce qui se passe ?",
 		"background":"Yellow/yellowRadar (14).png",
 		"difficulty":2,
-		"type":"FIGHT",
+		"type":"BOSS",
 	},
 	"2":{
 		"name":"Station clandestine 'New New New York'",

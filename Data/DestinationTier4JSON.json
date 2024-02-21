@@ -4,7 +4,7 @@
 		"flavor":"Qu'est-ce qui se passe ?",
 		"background":"Yellow/yellowRadar (25).png",
 		"difficulty":4,
-		"type":"FIGHT",
+		"type":"BOSS",
 	},
 	"1":{
 		"name":"Lune artificielle 'Jupito'",

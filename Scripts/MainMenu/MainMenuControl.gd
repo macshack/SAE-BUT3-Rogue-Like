@@ -31,6 +31,13 @@ func _ready():
 		objBarLabel.text = str(tempObjSettings.current)+"/"+str(tempObjSettings.goal)
 		creditsLabel.text = "Credits : "+str(tempGameSettings.credits)+"C"
 		destIcon.texture = ResourceLoader.load("res://Assets/Background/Radar/"+tempDestSettings.backgroundFile)
+		match(tempDestSettings.type):
+			"FIGHT":
+				situationType.texture = ResourceLoader.load("res://Assets/Icons/fightIcon.png")
+			"BOSS":
+				situationType.texture = ResourceLoader.load("res://Assets/Icons/bossIcon.png")
+			_:
+				situationType.texture = ResourceLoader.load("res://Assets/Icons/merchantIcon.png")
 		for crewmate in tempGameSettings.playerCrew:
 			var np = loadingNameplate.instantiate().init(crewmate)
 			crewBox.add_child(np)
