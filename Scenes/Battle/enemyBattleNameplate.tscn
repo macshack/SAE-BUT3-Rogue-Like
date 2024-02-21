@@ -1,9 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://i52r1e5f0p4q"]
+[gd_scene load_steps=14 format=3 uid="uid://i52r1e5f0p4q"]
 
 [ext_resource type="Texture2D" uid="uid://dn1ely4x28j4u" path="res://Assets/UI/MiniPanel01.jpg" id="1_gl13d"]
 [ext_resource type="Script" path="res://Scenes/Battle/enemyBattleNameplate.gd" id="1_pl081"]
 [ext_resource type="FontFile" uid="uid://j5854hdtucyt" path="res://Assets/Font/Montserrat-VariableFont_wght.ttf" id="3_7o23o"]
+[ext_resource type="Texture2D" uid="uid://c17e1qqn4bvtp" path="res://Assets/Portraits/Human (2).jpg" id="3_px53b"]
 [ext_resource type="Texture2D" uid="uid://12bsjoc8ucce" path="res://Assets/Icons/targetIcon.png" id="4_7cnax"]
+[ext_resource type="PackedScene" uid="uid://dukbva2ocmp4o" path="res://Scenes/Battle/characterBuffDebuffScene.tscn" id="6_bs2me"]
+[ext_resource type="Texture2D" uid="uid://d062jkbo0um15" path="res://Assets/Icons/iconBuff (3).png" id="7_xlakd"]
+[ext_resource type="Texture2D" uid="uid://cky5kdnc8cvk8" path="res://Assets/Icons/iconDebuff (5).png" id="8_2b4rb"]
+[ext_resource type="Texture2D" uid="uid://dcexp1ky8ms6m" path="res://Assets/Icons/iconDebuff (6).png" id="9_qe7px"]
+[ext_resource type="Texture2D" uid="uid://dlat2ufccgifc" path="res://Assets/Icons/iconDebuff (3).png" id="10_gwmo3"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_csfoa"]
 texture = ExtResource("1_gl13d")
@@ -11,34 +17,45 @@ texture_margin_left = 10.0
 texture_margin_top = 10.0
 texture_margin_right = 10.0
 
+[sub_resource type="LabelSettings" id="LabelSettings_aky4m"]
+outline_size = 1
+
 [sub_resource type="LabelSettings" id="LabelSettings_b48f5"]
 font = ExtResource("3_7o23o")
-font_size = 24
+font_size = 18
 outline_size = 1
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0, 0)
 
 [node name="PanelContainer" type="PanelContainer"]
 offset_right = 71.0
 offset_bottom = 230.0
-mouse_default_cursor_shape = 1
 theme_override_styles/panel = SubResource("StyleBoxTexture_csfoa")
 script = ExtResource("1_pl081")
 
-[node name="EnemyContainer" type="VBoxContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_bottom = 10
+
+[node name="EnemyContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="EnemyContainer"]
+[node name="Label" type="Label" parent="MarginContainer/EnemyContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Enenene"
+label_settings = SubResource("LabelSettings_aky4m")
 
-[node name="Icon" type="TextureRect" parent="EnemyContainer"]
+[node name="Icon" type="TextureRect" parent="MarginContainer/EnemyContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_vertical = 3
+texture = ExtResource("3_px53b")
 expand_mode = 3
 
-[node name="TextureRect" type="TextureRect" parent="EnemyContainer/Icon"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/EnemyContainer/Icon"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -58,16 +75,98 @@ size_flags_vertical = 4
 texture = ExtResource("4_7cnax")
 stretch_mode = 4
 
-[node name="HealthBar" type="ProgressBar" parent="EnemyContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/EnemyContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HealthBar" type="ProgressBar" parent="MarginContainer/EnemyContainer/MarginContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 size_flags_vertical = 3
+value = 70.0
 show_percentage = false
 
-[node name="hpLabel" type="Label" parent="EnemyContainer"]
+[node name="hpLabel" type="Label" parent="MarginContainer/EnemyContainer/MarginContainer/HealthBar"]
 unique_name_in_owner = true
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -21.0
+offset_top = -11.5
+offset_right = 21.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "10/10"
 label_settings = SubResource("LabelSettings_b48f5")
 
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/EnemyContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="BuffEffect" parent="MarginContainer/EnemyContainer/HBoxContainer" instance=ExtResource("6_bs2me")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+tooltip_text = "truc"
+mouse_filter = 0
+type = "buff"
+
+[node name="ModifIcon" parent="MarginContainer/EnemyContainer/HBoxContainer/BuffEffect" index="0"]
+texture = ExtResource("7_xlakd")
+
+[node name="DebuffEffect" parent="MarginContainer/EnemyContainer/HBoxContainer" instance=ExtResource("6_bs2me")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+tooltip_text = "truc"
+mouse_filter = 0
+type = "debuff"
+
+[node name="ModifIcon" parent="MarginContainer/EnemyContainer/HBoxContainer/DebuffEffect" index="0"]
+texture = ExtResource("8_2b4rb")
+
+[node name="WeakpointEffect" parent="MarginContainer/EnemyContainer/HBoxContainer" instance=ExtResource("6_bs2me")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+tooltip_text = "truc"
+mouse_filter = 0
+type = "weakpoint"
+
+[node name="ModifIcon" parent="MarginContainer/EnemyContainer/HBoxContainer/WeakpointEffect" index="0"]
+texture = ExtResource("9_qe7px")
+
+[node name="BurnEffect" parent="MarginContainer/EnemyContainer/HBoxContainer" instance=ExtResource("6_bs2me")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+tooltip_text = "truc"
+mouse_filter = 0
+type = "burn"
+
+[node name="ModifIcon" parent="MarginContainer/EnemyContainer/HBoxContainer/BurnEffect" index="0"]
+texture = ExtResource("10_gwmo3")
+
+[node name="StunEffect" parent="MarginContainer/EnemyContainer/HBoxContainer" instance=ExtResource("6_bs2me")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+tooltip_text = "truc"
+mouse_filter = 0
+type = "stun"
+
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
+
+[editable path="MarginContainer/EnemyContainer/HBoxContainer/BuffEffect"]
+[editable path="MarginContainer/EnemyContainer/HBoxContainer/DebuffEffect"]
+[editable path="MarginContainer/EnemyContainer/HBoxContainer/WeakpointEffect"]
+[editable path="MarginContainer/EnemyContainer/HBoxContainer/BurnEffect"]
+[editable path="MarginContainer/EnemyContainer/HBoxContainer/StunEffect"]

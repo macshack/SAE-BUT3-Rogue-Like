@@ -79,17 +79,27 @@ func _on_crewmate_name_text_changed(new_text):
 
 
 func _on_skill1_selected(index):
+	var previousSkill2 = null
+	if skillMenu2.selected != -1:
+		previousSkill2 = skillMenu2.get_popup().get_item_id(skillMenu2.selected)
 	skillMenu2.get_popup().clear()
 	for s in Game.skillList:
 		if Game.skillList[s].skillId != skillMenu1.get_popup().get_item_id(index):
 			skillMenu2.get_popup().add_item(Game.skillList[s].skillName,Game.skillList[s].skillId)
+	if previousSkill2 != -1 && previousSkill2:
+		skillMenu2.select(skillMenu2.get_popup().get_item_index(previousSkill2))
 
 
 func _on_skill2_selected(index):
+	var previousSkill1 = null
+	if skillMenu1.selected != -1:
+		previousSkill1 = skillMenu1.get_popup().get_item_id(skillMenu1.selected)
 	skillMenu1.get_popup().clear()
 	for s in Game.skillList:
 		if Game.skillList[s].skillId != skillMenu2.get_popup().get_item_id(index):
 			skillMenu1.get_popup().add_item(Game.skillList[s].skillName,Game.skillList[s].skillId)
+	if previousSkill1 != -1 && previousSkill1:
+		skillMenu1.select(skillMenu1.get_popup().get_item_index(previousSkill1))
 
 
 func _on_crewmate_created(crewmate):

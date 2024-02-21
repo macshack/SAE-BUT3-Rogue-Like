@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=19 format=3 uid="uid://cdovad1yl8hck"]
+[gd_resource type="Theme" load_steps=20 format=3 uid="uid://cdovad1yl8hck"]
 
 [ext_resource type="FontFile" uid="uid://j5854hdtucyt" path="res://Assets/Font/Montserrat-VariableFont_wght.ttf" id="1_ldraa"]
 [ext_resource type="Texture2D" uid="uid://dfp8glsnvg08h" path="res://Assets/UI/Button01.png" id="2_577ki"]
@@ -74,6 +74,13 @@ texture_margin_top = 2.0
 texture_margin_right = 10.0
 modulate_color = Color(1, 1, 1, 0.862745)
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rre30"]
+texture = ExtResource("6_4tlal")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
 [resource]
 Button/constants/outline_size = 0
 Button/fonts/font = ExtResource("1_ldraa")
@@ -93,3 +100,5 @@ TabContainer/styles/tab_focus = SubResource("StyleBoxTexture_tynv7")
 TabContainer/styles/tab_hovered = SubResource("StyleBoxTexture_e8c85")
 TabContainer/styles/tab_selected = SubResource("StyleBoxTexture_qwohn")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxTexture_ngrri")
+TooltipLabel/font_sizes/font_size = 22
+TooltipPanel/styles/panel = SubResource("StyleBoxTexture_rre30")

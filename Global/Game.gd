@@ -14,6 +14,7 @@ extends Node
 @onready var tier2dest = loadDestList("FIGHT",2)
 @onready var tier3dest = loadDestList("FIGHT",3)
 @onready var tier4dest = loadDestList("FIGHT",4)
+@onready var bosstemplate = loadDestList("BOSS")
 @onready var merchantdest = loadDestList("MERCHANT",1)
 
 func _ready():
@@ -82,6 +83,12 @@ func loadDestList(type:String,tier:int=1):
 				for e in dict:
 					list.append(dict[e])
 				return list
+	elif (type == "BOSS"):
+		var dict = JsonHandling.boss_template
+		var list = []
+		for e in dict:
+			list.append(dict[e])
+		return list
 	elif (type == "MERCHANT"):
 		var dict = JsonHandling.destMerchant_data
 		var list = []

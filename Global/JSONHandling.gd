@@ -12,6 +12,7 @@ var destTier1_data:Dictionary = loadData("res://Data/DestinationTier1JSON.json")
 var destTier2_data:Dictionary = loadData("res://Data/DestinationTier2JSON.json")
 var destTier3_data:Dictionary = loadData("res://Data/DestinationTier3JSON.json")
 var destTier4_data:Dictionary = loadData("res://Data/DestinationTier4JSON.json")
+var boss_template:Dictionary = loadData("res://Data/bossJSON.json")
 # Called when the node enters the scene tree for the first time.
 func loadData(file_path):
 	var json_data = JSON.new()

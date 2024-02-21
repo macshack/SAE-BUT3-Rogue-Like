@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c2nfamo7q7eqa"]
+[gd_scene load_steps=10 format=3 uid="uid://c2nfamo7q7eqa"]
 
 [ext_resource type="Texture2D" uid="uid://dn1ely4x28j4u" path="res://Assets/UI/MiniPanel01.jpg" id="1_gag71"]
 [ext_resource type="Script" path="res://Scenes/Destination/nextDestinationScene.gd" id="2_albmi"]
@@ -13,6 +13,9 @@ texture = ExtResource("1_gag71")
 [sub_resource type="LabelSettings" id="LabelSettings_nqtd1"]
 font = ExtResource("5_lbxwm")
 font_size = 38
+
+[sub_resource type="LabelSettings" id="LabelSettings_c32lk"]
+font_size = 21
 
 [node name="nextDestinationScene" type="PanelContainer"]
 clip_contents = true
@@ -35,7 +38,7 @@ theme_override_constants/margin_bottom = 20
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 10
 
 [node name="destinationBackground" type="TextureRect" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -44,6 +47,22 @@ size_flags_vertical = 3
 mouse_filter = 2
 texture = ExtResource("3_763qe")
 expand_mode = 5
+
+[node name="typeIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/destinationBackground"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
 
 [node name="destinationDifficulty" type="TextureProgressBar" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -70,9 +89,17 @@ vertical_scroll_mode = 0
 [node name="destinationName" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "Secteur pirate"
 label_settings = SubResource("LabelSettings_nqtd1")
+horizontal_alignment = 1
+
+[node name="destinationType" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Marchand"
+label_settings = SubResource("LabelSettings_c32lk")
 horizontal_alignment = 1
 
 [node name="destinationFlavor" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
