@@ -149,12 +149,6 @@ func _process(delta):
 				updatePlayerPanel(character)
 				for action in playerActionNode.get_children():
 					action.disabled = false
-			else:
-				crewmate_endturn()
-				_on_enemy_click(-1)
-				_on_crew_nameplate_click(-1)
-				nextCharacter()
-				waitingForTarget = false
 		elif character is Enemy:
 			for action in playerActionNode.get_children():
 				action.disabled = true
@@ -334,7 +328,6 @@ func enemy_turn():
 		
 	if Game.crew[index].healthCurrent <= 0:
 		ko_crewmate()
-		i = i-1
 	
 	if crew_dead():
 			startEnd = true
@@ -381,12 +374,16 @@ func _on_skill_used(whichSkill:int):
 	if !waitingForTarget:
 		if skill.skillFlags.has("ally"):
 			waitingForTarget = true
+			print("Await ally click")
 			await crewmateClick
+			print("Ally click received")
 			newLine_textBox("You use the skill %s" % skill.skillName,1)
 			useSkill(character, skill, allyTarget)
 		else:
 			waitingForTarget = true
+			print("Await en click")
 			await targetSelected
+			print("en click received")
 			newLine_textBox("You use the skill %s" % skill.skillName,1)
 			useSkill(character, skill, enemyTarget)
 			if Game.enemyCrew[enemyTarget].healthCurrent <= 0:
@@ -475,7 +472,10 @@ func _on_start_pressed():
 func _on_victor():
 	batlle.hide()
 	victory.show()
-	choiceCreditsNumber.text = str((25 * nbEnnemiesKilled + snapped(50/(1+nbRound),1)))
+	if bossFight:
+		choiceCreditsNumber.text = str((25 * nbEnnemiesKilled + snapped(50/(1+nbRound),1))*3)
+	else:
+		choiceCreditsNumber.text = str((25 * nbEnnemiesKilled + snapped(50/(1+nbRound),1)))
 	dmgDealtTwo.text =  "Degats infliges aux ennemis : "+ str(damageInflicted)
 	dmgSuffTwo.text = "Degats subies par l'equipage : "+ str(damageSuffered)
 	enKilledTwo.text = "Ennemis tues : "+ str(nbEnnemiesKilled)
@@ -510,7 +510,11 @@ func refreshEnemyNameplates():
 func _on_choice_credits_gui_input(event):
 	if event is InputEventMouseButton  && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 		if !rewardObtained:
-			var loot = (25 * nbEnnemiesKilled + snapped(50/(1+nbRound),1))
+			var loot
+			if bossFight:
+				loot = (25 * nbEnnemiesKilled + snapped(50/(1+nbRound),1))*3
+			else:
+				loot = (25 * nbEnnemiesKilled + snapped(50/(1+nbRound),1))
 			var fightResult: Dictionary = {
 				"credits":loot,
 				"total_damage_dealt":damageInflicted,
@@ -535,10 +539,25 @@ func _on_choice_credits_gui_input(event):
 func _on_choice_item_gui_input(event):
 	if event is InputEventMouseButton  && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 		if !rewardObtained:
-			var index = JsonHandling.item_data[JsonHandling.item_data.keys()[randi()%JsonHandling.item_data.size()]]["itemId"]
-			var loot = Item.new(index,'','','',{},0,true)
+			var lootNumber = 1
+			var index2
+			var index
+			var loot
+			var loot2
+			if bossFight:
+				index = JsonHandling.item_data[JsonHandling.item_data.keys()[randi()%JsonHandling.item_data.size()]]["itemId"]
+				index2 = JsonHandling.item_data[JsonHandling.item_data.keys()[randi()%JsonHandling.item_data.size()]]["itemId"]
+				loot = Item.new(index,'','','',{},0,true)
+				loot2 = Item.new(index2,'','','',{},0,true)
+				lootNumber = 2
+				Game.inventory.append(loot)
+				Game.inventory.append(loot2)
+			else:
+				index = JsonHandling.item_data[JsonHandling.item_data.keys()[randi()%JsonHandling.item_data.size()]]["itemId"]
+				loot = Item.new(index,'','','',{},0,true)
+				Game.inventory.append(loot)
 			var fightResult: Dictionary = {
-				"item_drops":1,
+				"item_drops":lootNumber,
 				"total_damage_dealt":damageInflicted,
 				"enemies_killed":nbEnnemiesKilled,
 				"rounds":nbRound,
@@ -547,11 +566,14 @@ func _on_choice_item_gui_input(event):
 				"boss_fight":bossFight
 				}
 			rewardObtained = true
-			Game.inventory.append(loot)
 			choiceBox.hide()
 			
-			chosenText.text = loot.itemName
-			chosenIcon.texture = ResourceLoader.load("res://Assets/Items/"+loot.itemIconLink)
+			if bossFight:
+				chosenText.text = "2 objets ont ete ajoutes a votre inventaire."
+				chosenIcon.texture = ResourceLoader.load("res://Assets/Items/"+loot.itemIconLink)
+			else:
+				chosenText.text = loot.itemName
+				chosenIcon.texture = ResourceLoader.load("res://Assets/Items/"+loot.itemIconLink)
 			chosenPanel.hide()
 			
 			chosenBox.show()

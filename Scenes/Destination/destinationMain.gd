@@ -50,6 +50,7 @@ var destinationSettings:DestinationSettings
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	print(Game.currentRound)
 	generateNextDestination(Game.currentRound)
 	if situation:
 		match(situation["type"]):
@@ -220,7 +221,7 @@ func _on_next_destination_data(value:Dictionary):
 func generateNextDestination(currentRound:int):
 	var merchant:bool = true
 	var rand = randi() % 2
-	if (currentRound+1)/5 > 0:
+	if (currentRound+1)%5 == 0:
 		var dest = Game.tier1dest[randi()%Game.tier1dest.size()]
 		dest.type = "BOSS"
 		var scene = nextDestinationScene.instantiate().init(dest)
