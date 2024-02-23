@@ -1,5 +1,4 @@
 Installation du jeu
 
-- Télécharger le jeu depuis la page Release du git
-- Dézipper
+- Télécharger le jeu depuis https://gofile.io/d/1BVSSi
 - Lancer le .exe
