@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dfp8glsnvg08h" path="res://Assets/UI/Button01.png" id="4_5uogl"]
 [ext_resource type="Texture2D" uid="uid://b33ho2s5lnd26" path="res://Assets/Background/Radar/BlueRadar/blueRadar (1).png" id="4_143m3"]
 [ext_resource type="FontFile" uid="uid://j5854hdtucyt" path="res://Assets/Font/Montserrat-VariableFont_wght.ttf" id="6_ip0k0"]
+[ext_resource type="Script" path="res://Scripts/Control/LeaderboardControl.gd" id="8_fahsx"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k2ps8"]
 texture = ExtResource("1_5s5hm")
@@ -39,10 +40,6 @@ texture_margin_bottom = 10.0
 [sub_resource type="LabelSettings" id="LabelSettings_kuoua"]
 font = ExtResource("6_ip0k0")
 font_size = 42
-
-[sub_resource type="LabelSettings" id="LabelSettings_4ctkl"]
-font = ExtResource("6_ip0k0")
-font_size = 32
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qf313"]
 texture = ExtResource("4_5uogl")
@@ -212,6 +209,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_85joi")
 text = "Charger une partie"
 
 [node name="Leaderboard" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/MainMenu"]
+visible = false
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("6_ip0k0")
@@ -245,6 +243,7 @@ unique_name_in_owner = true
 visible = false
 layout_mode = 2
 size_flags_vertical = 8
+script = ExtResource("8_fahsx")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/Leaderboard"]
 layout_mode = 2
@@ -259,6 +258,7 @@ label_settings = SubResource("LabelSettings_kuoua")
 layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/Leaderboard/VBoxContainer"]
+clip_contents = false
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
@@ -270,19 +270,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/Leaderboard/VBoxContainer/ScrollContainer/LeaderboardLine"]
-layout_mode = 2
-text = "1 Mathieu 4829"
-label_settings = SubResource("LabelSettings_4ctkl")
-horizontal_alignment = 1
-
-[node name="Label2" type="Label" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/Leaderboard/VBoxContainer/ScrollContainer/LeaderboardLine"]
-layout_mode = 2
-text = "2 Quentin 4300"
-label_settings = SubResource("LabelSettings_4ctkl")
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/Leaderboard"]
+[node name="Button" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/Leaderboard/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -299,4 +287,4 @@ text = "Retour"
 [connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/MainMenu/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/MainMenu/Quit" to="." method="_on_quit_pressed"]
 [connection signal="exit" from="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/OptionsMenu" to="." method="_on_options_menu_exit"]
-[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/Leaderboard/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/Leaderboard/VBoxContainer/Button" to="." method="_on_button_pressed"]

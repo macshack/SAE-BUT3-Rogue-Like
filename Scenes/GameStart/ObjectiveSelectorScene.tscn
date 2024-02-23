@@ -1,10 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://b0e4b72a362y1"]
+[gd_scene load_steps=8 format=3 uid="uid://b0e4b72a362y1"]
 
-[ext_resource type="Texture2D" uid="uid://dq8m8yadhxuss" path="res://Assets/UI/MiniPanel06.jpg" id="1_moa68"]
 [ext_resource type="Script" path="res://Scripts/GameStart/ObjectiveSelectorRoot.gd" id="1_y4t11"]
+[ext_resource type="Texture2D" uid="uid://b5hf2886kqgh5" path="res://Assets/Background/Radar/GreenRadar/greenRadar (16).png" id="2_20vv5"]
+[ext_resource type="FontFile" uid="uid://j5854hdtucyt" path="res://Assets/Font/Montserrat-VariableFont_wght.ttf" id="3_1opr0"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fqk1b"]
-texture = ExtResource("1_moa68")
+[sub_resource type="LabelSettings" id="LabelSettings_yn145"]
+font_size = 48
+
+[sub_resource type="LabelSettings" id="LabelSettings_qhq1q"]
+font_size = 31
+
+[sub_resource type="LabelSettings" id="LabelSettings_p86sh"]
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_f23ti"]
+font_size = 20
 
 [node name="Root" type="Control"]
 layout_mode = 3
@@ -15,65 +25,122 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_y4t11")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_fqk1b")
+texture = ExtResource("2_20vv5")
+expand_mode = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="MarginContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Choix de l'objectif"
+label_settings = SubResource("LabelSettings_yn145")
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ChoiceBox" type="HBoxContainer" parent="MarginContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ChoiceBox"]
 layout_mode = 2
 text = "Objectif"
+label_settings = SubResource("LabelSettings_qhq1q")
 
-[node name="OptionButton" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
+[node name="OptionButton" type="OptionButton" parent="MarginContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ChoiceBox"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="ObjectiveDetail" type="VBoxContainer" parent="MarginContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ObjectiveDetail"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ObjectiveDetail/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ObjDesc" type="RichTextLabel" parent="MarginContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ObjectiveDetail/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3_1opr0")
+theme_override_font_sizes/normal_font_size = 24
+fit_content = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ObjectiveDetail/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ObjectiveDetail/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Objectif : "
+label_settings = SubResource("LabelSettings_p86sh")
+
+[node name="ObjLabel" type="Label" parent="MarginContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ObjectiveDetail/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+label_settings = SubResource("LabelSettings_f23ti")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 1000
 
-[node name="Back" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Back" type="Button" parent="MarginContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 23
 text = "Retour"
 
-[node name="Next" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Next" type="Button" parent="MarginContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 23
 text = "Suivant"
 
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Back" to="." method="_on_back_pressed"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Next" to="." method="_on_next_pressed"]
+[connection signal="item_selected" from="MarginContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ChoiceBox/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Next" to="." method="_on_next_pressed"]

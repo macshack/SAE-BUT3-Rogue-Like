@@ -7,7 +7,7 @@ var request
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	request = HTTPRequest.new()
-	$HTTPRequest.request_completed.connect(_on_request_completed)
+	request.request_completed.connect(_on_request_completed)
 	fetchLeaderboard()
 
 
@@ -31,7 +31,7 @@ func _on_request_completed(result, response_code, headers, body):
 		$ScrollContainer/Tableau.add_child(inst)
 
 func fetchLeaderboard():
-	$HTTPRequest.request("http://localhost:5500/getBestscores")
+	request.request("http://localhost:5500/getBestscores")
 
 
 func _on_visibility_changed():
