@@ -9,9 +9,9 @@
 
 [node name="Background" type="Sprite2D" parent="."]
 z_index = -100
-position = Vector2(8.00889, 646.649)
+position = Vector2(-156, 1154)
 rotation = -1.57724
-scale = Vector2(1.02531, 4.76743)
+scale = Vector2(1.95442, 8.52165)
 texture = ExtResource("1_yr2ur")
 centered = false
 

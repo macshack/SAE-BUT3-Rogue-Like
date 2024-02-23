@@ -213,6 +213,7 @@ text = "Charger une partie"
 
 [node name="MiniGame" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/MainMenu"]
 layout_mode = 2
+text = "Mini Jeux"
 
 [node name="Leaderboard" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/MainMenu"]
 layout_mode = 2
