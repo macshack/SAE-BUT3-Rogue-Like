@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bg5l3gxdavm56"]
+
+[ext_resource type="Texture2D" uid="uid://bslaf1svudlly" path="res://MiniGame/Textures/anims/scifi_blasterimpact_2.png" id="1_uik37"]
+[ext_resource type="Script" path="res://MiniGame/Bullet/bullet_effect.gd" id="2_fxcdr"]
+
+[node name="BulletEffect" type="Sprite2D"]
+position = Vector2(-2, 0)
+rotation = -1.5708
+scale = Vector2(5.74768, 4.45443)
+texture = ExtResource("1_uik37")
+script = ExtResource("2_fxcdr")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://dobq2uq0wn4n0"]
+
+[ext_resource type="Script" path="res://MiniGame/MonsterMelee/monster_melee.gd" id="1_7dixq"]
+[ext_resource type="Texture2D" uid="uid://upot1oqpfe7a" path="res://MiniGame/Textures/anims/scifi_alien_run_2.png" id="1_ev12h"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6ts8u"]
+radius = 51.0
+height = 196.0
+
+[node name="MonsterMelee" type="Area2D" groups=["damageable"]]
+script = ExtResource("1_7dixq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(6, -11)
+rotation = -1.58765
+scale = Vector2(1.56718, 2.08589)
+texture = ExtResource("1_ev12h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(22, -16)
+shape = SubResource("CapsuleShape2D_6ts8u")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(22.5, -16.5)
+scale = Vector2(6.15, 10.45)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

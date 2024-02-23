@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dkdvds5saiplj"]
+
+[ext_resource type="PackedScene" uid="uid://c4ngjf0sl766s" path="res://MiniGame/Bullet/bullets.tscn" id="1_2fptf"]
+[ext_resource type="Script" path="res://MiniGame/Bullet/EnemyBullets.gd" id="2_d3xrj"]
+[ext_resource type="Texture2D" uid="uid://bslaf1svudlly" path="res://MiniGame/Textures/anims/scifi_blasterimpact_2.png" id="2_jh7lf"]
+
+[node name="EnemyBullets" instance=ExtResource("1_2fptf")]
+script = ExtResource("2_d3xrj")
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(-15, -48)
+rotation = 1.56281
+scale = Vector2(1.98615, 0.75813)
+texture = ExtResource("2_jh7lf")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(-16, -46)

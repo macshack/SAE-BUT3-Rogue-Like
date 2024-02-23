@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cliubh3ejbpy4"]
+
+[ext_resource type="PackedScene" uid="uid://dvlsd4rlihl7l" path="res://MiniGame/Ennemy/shooter_enemy.tscn" id="1_ubvfp"]
+[ext_resource type="Script" path="res://MiniGame/Ennemy/bouncer_enemy.gd" id="2_x5pvv"]
+
+[node name="BouncerEnemy" instance=ExtResource("1_ubvfp")]
+script = ExtResource("2_x5pvv")
+horizontalSpeed = 100.0
+verticalSpeed = 1.0
+health = 30

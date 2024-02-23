@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvlsd4rlihl7l"]
+
+[ext_resource type="PackedScene" uid="uid://bnrw3ubjelnyr" path="res://MiniGame/Ennemy/mgenemy.tscn" id="1_hjmeu"]
+[ext_resource type="Script" path="res://MiniGame/Ennemy/Shooter_enemy.gd" id="2_krugn"]
+
+[node name="ShooterEnemy" instance=ExtResource("1_hjmeu")]
+script = ExtResource("2_krugn")
+fireRate = 3.0
+
+[node name="FireTimer" type="Timer" parent="." index="4"]
+unique_name_in_owner = true
+one_shot = true

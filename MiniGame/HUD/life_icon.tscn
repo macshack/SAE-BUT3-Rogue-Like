@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://7lusmqyk04g1"]
+
+[ext_resource type="Texture2D" uid="uid://ba0lyod4ewpev" path="res://MiniGame/Textures/heart.png" id="1_m28yb"]
+
+[node name="LifeIcon" type="TextureRect"]
+offset_right = 146.0
+offset_bottom = 158.0
+texture = ExtResource("1_m28yb")
+expand_mode = 2

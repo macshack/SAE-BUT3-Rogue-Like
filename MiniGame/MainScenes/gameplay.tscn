@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://bw63tldvl5ic2"]
+
+[ext_resource type="PackedScene" uid="uid://d1nrmrw5qux1v" path="res://MiniGame/Player/mgplayer.tscn" id="1_6sb33"]
+[ext_resource type="Texture2D" uid="uid://ben4wfj0k1b2c" path="res://MiniGame/Textures/background.png" id="1_yr2ur"]
+[ext_resource type="PackedScene" uid="uid://dchc73gpvwes7" path="res://MiniGame/HUD/hud.tscn" id="4_5r2od"]
+[ext_resource type="Script" path="res://MiniGame/MainScenes/Spawner.gd" id="4_75dsh"]
+
+[node name="Gameplay" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -100
+position = Vector2(8.00889, 646.649)
+rotation = -1.57724
+scale = Vector2(1.02531, 4.76743)
+texture = ExtResource("1_yr2ur")
+centered = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("4_5r2od")]
+
+[node name="Player" parent="." instance=ExtResource("1_6sb33")]
+z_index = 100
+position = Vector2(552, 290)
+
+[node name="Spawner" type="Node2D" parent="."]
+position = Vector2(631, 15)
+script = ExtResource("4_75dsh")
+
+[node name="SpawnTimer" type="Timer" parent="Spawner"]
+unique_name_in_owner = true
+one_shot = true
+
+[connection signal="timeout" from="Spawner/SpawnTimer" to="Spawner" method="_on_spawn_timer_timeout"]
