@@ -69,6 +69,11 @@ func damage(ammount: int):
 	
 	if life <= 0:
 		queue_free()
+		Signals.emit_signal("on_game_over", _on_game_over())
+
+func _on_game_over():
+	print("GAME OVER")
+	get_tree().change_scene_to_file("res://Scenes/main.tscn")
 
 func _on_invicibility_timer_timeout():
 	shieldSprite.visible = false

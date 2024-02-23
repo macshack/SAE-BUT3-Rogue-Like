@@ -91,3 +91,7 @@ func _on_leaderboard_pressed():
 	loadingPreview.hide()
 	leaderboard.show()
 	
+
+func _on_mini_game_pressed():
+	self.queue_free()
+	get_tree().change_scene_to_file("res://MiniGame/MainScenes/gameplay.tscn")

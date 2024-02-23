@@ -211,6 +211,9 @@ theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxTexture_85joi")
 text = "Charger une partie"
 
+[node name="MiniGame" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/MainMenu"]
+layout_mode = 2
+
 [node name="Leaderboard" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/MainMenu"]
 layout_mode = 2
 mouse_default_cursor_shape = 2
@@ -295,6 +298,7 @@ text = "Retour"
 [connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/LoadingPreview/MarginContainer/VBoxContainer/Load" to="." method="_on_load_pressed"]
 [connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/MainMenu/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/MainMenu/Load" to="." method="_on_load_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/MainMenu/MiniGame" to="." method="_on_mini_game_pressed"]
 [connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/MainMenu/Leaderboard" to="." method="_on_leaderboard_pressed"]
 [connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/MainMenu/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/MainMenu/Quit" to="." method="_on_quit_pressed"]
