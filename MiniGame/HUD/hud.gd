@@ -29,3 +29,9 @@ func _on_player_life_changed(life: int):
 func _on_score_increment(amount: int):
 	score += amount
 	scoreLabel.text = str(score)
+
+
+func _on_button_pressed():
+	self.queue_free()
+	get_tree().change_scene_to_file("res://Scenes/main.tscn")
+	

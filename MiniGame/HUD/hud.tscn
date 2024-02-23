@@ -28,3 +28,12 @@ grow_horizontal = 2
 text = "000
 "
 horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1846.0
+offset_right = 1922.0
+offset_bottom = 41.0
+text = "Quitter"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
