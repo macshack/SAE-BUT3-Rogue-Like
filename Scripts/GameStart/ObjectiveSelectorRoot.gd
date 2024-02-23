@@ -3,13 +3,15 @@ extends Control
 signal objchosen(obj:Dictionary)
 signal backtomenu()
 
-var optionNode
-var nextNode
+@onready var optionNode = %OptionButton 
+@onready var nextNode = %Next
+
+@onready var descNode = %ObjDesc
+@onready var labelNode = %ObjLabel
+@onready var detailNode = %ObjectiveDetail
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	nextNode = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Next
-	optionNode = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer/OptionButton
 	for o in JsonHandling.objective_data:
 		optionNode.get_popup().add_item(JsonHandling.objective_data[o].title,int(o))
 
@@ -27,3 +29,9 @@ func _on_next_pressed():
 
 func _on_back_pressed():
 	backtomenu.emit()
+
+
+func _on_option_button_item_selected(index):
+	detailNode.show()
+	labelNode.text = JsonHandling.objective_data[str(index)].text
+	descNode.text = JsonHandling.objective_data[str(index)].description

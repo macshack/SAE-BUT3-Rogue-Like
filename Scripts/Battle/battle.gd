@@ -145,9 +145,16 @@ func _process(delta):
 		if victory_bool:
 			emit_signal("victor")
 		if character is Crewmate:
-			updatePlayerPanel(character)
-			for action in playerActionNode.get_children():
-				action.disabled = false
+			if character.healthCurrent > 0:
+				updatePlayerPanel(character)
+				for action in playerActionNode.get_children():
+					action.disabled = false
+			else:
+				crewmate_endturn()
+				_on_enemy_click(-1)
+				_on_crew_nameplate_click(-1)
+				nextCharacter()
+				waitingForTarget = false
 		elif character is Enemy:
 			for action in playerActionNode.get_children():
 				action.disabled = true
@@ -391,7 +398,6 @@ func _on_skill_used(whichSkill:int):
 		_on_crew_nameplate_click(-1)
 		nextCharacter()
 		waitingForTarget = false
-
 
 func useSkill(charater: Character, skill: Skill, target: int):
 	var general = skill.activeAbility.general

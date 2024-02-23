@@ -6,24 +6,20 @@ signal finalNext(crew:Array[Crewmate])
 
 var crewmateNameplateScene = ResourceLoader.load("res://Scenes/UI/CrewmateNameplate.tscn")
 
-var skillMenu1
-var skillMenu2
-var crewmateNameEdit
-var iconNode
-var backgroundNode
-var crewNode
+@onready var iconNode = %HBoxContainer
+@onready var crewmateNameEdit = %LineEdit
+@onready var skillMenu1 = %Cewskill1IOption
+@onready var skillMenu2 = %Cewskill2IOption
+@onready var crewNode = %Crew
+@onready var startNode = %Start
+@onready var validateNode = %Validate
 var crew:Array[Crewmate] = []
 var regex = RegEx.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	regex.compile("^[A-z\\s]+$")
-	iconNode = %HBoxContainer
-	crewmateNameEdit = %LineEdit
-	skillMenu1 = %Cewskill1IOption
-	skillMenu2 = %Cewskill2IOption
-	backgroundNode = %TextEdit
-	crewNode = %Crew
+	
 	for s in Game.skillList:
 		skillMenu1.get_popup().add_item(Game.skillList[s].skillName,Game.skillList[s].skillId)
 		skillMenu2.get_popup().add_item(Game.skillList[s].skillName,Game.skillList[s].skillId)
@@ -32,14 +28,14 @@ func _ready():
 func _process(delta):
 	if skillMenu1:
 		if skillMenu1.get_selected_id() == -1:
-			%Validate.disabled = true
+			validateNode.disabled = true
 	if skillMenu2:
 		if skillMenu2.get_selected_id() == -1:
-			%Validate.disabled = true
+			validateNode.disabled = true
 	if skillMenu1.get_selected_id() != -1 && skillMenu2.get_selected_id() != -1:
-		%Validate.disabled = false
+		validateNode.disabled = false
 	if crew.size() > 0:
-		$PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/Start.disabled = false
+		startNode.disabled = false
 
 func fillForm(crewmate:Crewmate):
 	crewmateNameEdit.text = crewmate.identity
@@ -47,7 +43,6 @@ func fillForm(crewmate:Crewmate):
 	skillMenu2.select(-1)
 	skillMenu1.select(skillMenu1.get_popup().get_item_index(crewmate.skillOne.skillId))
 	skillMenu2.select(skillMenu2.get_popup().get_item_index(crewmate.skillTwo.skillId))
-	backgroundNode.text = crewmate.background
 	iconNode.loadFromString(crewmate.icon)
 	
 
@@ -65,7 +60,7 @@ func _on_validate_pressed():
 		var skillTwo = skillMenu2.get_selected_id()
 		var name = crewmateNameEdit.text
 		var icon = iconNode.currentTexture
-		var background = backgroundNode.text
+		var background = ""
 		if skillOne != skillTwo && regex.search_all(name).size() > 0:
 			var crewmate = Crewmate.new(name,icon,background,[skillOne,skillTwo])
 			crewmateCreated.emit(crewmate)
